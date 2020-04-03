@@ -1,0 +1,16 @@
+---
+title: "Notes on Applied VAR Modelling"
+author: "Pedro J. Pérez"
+date: "Marzo de 2019"
+output: 
+  html_document:
+    highlight: pygments 
+    number_sections: no
+    theme: united
+    toc: true
+    toc_float: true
+    #code_folding: show
+    self_contained: TRUE
+---
+
+La logistica de la clase será:

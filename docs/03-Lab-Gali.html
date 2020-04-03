@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Pedro J. Perez" />
+
+
+<title>Lab VAR models (Gali)</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">VAR models</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Wellcome</a>
+</li>
+<li>
+  <a href="01-Logistics.html">Logistics</a>
+</li>
+<li>
+  <a href="02-Slides.html">Slides</a>
+</li>
+<li>
+  <a href="03-Lab-Gali.html">Lab</a>
+</li>
+<li>
+  <a href="04-Mas.html">MAS</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Lab VAR models (Gali)</h1>
+<h4 class="author">Pedro J. Perez</h4>
+<h4 class="date">Marzo de 2019</h4>
+
+</div>
+
+
+<hr />
+<div id="lab-on-applied-var-modelling" class="section level1">
+<h1>Lab on Applied VAR Modelling</h1>
+<hr />
+<ol style="list-style-type: decimal">
+<li>Objective<br />
+</li>
+<li>Gali (1999) model:
+<ul>
+<li>Data preparation<br />
+</li>
+<li>Model Specification<br />
+</li>
+<li>Estimation of the VAR<br />
+</li>
+<li>Validation of the VAR</li>
+</ul></li>
+<li>VAR in reduced form (uses):
+<ul>
+<li>Granger causality<br />
+</li>
+<li>Forecasting<br />
+</li>
+</ul></li>
+<li>VMA representation
+<ul>
+<li>Obtaining the VMA with R<br />
+</li>
+</ul></li>
+<li>Uses of VAR: “structural” analysis:
+<ul>
+<li>IRFs<br />
+</li>
+<li>FEVD</li>
+</ul></li>
+</ol>
+<p><br> <br></p>
+<hr />
+</div>
+<div id="objective" class="section level1">
+<h1>1. Objective</h1>
+<p><br></p>
+<ul>
+<li><p>Lab to illustrate the possibilities of VAR modelling with R</p></li>
+<li><p>We are going to use the R package <code>vars</code> written by Bernhard Pfaff. A short description of the functionalities of the Pfaff’s package could be found <a href="http://www.jstatsoft.org/v27/i04/paper">here</a>. For a more detailed exposition, please go <a href="http://cran.r-project.org/web/packages/vars/vars.pdf">here</a></p></li>
+<li><p>To illustrate the different topics in VAR modelling, we are going to use as an example the analysis and data used in <a href="http://crei.cat/people/gali/jgaer99.pdf">Gali (1999)</a> paper : &quot;Technology, Employment, and the Business Cycle: Do Technology Shocks Explain Aggregate Fluctuations?</p></li>
+</ul>
+<p><br></p>
+<hr />
+</div>
+<div id="gali-1999-model" class="section level1">
+<h1>2. Gali (1999) model</h1>
+<p><br></p>
+<ul>
+<li><p>In his <a href="http://crei.cat/people/gali/jgaer99.pdf">paper</a>, Gali estimates a bivariate VAR with productivity and hours to look mainly at the response of hours to a technology shock</p></li>
+<li><p>In fact we are going to “replicate” the Gali paper but only his benchmark model:</p>
+<ul>
+<li><p>U.S. quarterly data for <strong>1948:1 - 1994:4</strong> from Citibase</p></li>
+<li><p>bivariate VAR model: productivity(<span class="math inline">\(x_{t}\)</span>) and hours(<span class="math inline">\(n_{t}\)</span>)</p></li>
+<li><p><span class="math inline">\(y_{t~}=~\left[ x_{t~},n_{t}\right] ^{^{\prime }}\)</span>, both variables in (log) <strong>first differences</strong></p></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p>To replicate in your PC the Gali analysis, copy and paste the following R script:</p>
+<ul>
+<li>Be aware that you have to change the path to load the data. The <code>DATA_gali_99.csv</code> file with the data are in Aula virtual <br></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co">#- 1) dowload the DATA_gali_99.csv in you PC  </span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">gali_data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;./datos/DATA_gali_99.csv&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;;&quot;</span>, <span class="dt">header =</span> T)  <span class="co">#- change the path to the file   </span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#- 2) defining the ts variables   </span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">GDP &lt;-<span class="st"> </span><span class="kw">ts</span>(gali_data<span class="op">$</span>GDPQ, <span class="dt">start =</span> <span class="kw">c</span>(<span class="dv">1947</span>, <span class="dv">1</span>), <span class="dt">end =</span> <span class="kw">c</span>(<span class="dv">1994</span>, <span class="dv">4</span>), <span class="dt">frequency =</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">Hours &lt;-<span class="st"> </span><span class="kw">ts</span>(gali_data<span class="op">$</span>LPMHU, <span class="dt">start =</span> <span class="kw">c</span>(<span class="dv">1947</span>, <span class="dv">1</span>), <span class="dt">end =</span> <span class="kw">c</span>(<span class="dv">1994</span>, <span class="dv">4</span>), <span class="dt">frequency =</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">Productivity &lt;-<span class="st"> </span>GDP<span class="op">/</span>Hours</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#- 3) setting the sample   </span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">GDP &lt;-<span class="st"> </span><span class="kw">window</span>(GDP, <span class="dt">start =</span> <span class="kw">c</span>(<span class="dv">1948</span>, <span class="dv">1</span>), <span class="dt">end =</span> <span class="kw">c</span>(<span class="dv">1994</span>, <span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">Hours &lt;-<span class="st"> </span><span class="kw">window</span>(Hours, <span class="dt">start =</span> <span class="kw">c</span>(<span class="dv">1948</span>, <span class="dv">1</span>), <span class="dt">end =</span> <span class="kw">c</span>(<span class="dv">1994</span>, <span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">Productivity &lt;-<span class="st"> </span><span class="kw">window</span>(Productivity, <span class="dt">start =</span> <span class="kw">c</span>(<span class="dv">1948</span>, <span class="dv">1</span>), <span class="dt">end =</span> <span class="kw">c</span>(<span class="dv">1994</span>, <span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#- 4) Taking log&#39;s and indexing (1948:1 = 100) the variables    </span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">lGDP &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">+</span><span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(GDP<span class="op">/</span>GDP[<span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">lHours &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">+</span><span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(Hours<span class="op">/</span>Hours[<span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">lProductivity &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">+</span><span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(Productivity<span class="op">/</span>Productivity[<span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#- 5) Taking first differences of the log-variables   </span></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16">dy &lt;-<span class="st"> </span><span class="kw">diff</span>(lGDP, <span class="dt">lag =</span> <span class="dv">1</span>, <span class="dt">difference =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">dn &lt;-<span class="st"> </span><span class="kw">diff</span>(lHours, <span class="dt">lag =</span> <span class="dv">1</span>, <span class="dt">difference =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1-18" data-line-number="18">dx &lt;-<span class="st"> </span><span class="kw">diff</span>(lProductivity, <span class="dt">lag =</span> <span class="dv">1</span>, <span class="dt">difference =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">#- 6) Install &amp; loading the vars package   </span></a>
+<a class="sourceLine" id="cb1-20" data-line-number="20"><span class="kw">install.packages</span>(<span class="st">&quot;vars&quot;</span>)</a>
+<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="kw">library</span>(vars)</a>
+<a class="sourceLine" id="cb1-22" data-line-number="22"><span class="co">#- 7) Creating a matrix with the two series    </span></a>
+<a class="sourceLine" id="cb1-23" data-line-number="23">variables &lt;-<span class="st"> </span><span class="kw">cbind</span>(dx, dn)</a>
+<a class="sourceLine" id="cb1-24" data-line-number="24"><span class="co">#- 8) Estimating the VAR   </span></a>
+<a class="sourceLine" id="cb1-25" data-line-number="25"><span class="kw">VAR</span>(variables, <span class="dt">p =</span> <span class="dv">4</span>, <span class="dt">type =</span> <span class="st">&quot;const&quot;</span>)</a></code></pre></div>
+<p><br></p>
+<hr />
+<div id="data-preparation" class="section level2">
+<h2>Data preparation</h2>
+<p><br></p>
+<p>Step by step the analysis will be:</p>
+<ul>
+<li>Let’s start opening R and loading the Gali(99) data. The original data can be found at the <a href="https://www.estima.com/cgi-bin/procbrowser.cgi?Version=900&amp;Revision=Any&amp;Subject=VAR&amp;Reference=Any">Estima web page</a> (on the file galiaer1999.zip)</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co">#----loading data(csv format with (;) for separator and with labels or header)</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">gali_data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;datos&quot;</span>, <span class="st">&quot;DATA_gali_99.csv&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;;&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p><br></p>
+<ul>
+<li>Let’s see what variables are inside the data file</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co">#-- str() displays the internal structure of an R object</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">str</span>(gali_data[, <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>])  <span class="co">#-- only for the 1:8 columns of gali_data</span></a></code></pre></div>
+<pre><code>&#39;data.frame&#39;:   192 obs. of  8 variables:
+ $ GDPQ : num  1240 1247 1255 1270 1284 ...
+ $ LHEM : num  NA NA NA NA 57976 ...
+ $ LPMHU: num  91.7 91.4 91.6 92.9 93.3 ...
+ $ P16  : num  101203 101662 102060 102386 102691 ...
+ $ FM2  : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ FYGM3: num  0.38 0.38 0.737 0.907 0.99 ...
+ $ PUNEW: num  21.7 22 22.5 23.1 23.6 ...
+ $ CANN : num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
+<p><br></p>
+<ul>
+<li><p>The data are quarterly and runs from 1947:1 to 1994:4</p></li>
+<li><p>The <code>vars</code> package only works with data in a specific format: time series or ts. To convert our data in the time series format we are going to use the <code>ts()</code> function in R</p>
+<ul>
+<li><p>GDPQ is the measure of aggregate output</p></li>
+<li><p>LPMHU is labor input (hours)</p></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co">#-- creating the time series with ts(): GDP, Hours &amp; Productivity (labor productivity)</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">GDP &lt;-<span class="st"> </span><span class="kw">ts</span>(gali_data<span class="op">$</span>GDPQ, <span class="dt">start =</span> <span class="kw">c</span>(<span class="dv">1947</span>, <span class="dv">1</span>), <span class="dt">end =</span> <span class="kw">c</span>(<span class="dv">1994</span>, <span class="dv">4</span>), <span class="dt">frequency =</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">Hours &lt;-<span class="st"> </span><span class="kw">ts</span>(gali_data<span class="op">$</span>LPMHU, <span class="dt">start =</span> <span class="kw">c</span>(<span class="dv">1947</span>, <span class="dv">1</span>), <span class="dt">end =</span> <span class="kw">c</span>(<span class="dv">1994</span>, <span class="dv">4</span>), <span class="dt">frequency =</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">Productivity &lt;-<span class="st"> </span>GDP<span class="op">/</span>Hours</a></code></pre></div>
+<p><br></p>
+<ul>
+<li>We will start the analysis with the sample 1948:1 to 1994:4</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co">#-- Changing the start date of the series to 1948:1 </span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">GDP &lt;-<span class="st"> </span><span class="kw">window</span>(GDP, <span class="dt">start =</span> <span class="kw">c</span>(<span class="dv">1948</span>, <span class="dv">1</span>), <span class="dt">end =</span> <span class="kw">c</span>(<span class="dv">1994</span>, <span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">Hours &lt;-<span class="st"> </span><span class="kw">window</span>(Hours, <span class="dt">start =</span> <span class="kw">c</span>(<span class="dv">1948</span>, <span class="dv">1</span>), <span class="dt">end =</span> <span class="kw">c</span>(<span class="dv">1994</span>, <span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">Productivity &lt;-<span class="st"> </span><span class="kw">window</span>(Productivity, <span class="dt">start =</span> <span class="kw">c</span>(<span class="dv">1948</span>, <span class="dv">1</span>), <span class="dt">end =</span> <span class="kw">c</span>(<span class="dv">1994</span>, <span class="dv">4</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co">#-- Taking log&#39;s and indexing (1948:1 = 100) the variables  </span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">lGDP &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">+</span><span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(GDP<span class="op">/</span>GDP[<span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">lHours &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">+</span><span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(Hours<span class="op">/</span>Hours[<span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">lProductivity &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">+</span><span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(Productivity<span class="op">/</span>Productivity[<span class="dv">1</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co">#-- Taking first differences of the log-variables</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">dy &lt;-<span class="st"> </span><span class="kw">diff</span>(lGDP, <span class="dt">lag =</span> <span class="dv">1</span>, <span class="dt">difference =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">dn &lt;-<span class="st"> </span><span class="kw">diff</span>(lHours, <span class="dt">lag =</span> <span class="dv">1</span>, <span class="dt">difference =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">dx &lt;-<span class="st"> </span><span class="kw">diff</span>(lProductivity, <span class="dt">lag =</span> <span class="dv">1</span>, <span class="dt">difference =</span> <span class="dv">1</span>)</a></code></pre></div>
+<p><br></p>
+<ul>
+<li><p>Finally, the two variables used in the Gali’s VAR were <strong>dx</strong> and <strong>dy</strong>: first difference of productivity and hours (both in logs) [growth rate’s of labor productivity (<strong>dx</strong>) and hours (<strong>dn</strong>)]</p></li>
+<li><p>That is, Hours and Productivity are supposed to be I(1) variables. Obviously, Gali checked this before</p></li>
+<li><p>The VAR is estimated using data from 19<strong>48</strong>:1 - 1994:4 for the variables dx dn</p></li>
+</ul>
+<p><br></p>
+<ul>
+<li>To estimate the VAR models we are going to use the R <strong>vars package</strong>, let’s load the vars package</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co">#-- You will have first to install the vars packages with: install.packages(&#39;vars&#39;)</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">library</span>(vars)</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">variables &lt;-<span class="st"> </span><span class="kw">cbind</span>(dx, dn)  <span class="co">#-- Creating a matrix with the two series</span></a></code></pre></div>
+<p><br></p>
+<ul>
+<li><p>We are now ready to estimate the VAR model: the vars package has a function, the <strong>VAR()</strong> function, that estimate VAR models by OLS</p></li>
+<li><p>Simply writing in the R console the following: <code>VAR(variables, p = 4, type = &quot;const&quot;)</code>, we will estimate a VAR model for the 2 variables in the matrix called <em>“variables”</em> with a constant and 4 lags(p), … but, why 4 lags?</p></li>
+</ul>
+<p><br></p>
+<ul>
+<li><strong>How p should be fixed?</strong> How to select the order of the VAR model?</li>
+</ul>
+<p><br></p>
+<hr />
+</div>
+<div id="model-specification" class="section level2">
+<h2>Model Specification</h2>
+<p>We have already decided which variables to include in our VAR model, the sample, if the variables are I(1) vs. I(0) , and the deterministic components . In this case we have almost finished the model specification. Almost, because … we need to decide the order of the VAR.</p>
+<p><br></p>
+<div id="how-to-select-p-the-order-of-the-var" class="section level4">
+<h4>How to select (p) the order of the VAR?</h4>
+<p>For a more detailed exposition go to <a href="http://cadmus.eui.eu/bitstream/handle/1814/19354/ECO_2011_30.pdf">Lütkepohl(2011)</a>, pp. 10-11</p>
+<ul>
+<li><p>The idea is that we have to select an order(p) sufficiently large to ensure that the residuals shown no autocorrelation but without exhausting the degrees of freedom.</p></li>
+<li><p>The order of the VAR could be selected by:</p>
+<ol style="list-style-type: decimal">
+<li><p>Sequential testing procedures</p></li>
+<li><p>Model selection criteria</p></li>
+</ol></li>
+<li><p>The package “vars” has the <code>VARselect()</code> function that allows to apply easily the 2<sup>nd</sup> approach to select p.</p></li>
+<li><p>Remember that for viewing the syntax and options of an R function you could use the R <code>args()</code> function</p></li>
+<li><p>If you need additional explanations you should call the R-help typing at the R console the following: <code>?VARselect</code></p></li>
+</ul>
+<p><br></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">args</span>(VARselect)  <span class="co">#-- VARselect() is a function of the vars package</span></a></code></pre></div>
+<pre><code>function (y, lag.max = 10, type = c(&quot;const&quot;, &quot;trend&quot;, &quot;both&quot;, 
+    &quot;none&quot;), season = NULL, exogen = NULL) 
+NULL</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">variables &lt;-<span class="st"> </span><span class="kw">cbind</span>(dx, dn)  <span class="co">#-- Creating a matrix with the two series</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw">VARselect</span>(variables, <span class="dt">lag.max =</span> <span class="dv">8</span>, <span class="dt">type =</span> <span class="st">&quot;const&quot;</span>)</a></code></pre></div>
+<pre><code>$selection
+AIC(n)  HQ(n)  SC(n) FPE(n) 
+     2      2      1      2 
+
+$criteria
+                1          2          3          4         5          6
+AIC(n) -1.5849704 -1.6556248 -1.6258129 -1.6125929 -1.612723 -1.6200352
+HQ(n)  -1.5416478 -1.5834204 -1.5247267 -1.4826249 -1.453873 -1.4323036
+SC(n)  -1.4781307 -1.4775586 -1.3765202 -1.2920736 -1.220977 -1.1570629
+FPE(n)  0.2049551  0.1909782  0.1967674  0.1994038  0.199406  0.1979932
+                7          8
+AIC(n) -1.6087278 -1.5938218
+HQ(n)  -1.3921144 -1.3483267
+SC(n)  -1.0745290 -0.9883966
+FPE(n)  0.2002998  0.2033812</code></pre>
+<p><br></p>
+<ul>
+<li>Three criteria (AIC,HQ &amp;FPE) choose p=2; BUT, as our data are quarterly, probably, as Gali does, a more sensible choice would be p=4</li>
+</ul>
+<p><br></p>
+<p>Finally, we are now ready to estimate our VAR with p=4. Let’s go!!!</p>
+<p><br></p>
+<hr />
+</div>
+</div>
+<div id="estimation-of-the-var" class="section level2">
+<h2>Estimation of the VAR</h2>
+<p><br></p>
+<ul>
+<li><strong>Estimating the VAR</strong> model (in reduced form)</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co">#- we are saving the estimation results in the object &#39;our_var&#39;</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">our_var &lt;-<span class="st"> </span><span class="kw">VAR</span>(variables, <span class="dt">p =</span> <span class="dv">4</span>, <span class="dt">type =</span> <span class="st">&quot;const&quot;</span>)</a></code></pre></div>
+<p><br></p>
+<ul>
+<li>Let’s see the estimation results. The best way is through the function <code>summary()</code></li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">summary</span>(our_var)</a></code></pre></div>
+<pre><code>
+VAR Estimation Results:
+========================= 
+Endogenous variables: dx, dn 
+Deterministic variables: const 
+Sample size: 183 
+Log Likelihood: -361.495 
+Roots of the characteristic polynomial:
+0.7609 0.7609 0.4955 0.4955 0.4125 0.3886 0.3886 0.04377
+Call:
+VAR(y = variables, p = 4, type = &quot;const&quot;)
+
+
+Estimation results for equation dx: 
+=================================== 
+dx = dx.l1 + dn.l1 + dx.l2 + dn.l2 + dx.l3 + dn.l3 + dx.l4 + dn.l4 + const 
+
+       Estimate Std. Error t value Pr(&gt;|t|)    
+dx.l1 -0.096398   0.076313  -1.263   0.2082    
+dn.l1 -0.118188   0.075043  -1.575   0.1171    
+dx.l2  0.175137   0.078470   2.232   0.0269 *  
+dn.l2 -0.231832   0.092432  -2.508   0.0131 *  
+dx.l3  0.032485   0.076911   0.422   0.6733    
+dn.l3  0.114524   0.092560   1.237   0.2176    
+dx.l4  0.009445   0.076295   0.124   0.9016    
+dn.l4 -0.016682   0.076980  -0.217   0.8287    
+const  0.389255   0.083809   4.645  6.7e-06 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+
+Residual standard error: 0.6734 on 174 degrees of freedom
+Multiple R-Squared: 0.1575, Adjusted R-squared: 0.1187 
+F-statistic: 4.065 on 8 and 174 DF,  p-value: 0.0001858 
+
+
+Estimation results for equation dn: 
+=================================== 
+dn = dx.l1 + dn.l1 + dx.l2 + dn.l2 + dx.l3 + dn.l3 + dx.l4 + dn.l4 + const 
+
+      Estimate Std. Error t value Pr(&gt;|t|)    
+dx.l1  0.30492    0.07547   4.040    8e-05 ***
+dn.l1  0.71481    0.07422   9.631   &lt;2e-16 ***
+dx.l2  0.05422    0.07761   0.699   0.4857    
+dn.l2 -0.12814    0.09142  -1.402   0.1628    
+dx.l3  0.02442    0.07607   0.321   0.7485    
+dn.l3  0.10069    0.09154   1.100   0.2729    
+dx.l4  0.05498    0.07546   0.729   0.4672    
+dn.l4 -0.13815    0.07613  -1.815   0.0713 .  
+const  0.07376    0.08289   0.890   0.3748    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+
+Residual standard error: 0.666 on 174 degrees of freedom
+Multiple R-Squared: 0.4759, Adjusted R-squared: 0.4518 
+F-statistic: 19.75 on 8 and 174 DF,  p-value: &lt; 2.2e-16 
+
+
+
+Covariance matrix of residuals:
+         dx       dn
+dx  0.45344 -0.06341
+dn -0.06341  0.44351
+
+Correlation matrix of residuals:
+        dx      dn
+dx  1.0000 -0.1414
+dn -0.1414  1.0000</code></pre>
+<p><br></p>
+<ul>
+<li>Let’s see the (same) estimation results, but in other format: the <span class="math inline">\(A_{i}\)</span> matrices</li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">Acoef</span>(our_var)  <span class="co">#-- shows the A estimated matrices. Be aware that they are the same results</span></a></code></pre></div>
+<pre><code>[[1]]
+         dx.l1      dn.l1
+dx -0.09639832 -0.1181884
+dn  0.30492251  0.7148050
+
+[[2]]
+       dx.l2      dn.l2
+dx 0.1751366 -0.2318322
+dn 0.0542222 -0.1281375
+
+[[3]]
+        dx.l3     dn.l3
+dx 0.03248468 0.1145240
+dn 0.02442320 0.1006887
+
+[[4]]
+         dx.l4       dn.l4
+dx 0.009444778 -0.01668181
+dn 0.054984423 -0.13815029</code></pre>
+<p><br></p>
+<ul>
+<li>After estimation and before to use or transform our VAR we have to check their validity, mainly looking at the residuals</li>
+</ul>
+<p><br> <br></p>
+<hr />
+</div>
+<div id="validation-of-the-var" class="section level2">
+<h2>Validation of the VAR</h2>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li>Stability and roots</li>
+</ol>
+<p><br></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="co">#- Checking stability(eigenvalues of the companion coefficient matrix must have modulus less than 1)</span></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="kw">roots</span>(our_var, <span class="dt">modulus =</span> <span class="ot">TRUE</span>)  <span class="co">#-- Returns a vector with the eigenvalues</span></a></code></pre></div>
+<pre><code>[1] 0.76092599 0.76092599 0.49550808 0.49550808 0.41252822 0.38858444 0.38858444
+[8] 0.04376503</code></pre>
+<p><br></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Accessing the Y-fitted, with the <strong>fitted()</strong> function</li>
+</ol>
+<p><br></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="co">#-- We can access fitted-Y with fitted()</span></a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw">print</span>(<span class="kw">fitted</span>(our_var)[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, ])  <span class="co">#---- Y-fitted fot the first 4 observations</span></a></code></pre></div>
+<pre><code>         dx         dn
+1 1.0117163 -0.6248601
+2 1.0254013 -0.5451213
+3 0.7838393  0.1710223
+4 0.9547305 -0.2437604</code></pre>
+<p><br></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Accessing the residuals</li>
+</ol>
+<p><br></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="co">#-- We can access the residuals with residuals()</span></a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">print</span>(<span class="kw">residuals</span>(our_var)[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, ])  <span class="co">#-- print the four first residuals</span></a></code></pre></div>
+<pre><code>          dx         dn
+1  0.3374632 -0.9774587
+2  0.8121841 -0.4816300
+3 -0.4217890 -1.3515856
+4  1.6152363  1.3684236</code></pre>
+<p><br></p>
+<ol start="4" style="list-style-type: decimal">
+<li>“Plotting” our VAR</li>
+</ol>
+<p><br></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="co">#-- We can plot easily Y, Y-estimated and the residuals</span></a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw">plot</span>(our_var)</a></code></pre></div>
+<p><img src="03-Lab-Gali_files/figure-html/unnamed-chunk-17-1.png" width="672" /><img src="03-Lab-Gali_files/figure-html/unnamed-chunk-17-2.png" width="672" /></p>
+<p><br></p>
+<ol start="5" style="list-style-type: decimal">
+<li>Testing on the residuals</li>
+</ol>
+<p><br></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="co">#-- We can test autocorrelation and normality of residuals</span></a>
+<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="kw">serial.test</span>(our_var, <span class="dt">lags.pt =</span> <span class="dv">8</span>)  <span class="co">#-- 8 lags for autocorrelation portmanteau test</span></a></code></pre></div>
+<pre><code>
+    Portmanteau Test (asymptotic)
+
+data:  Residuals of VAR object our_var
+Chi-squared = 24.955, df = 16, p-value = 0.07061</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">normality.test</span>(our_var, <span class="dt">multivariate.only =</span> <span class="ot">FALSE</span>)  <span class="co">#-- Normality test</span></a></code></pre></div>
+<pre><code>$dx
+
+    JB-Test (univariate)
+
+data:  Residual of dx equation
+Chi-squared = 68.644, df = 2, p-value = 1.221e-15
+
+
+$dn
+
+    JB-Test (univariate)
+
+data:  Residual of dn equation
+Chi-squared = 3.6281, df = 2, p-value = 0.163
+
+
+$JB
+
+    JB-Test (multivariate)
+
+data:  Residuals of VAR object our_var
+Chi-squared = 75.873, df = 4, p-value = 1.332e-15
+
+
+$Skewness
+
+    Skewness only (multivariate)
+
+data:  Residuals of VAR object our_var
+Chi-squared = 16.763, df = 2, p-value = 0.000229
+
+
+$Kurtosis
+
+    Kurtosis only (multivariate)
+
+data:  Residuals of VAR object our_var
+Chi-squared = 59.109, df = 2, p-value = 1.461e-13</code></pre>
+<p><br></p>
+<ol start="6" style="list-style-type: decimal">
+<li>“Plotting” our “residuals test”</li>
+</ol>
+<p><br></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="co">#-- There is a function plot or method associated to the autocorrelation test</span></a>
+<a class="sourceLine" id="cb30-2" data-line-number="2">our_serial &lt;-<span class="st"> </span><span class="kw">serial.test</span>(our_var, <span class="dt">lags.pt =</span> <span class="dv">8</span>)  <span class="co">#-saving our autocorr.test in object &#39;our_serial&#39;</span></a>
+<a class="sourceLine" id="cb30-3" data-line-number="3"><span class="kw">plot</span>(our_serial)</a></code></pre></div>
+<p><img src="03-Lab-Gali_files/figure-html/unnamed-chunk-19-1.png" width="672" /><img src="03-Lab-Gali_files/figure-html/unnamed-chunk-19-2.png" width="672" /></p>
+<p><br> <br></p>
+<hr />
+</div>
+</div>
+<div id="var-in-reduced-form-uses" class="section level1">
+<h1>3. VAR in reduced form (Uses)</h1>
+<p><br></p>
+<p>The two principal uses of VAR models in reduced form are testing (causality testing) and forecasting, BUT the most used instruments in the VAR methodology are IRF &amp; FEVD.</p>
+<p>IRF &amp; FEVD only have a clear meaning if we transform our reduced form VAR model to an structural VAR. We will develop this idea in a while</p>
+<p><br></p>
+<div id="testing-in-a-var" class="section level3">
+<h3>Testing in a VAR</h3>
+<ul>
+<li><p>After validation, the VAR could be used for testing, for example, for testing Granger causality</p></li>
+<li><p>As we said, if the residuals are normally distributed (Gaussian) like (<span class="math inline">\(v_{t}\rightarrow N(0,\Sigma _{v})\)</span>) the <strong>OLS estimator has desirable asymptotic properties</strong>. In particular, it will be asymptotically normally distributed, and then, if the VAR is stable, usual inference procedures are asymptotically valid: t-statistics could be used for inference about individual parameters and F-test for testing hypothesis for sets of parameters.</p></li>
+</ul>
+<p><br></p>
+<hr />
+</div>
+<div id="granger-causality" class="section level2">
+<h2>Granger causality</h2>
+<p><br></p>
+<ul>
+<li><p><strong>Granger causality</strong>: Granger called a variable X causal for Y if the information in past and present values of X is helpful for improving the forecast of Y. If Granger causality holds, this does not guarantee that X causes Y. But, it suggests that X might be causing Y.</p></li>
+<li><p>In the context of VAR models, if we want to test for Granger-causality, we need to test zero constraints in some of the coefficients.</p></li>
+<li><p>Sometimes econometricians use the shorter terms <em>causes</em> as shorthand for <em>Granger causes</em>. You should notice, however, that Granger causality is not causality in a deep sense of the word. It just talk about linear prediction, and it only has “teeth” if we only find Granger causality in one direction.</p></li>
+<li><p>The definition of Granger causality did not mention anything about possible instantaneous correlation between variables. If the innovations are correlated we will say that there exits instantaneous causality</p></li>
+<li><p>It’s possible to test Granger causality through Wald or F-test. In the <code>vars</code> package:</p>
+<ul>
+<li><p>It uses F-test to test Granger causality</p></li>
+<li><p>Wald test for instantaneous Granger causality (non zero correlation among the <span class="math inline">\(v_{it}\)</span>)</p></li>
+</ul></li>
+</ul>
+<p><br></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="co">#-- We can test Granger causality</span></a>
+<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="kw">causality</span>(our_var, <span class="dt">cause =</span> <span class="kw">c</span>(<span class="st">&quot;dx&quot;</span>))  <span class="co">#-- dx Granger-cause the other(s) variables?</span></a></code></pre></div>
+<pre><code>$Granger
+
+    Granger causality H0: dx do not Granger-cause dn
+
+data:  VAR object our_var
+F-Test = 4.6524, df1 = 4, df2 = 348, p-value = 0.001138
+
+
+$Instant
+
+    H0: No instantaneous causality between: dx and dn
+
+data:  VAR object our_var
+Chi-squared = 3.5873, df = 1, p-value = 0.05822</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">causality</span>(our_var, <span class="dt">cause =</span> <span class="kw">c</span>(<span class="st">&quot;dn&quot;</span>))  <span class="co">#-- dn Granger-cause the other(s) variables?</span></a></code></pre></div>
+<pre><code>$Granger
+
+    Granger causality H0: dn do not Granger-cause dx
+
+data:  VAR object our_var
+F-Test = 5.407, df1 = 4, df2 = 348, p-value = 0.0003106
+
+
+$Instant
+
+    H0: No instantaneous causality between: dn and dx
+
+data:  VAR object our_var
+Chi-squared = 3.5873, df = 1, p-value = 0.05822</code></pre>
+<p><br></p>
+<hr />
+</div>
+<div id="forecasting" class="section level2">
+<h2>Forecasting</h2>
+<ul>
+<li>We are not going to develop this topic, but… a VAR could also be used for forecasting</li>
+</ul>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="co">#-- We can use the VAR for forecasting</span></a>
+<a class="sourceLine" id="cb35-2" data-line-number="2"><span class="kw">predict</span>(our_var, <span class="dt">n.ahead =</span> <span class="dv">3</span>)</a></code></pre></div>
+<pre><code>$dx
+          fcst      lower    upper       CI
+[1,] 0.3691718 -0.9506215 1.688965 1.319793
+[2,] 0.1583605 -1.1744143 1.491135 1.332775
+[3,] 0.2929821 -1.1194967 1.705461 1.412479
+
+$dn
+          fcst      lower    upper       CI
+[1,] 0.8210940 -0.4841807 2.126369 1.305275
+[2,] 0.5611573 -1.0605790 2.182894 1.621736
+[3,] 0.5069927 -1.1949360 2.208921 1.701929</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">fanchart</span>(<span class="kw">predict</span>(our_var))</a></code></pre></div>
+<p><img src="03-Lab-Gali_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+</div>
+<div id="section" class="section level2">
+<h2><br></h2>
+</div>
+</div>
+<div id="vma-represesentation" class="section level1">
+<h1>4. VMA represesentation</h1>
+<p><br></p>
+<ul>
+<li><p>A stationary (stable) VAR could be transformed (inverted) in an infinite MA(<span class="math inline">\(\infty\)</span>) process</p></li>
+<li><p>By inverting the autoregressive polynomial A(L) we can obtain the VMA form of a VAR like:</p></li>
+</ul>
+<p><span class="math display">\[y_{t}~=C_{0}v_{t}+C_{1}v_{t-1}+C_{2}v_{t-2}+\ ...\  [3]\]</span></p>
+<p>Being <span class="math inline">\(C_{0}=I_{K}\)</span>, the rest of the <span class="math inline">\(C_{s}\)</span> matrices could be computed recursively</p>
+<p><br></p>
+<ul>
+<li>As with the VAR, model <span class="math inline">\([3]\)</span> can be written using a polynomial in the lag operator as:</li>
+</ul>
+<p><span class="math display">\[y_{t}=C(L)v_{t}\ \ \ \ \ \ \ \ \ \ \ \ [4]\]</span></p>
+<p>being <span class="math inline">\(C(L)=(I_{K}+C_{1}L^{1}+C_{2}L^{2}+\ \ ...)\)</span>.</p>
+<p><br></p>
+<ul>
+<li>Model <span class="math inline">\([3]\)</span> or <span class="math inline">\([4]\)</span> are also called the Wold VMA representation</li>
+</ul>
+<p><br></p>
+<hr />
+<div id="obtaining-the-vma-with-r" class="section level2">
+<h2>Obtaining the VMA with R</h2>
+<p><br></p>
+<p>First, test’s do it by hand (but with a little help from R).</p>
+<ol style="list-style-type: decimal">
+<li>we could obtain the <span class="math inline">\(A_{i}\)</span> matrices of the estimated VAR with the <code>Acoef()</code> function</li>
+</ol>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="co">#--- Using the vars package to estimate the VAR</span></a>
+<a class="sourceLine" id="cb38-2" data-line-number="2">our_var &lt;-<span class="st"> </span><span class="kw">VAR</span>(variables, <span class="dt">p =</span> <span class="dv">4</span>, <span class="dt">type =</span> <span class="st">&quot;const&quot;</span>)  <span class="co">#-- estimation of the VAR</span></a>
+<a class="sourceLine" id="cb38-3" data-line-number="3">AA &lt;-<span class="st"> </span><span class="kw">Acoef</span>(our_var)  <span class="co">#-- saving the A matrices in AA</span></a>
+<a class="sourceLine" id="cb38-4" data-line-number="4">AA1 &lt;-<span class="st"> </span>AA[[<span class="dv">1</span>]]  <span class="co">#-- AA1</span></a>
+<a class="sourceLine" id="cb38-5" data-line-number="5">AA2 &lt;-<span class="st"> </span>AA[[<span class="dv">2</span>]]  <span class="co">#-- AA2</span></a>
+<a class="sourceLine" id="cb38-6" data-line-number="6">AA3 &lt;-<span class="st"> </span>AA[[<span class="dv">3</span>]]  <span class="co">#-- AA3</span></a>
+<a class="sourceLine" id="cb38-7" data-line-number="7">AA4 &lt;-<span class="st"> </span>AA[[<span class="dv">4</span>]]  <span class="co">#-- AA3</span></a></code></pre></div>
+<p><br></p>
+<ol start="2" style="list-style-type: decimal">
+<li>To obtain the Wold VMA representation of the VAR we have to invert the <span class="math inline">\(A(L)\)</span> polynomial. We will do it by hand and also by using the <code>vars</code> package</li>
+</ol>
+<p><br></p>
+<p>2a) <strong>By hand:</strong> we could obtain the VMA matrices, the <span class="math inline">\(C_{i}\)</span>, with R with the <code>Psi()</code> function; but by hand it would be as:</p>
+<ul>
+<li><p><span class="math inline">\(C_{0}=I_{K}\)</span>,</p></li>
+<li><p>the rest of the <span class="math inline">\(C_{s}\)</span> matrices could be computed recursively as</p></li>
+</ul>
+<p><span class="math display">\[C_{s}=\underset{j=1}{\overset{s}{\sum }}C_{s-j}A_{j}\]</span> <!--- Esta eq. es inline y con sumatorio. No se puede --></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="co">#-------------------------obtaining the C(i) matrices of the VMA representation</span></a>
+<a class="sourceLine" id="cb39-2" data-line-number="2">CC0 &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="dv">2</span>)  <span class="co">#-- C(O) is the identity matrix (2x2)</span></a>
+<a class="sourceLine" id="cb39-3" data-line-number="3">CC1 &lt;-<span class="st"> </span>CC0 <span class="op">%*%</span><span class="st"> </span>AA1</a>
+<a class="sourceLine" id="cb39-4" data-line-number="4">CC2 &lt;-<span class="st"> </span>CC1 <span class="op">%*%</span><span class="st"> </span>AA1 <span class="op">+</span><span class="st"> </span>CC0 <span class="op">%*%</span><span class="st"> </span>AA2</a>
+<a class="sourceLine" id="cb39-5" data-line-number="5">CC3 &lt;-<span class="st"> </span>CC2 <span class="op">%*%</span><span class="st"> </span>AA1 <span class="op">+</span><span class="st"> </span>CC1 <span class="op">%*%</span><span class="st"> </span>AA2 <span class="op">+</span><span class="st"> </span>CC0 <span class="op">%*%</span><span class="st"> </span>AA3</a>
+<a class="sourceLine" id="cb39-6" data-line-number="6">CC4 &lt;-<span class="st"> </span>CC3 <span class="op">%*%</span><span class="st"> </span>AA1 <span class="op">+</span><span class="st"> </span>CC2 <span class="op">%*%</span><span class="st"> </span>AA2 <span class="op">+</span><span class="st"> </span>CC1 <span class="op">%*%</span><span class="st"> </span>AA3 <span class="op">+</span><span class="st"> </span>CC0 <span class="op">%*%</span><span class="st"> </span>AA4</a>
+<a class="sourceLine" id="cb39-7" data-line-number="7">CC5 &lt;-<span class="st"> </span>CC4 <span class="op">%*%</span><span class="st"> </span>AA1 <span class="op">+</span><span class="st"> </span>CC3 <span class="op">%*%</span><span class="st"> </span>AA2 <span class="op">+</span><span class="st"> </span>CC2 <span class="op">%*%</span><span class="st"> </span>AA3 <span class="op">+</span><span class="st"> </span>CC1 <span class="op">%*%</span><span class="st"> </span>AA4 <span class="op">+</span><span class="st"> </span>CC0</a></code></pre></div>
+<p><br> <br></p>
+<p>2b) <strong>Using the vars package:</strong> we have to use the <code>Phi()</code> function</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="co">#--- Wold VMA of our_var with the vars package</span></a>
+<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="kw">Phi</span>(our_var, <span class="dt">nstep =</span> <span class="dv">3</span>)  <span class="co">#- shows the WOLD VMA  estimated matrices. (by inverting the A&#39;s matrices)</span></a></code></pre></div>
+<pre><code>, , 1
+
+     [,1] [,2]
+[1,]    1    0
+[2,]    0    1
+
+, , 2
+
+            [,1]       [,2]
+[1,] -0.09639832 -0.1181884
+[2,]  0.30492251  0.7148050
+
+, , 3
+
+          [,1]       [,2]
+[1,] 0.1483909 -0.3049207
+[2,] 0.2427883  0.3467704
+
+, , 4
+
+            [,1]        [,2]
+[1,] -0.09808845 -0.08348028
+[2,]  0.19891831  0.15758298</code></pre>
+<p><br></p>
+<p><br></p>
+<p>Let’s check if our calculation by hand coincide with the one obtained using the vars package. Our (by hand) CC2 matrix is:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">CC2  <span class="co">#-- our CC2 is nstep=3; that is in the vars package CCO = I is the first step</span></a></code></pre></div>
+<pre><code>         dx.l1      dn.l1
+[1,] 0.1483909 -0.3049207
+[2,] 0.2427883  0.3467704</code></pre>
+<p><br> <br></p>
+<hr />
+</div>
+</div>
+<div id="uses-of-var-structural-analysis" class="section level1">
+<h1>5. Uses of VAR: “Structural” analysis</h1>
+<p><br></p>
+<ul>
+<li><p>The two principal instruments of VAR’s, IRF &amp; FEVD, are defined in terms of their VMA representation [3]</p></li>
+<li><p>IRF &amp; FEVD will show the effects of a shock, <strong>BUT</strong> in order to have a clear meaning, they must be interpreted under the assumption that all the other shocks are held constant; however, in the Wold representation the shocks are not orthogonal; that’s why we will turn our attention to the <strong>Structural VAR models</strong></p></li>
+</ul>
+<p><br></p>
+<hr />
+<div id="irfs" class="section level2">
+<h2>IRFs</h2>
+<p><br></p>
+<ul>
+<li><p>Usually the main interest in VAR modelling is to look at the dynamic effect of a shock on the variables of interest</p></li>
+<li><p>This dynamic effect could be easily obtained through the VMA representation [3] of the VAR</p></li>
+<li><p>In particular the response of the variable <span class="math inline">\(y_{n}\)</span> to an impulse of size one in <span class="math inline">\(v_{m}\)</span> <span class="math inline">\(j\)</span>-periods ahead is given by the <span class="math inline">\((n,m)\)</span><em>-th</em> element of <span class="math inline">\(C_{j}\)</span>. That is, the matrices <span class="math inline">\(C_{i}\)</span> contain the responses of the variables to the innovations for different periods (or steps) ahead</p></li>
+</ul>
+<div id="but" class="section level4">
+<h4>BUT…</h4>
+<ul>
+<li>BUT, usually the VAR disturbances (or innovations) are correlated, then the interpretability of the impulse responses to innovation becomes problematic: if the innovations are correlated (off diagonal elements of <span class="math inline">\(\Sigma _{v}\)</span> different from zero) then, an impulse in <span class="math inline">\(v_{m}\)</span> would be associated with impulses in innovations at the other equations of the VAR model.</li>
+</ul>
+<p><br></p>
+</div>
+<div id="sims-proposal-cholesky-decomposition" class="section level3">
+<h3>Sims proposal: Cholesky decomposition</h3>
+<ul>
+<li>Therefore, Sims proposed to assume recursive contemporaneous interactions among variables, i.e. imposing a certain structural ordering in the variables. In terms of the MVA representation this means that the transformed or “structural” shocks will not affect to the preceding variables instantaneously.</li>
+</ul>
+<p><br></p>
+<ul>
+<li><p>In practice, imposing a recursive contemporaneous order among the variables of the VAR model, is operationalised performing a Cholesky decomposition in <span class="math inline">\(\Sigma _{v}\)</span>.</p></li>
+<li><p>The Cholesky factor, <span class="math inline">\(P\)</span>, of <span class="math inline">\(\Sigma _{v}\)</span> is defined as the unique lower triangular matrix such that <span class="math inline">\(PP^{^{\prime }}=\Sigma _{v}\)</span></p></li>
+</ul>
+<p><br></p>
+<ul>
+<li>With the Cholesky factor(<span class="math inline">\(P\)</span>) we could transform the VAR in [3] as:</li>
+</ul>
+<p><span class="math display">\[A(L)y_{t}=PP^{-1}v_{t}\]</span></p>
+<p>with <span class="math inline">\(\varepsilon _{t}=P^{-1}v_{t}\)</span>, then our transformed VAR becomes</p>
+<p><span class="math display">\[A(L)y_{t}=P\varepsilon _{t}\ \ \ \ \ \ \ \ \ \ \ \ [2*]\]</span></p>
+<p><br></p>
+<ul>
+<li><p>That is, we have written our VAR in terms of a new vector of shocks <span class="math inline">\(\varepsilon _{t}\)</span>, with identity covariance matrix (<span class="math inline">\(\Sigma _{\varepsilon }=I\)</span>)</p></li>
+<li><p>Now, as the <span class="math inline">\(\varepsilon _{t}\)</span> shocks are uncorrelated their IRF would have a clear interpretation</p></li>
+</ul>
+<p><br></p>
+<hr />
+</div>
+<div id="obtaining-irfs-with-r" class="section level3">
+<h3>Obtaining IRFs with R</h3>
+<p><br></p>
+<ul>
+<li>From [2*] we can obtain the VMA representation in terms of the <span class="math inline">\(\varepsilon _{t}\)</span> shocks:</li>
+</ul>
+<p><span class="math display">\[y_{t}=C(L)P\varepsilon _{t}\ \ \ \ \ \ \ \ \ \ \ \ [5\ast ]\]</span></p>
+<p><span class="math display">\[y_{t}=D(L)\varepsilon _{t}\ \ \ \ \ \ \ \ \ \ \ \ [5]\]</span></p>
+<p>being <span class="math inline">\(D(L)=C(L)P\)</span> ,</p>
+<p><span class="math inline">\(D(L)=(D_{0}+D_{1}L^{1}+D_{2}L^{2}+D_{3}L^{3}-\ \ ...)\)</span>, with <span class="math inline">\(D_{i}=C_{i}P\)</span> ,</p>
+<p>then <span class="math inline">\(D_{0}=C_{0}P=I_{N}P=P\)</span></p>
+<ul>
+<li><p>As <span class="math inline">\(D_{0}=P\)</span>, and P is lower triangular, the system is recursive: the first shock (<span class="math inline">\(\varepsilon _{t}^{1}\)</span>) could have an instantaneous effect on all the variables of the VAR, while the first variable in the VAR could only be affected contemporaneously by <span class="math inline">\(\varepsilon _{t}^{1}\)</span></p></li>
+<li><p>The matrices <span class="math inline">\(D_{i}\)</span> contains the response of the variables to the <span class="math inline">\(\varepsilon _{t}\)</span></p></li>
+<li><p>In particular the response of the variable <span class="math inline">\(y_{n}\)</span> to an impulse of size one in <span class="math inline">\(\varepsilon_{m}\)</span> <span class="math inline">\(j\)</span>-periods ahead is given by the <span class="math inline">\((n,m)\)</span><em>-th</em> element of <span class="math inline">\(D_{j}\)</span>.</p></li>
+<li><p>Don’t worry too much now because firstly we will usually do this with R and secondly because we are going to practice the calculations by hand at the Lab, but ….</p></li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>To obtain the orthogonalised IRF (the <span class="math inline">\(D_{i}\)</span> matrices), the matrices with the IRFs</li>
+</ol>
+<ul>
+<li>First we have to obtain the Cholesky factor P as <span class="math inline">\(PP^{^{\prime }}=\Sigma _{v}\)</span><br />
+</li>
+<li>Latter, we have to calculate the <span class="math inline">\(D_{i}=C_{i}P\)</span> matrices</li>
+</ul>
+<p>3a) By hand</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">VVu &lt;-<span class="st"> </span><span class="kw">summary</span>(our_var)[[<span class="dv">3</span>]]  <span class="co">#-- The variance-covariance matrix of the residuals</span></a>
+<a class="sourceLine" id="cb44-2" data-line-number="2">PP_chol &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">chol</span>(VVu))  <span class="co">#-- Cholesky factor (matrix P in our terminology)</span></a>
+<a class="sourceLine" id="cb44-3" data-line-number="3">DD1 &lt;-<span class="st"> </span>CC1 <span class="op">%*%</span><span class="st"> </span>PP_chol</a>
+<a class="sourceLine" id="cb44-4" data-line-number="4">DD2 &lt;-<span class="st"> </span>CC2 <span class="op">%*%</span><span class="st"> </span>PP_chol</a>
+<a class="sourceLine" id="cb44-5" data-line-number="5">DD3 &lt;-<span class="st"> </span>CC3 <span class="op">%*%</span><span class="st"> </span>PP_chol</a></code></pre></div>
+<p>3b) We have to use the <code>Psi()</code> function (Note that the function is Psi(), not the previous Phi() ) function</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">Psi</span>(our_var, <span class="dt">nstep =</span> <span class="dv">3</span>)  <span class="co">#- Returns the estimated orthogonalised(Cholesky) coefficient matrices</span></a></code></pre></div>
+<pre><code>, , 1
+
+            [,1]      [,2]
+[1,]  0.67337627 0.0000000
+[2,] -0.09417032 0.6592771
+
+, , 2
+
+           [,1]        [,2]
+[1,] -0.0537825 -0.07791893
+[2,]  0.1380142  0.47125458
+
+, , 3
+
+          [,1]       [,2]
+[1,] 0.1286374 -0.2010272
+[2,] 0.1308324  0.2286178
+
+, , 4
+
+            [,1]        [,2]
+[1,] -0.05818907 -0.05503664
+[2,]  0.11910723  0.10389086</code></pre>
+<p>Let’s check our DD3 with the calculations made with the var package.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">DD3  <span class="co">#---  the orthogonalised (Cholesky) responses 3-steps ahead (4th in vars jargon)</span></a></code></pre></div>
+<pre><code>              dx          dn
+[1,] -0.05818907 -0.05503664
+[2,]  0.11910723  0.10389086</code></pre>
+<p><br></p>
+<ul>
+<li>Let’s show again the (Cholesky) IRF, but in the usual form:</li>
+</ul>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">irf</span>(our_var, <span class="dt">impulse =</span> <span class="st">&quot;dx&quot;</span>, <span class="dt">response =</span> <span class="kw">c</span>(<span class="st">&quot;dx&quot;</span>, <span class="st">&quot;dn&quot;</span>), <span class="dt">boot =</span> <span class="ot">FALSE</span>, <span class="dt">n.ahead =</span> <span class="dv">6</span>, </a>
+<a class="sourceLine" id="cb49-2" data-line-number="2">    <span class="dt">ortho =</span> <span class="ot">TRUE</span>, <span class="dt">cumulative =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<pre><code>
+Impulse response coefficients
+$dx
+               dx          dn
+[1,]  0.673376268 -0.09417032
+[2,] -0.053782498  0.13801416
+[3,]  0.128637414  0.13083241
+[4,] -0.058189069  0.11910723
+[5,]  0.005719843  0.12022354
+[6,] -0.036212427  0.06355445
+[7,] -0.020107696  0.01886216</code></pre>
+<p><br></p>
+<ul>
+<li>In fact, usually IRF’s are shown in graphical form:</li>
+</ul>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">irf</span>(our_var))</a></code></pre></div>
+<p><img src="03-Lab-Gali_files/figure-html/unnamed-chunk-30-1.png" width="672" /><img src="03-Lab-Gali_files/figure-html/unnamed-chunk-30-2.png" width="672" /></p>
+<p><br> <br> <br></p>
+<hr />
+</div>
+</div>
+<div id="fevd" class="section level2">
+<h2>FEVD</h2>
+<p><br></p>
+<ul>
+<li><p>FEVD : Forecast error variance decomposition</p></li>
+<li><p>Once we have orthogonalised IRF’s (the <span class="math inline">\(D_{i}\)</span> matrices ), the FEVD can be easily computed. Let’s see how:</p></li>
+</ul>
+<p><br></p>
+<ul>
+<li>The h-step forecast error can be represented as:</li>
+</ul>
+<p><span class="math display">\[y_{T+h}-y_{T+h\mid T}=D_{0}\varepsilon _{T+h}+D_{1}\varepsilon_{T+h-1}+\cdots +D_{h-1}\varepsilon _{T+1}\]</span></p>
+<p>As <span class="math inline">\(\Sigma _{\varepsilon }=I\)</span>, the forecast error variance of the k-th component of <span class="math inline">\(y_{T+h}\)</span> is:</p>
+<p><span class="math display">\[\sigma _{k}^{2}(h)=\overset{h-1}{\underset{j=0}{\sum }}(d_{k1,j}^{2}+\cdots
++d_{kK,j}^{2})=\overset{K}{\underset{j=1}{\sum }}(d_{kj,0}^{2}+\cdots
++d_{kj,h-1}^{2})\]</span></p>
+<p>where <span class="math inline">\(d_{nm,j}\)</span> denotes the <span class="math inline">\((n,m)-th\)</span> element of <span class="math inline">\(D_{j}\)</span>.</p>
+<p><br></p>
+<ul>
+<li><p>The quantity <span class="math inline">\((d_{kj,0}^{2}+\cdots +d_{kj,h-1}^{2})/\sigma _{k}^{2}(h)\)</span> represents the contribution of the <span class="math inline">\(j\)</span>-th shock to the h-step forecast error variance of variable <span class="math inline">\(k\)</span>.</p></li>
+<li><p>Don’t worry too much now because firstly we will usually do this with R and secondly because we are going to practice the calculations by hand at the Lab, but ….</p></li>
+</ul>
+<p><br></p>
+<p>The FEVD are obtained through the IRF. Let’s see the FEVD and we will calculate it latter by hand:</p>
+<p><br></p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="kw">fevd</span>(our_var, <span class="dt">n.ahead =</span> <span class="dv">6</span>)</a></code></pre></div>
+<pre><code>$dx
+            dx         dn
+[1,] 1.0000000 0.00000000
+[2,] 0.9868699 0.01313012
+[3,] 0.9104987 0.08950130
+[4,] 0.9058296 0.09417038
+[5,] 0.9007024 0.09929755
+[6,] 0.9006125 0.09938748
+
+$dn
+             dx        dn
+[1,] 0.01999496 0.9800050
+[2,] 0.04077447 0.9592255
+[3,] 0.05972348 0.9402765
+[4,] 0.07601943 0.9239806
+[5,] 0.09275743 0.9072426
+[6,] 0.09603517 0.9039648</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">fevd</span>(our_var))</a></code></pre></div>
+<p><img src="03-Lab-Gali_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<p><br></p>
+<div id="looking-at-the-relation-among-irf-and-fevd" class="section level4">
+<h4>Looking at the relation among IRF and FEVD</h4>
+<p><br></p>
+<ul>
+<li>To obtain the IRF’s we have to use the <code>irf()</code> function</li>
+</ul>
+<p><br></p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">irf</span>(our_var, <span class="dt">impulse =</span> <span class="kw">c</span>(<span class="st">&quot;dx&quot;</span>, <span class="st">&quot;dn&quot;</span>), <span class="dt">response =</span> <span class="st">&quot;dx&quot;</span>, <span class="dt">boot =</span> <span class="ot">FALSE</span>, <span class="dt">n.ahead =</span> <span class="dv">3</span>, </a>
+<a class="sourceLine" id="cb55-2" data-line-number="2">    <span class="dt">ortho =</span> <span class="ot">TRUE</span>, <span class="dt">cumulative =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<pre><code>
+Impulse response coefficients
+$dx
+              dx
+[1,]  0.67337627
+[2,] -0.05378250
+[3,]  0.12863741
+[4,] -0.05818907
+
+$dn
+              dx
+[1,]  0.00000000
+[2,] -0.07791893
+[3,] -0.20102724
+[4,] -0.05503664</code></pre>
+<p><br></p>
+<ul>
+<li>To obtain the FEVD we have to use the <code>fevd()</code> function</li>
+</ul>
+<p><br></p>
+<p><strong>fevd()</strong> function to calculate the FEVD</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">fevd</span>(our_var, <span class="dt">n.ahead =</span> <span class="dv">4</span>)</a></code></pre></div>
+<pre><code>$dx
+            dx         dn
+[1,] 1.0000000 0.00000000
+[2,] 0.9868699 0.01313012
+[3,] 0.9104987 0.08950130
+[4,] 0.9058296 0.09417038
+
+$dn
+             dx        dn
+[1,] 0.01999496 0.9800050
+[2,] 0.04077447 0.9592255
+[3,] 0.05972348 0.9402765
+[4,] 0.07601943 0.9239806</code></pre>
+<p><br></p>
+<ul>
+<li>To illustrate how to obtain the FEVD by hand, let’s first look inside the object our_irfs who will contain the IRF’s of our_var:</li>
+</ul>
+<p><br></p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">our_irfs &lt;-<span class="st"> </span><span class="kw">irf</span>(our_var, <span class="dt">n.ahead =</span> <span class="dv">5</span>)  <span class="co">#-- our_irfs will contain all the information about IRF </span></a>
+<a class="sourceLine" id="cb59-2" data-line-number="2"><span class="co"># str(our_irfs) #--- looking inside the object &#39;our_irfs&#39;</span></a>
+<a class="sourceLine" id="cb59-3" data-line-number="3"><span class="kw">class</span>(our_irfs)</a></code></pre></div>
+<pre><code>[1] &quot;varirf&quot;</code></pre>
+<p><br></p>
+<ul>
+<li><p>With <code>class(our_irfs)</code> we have seen that <code>our_irfs</code> is an object of class “varirf”. Pfaff defined this type of object to allocate space to save the IRF’s</p></li>
+<li><p>OK, <code>our_irfs</code> is an object of class “varirf, but with <code>str(our_irfs)</code> we can look at the internal structure of the object”our_irfs&quot; and we can see that in fact is a list of 13 elements. Too many for our purposes, then let’s concentrate only in the first element that contains the true IRF.</p></li>
+<li><p>Let’s save the first element of our_irfs to look inside again</p></li>
+</ul>
+<p><br></p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">our_IRF1 &lt;-<span class="st"> </span>our_irfs[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb61-2" data-line-number="2"><span class="kw">str</span>(our_IRF1)</a></code></pre></div>
+<pre><code>List of 2
+ $ dx: num [1:6, 1:2] 0.67338 -0.05378 0.12864 -0.05819 0.00572 ...
+  ..- attr(*, &quot;dimnames&quot;)=List of 2
+  .. ..$ : NULL
+  .. ..$ : chr [1:2] &quot;dx&quot; &quot;dn&quot;
+ $ dn: num [1:6, 1:2] 0 -0.0779 -0.201 -0.055 -0.0547 ...
+  ..- attr(*, &quot;dimnames&quot;)=List of 2
+  .. ..$ : NULL
+  .. ..$ : chr [1:2] &quot;dx&quot; &quot;dn&quot;</code></pre>
+<p><br></p>
+<ul>
+<li><p>we can see that <code>our_IRF1</code> is a list with 2 elements. The first one <code>our_IRF1[[1]]</code> contains the responses of the first variable to the two shocks. The second <code>our_IRF1[[2]</code> contains the responses of the second variable to the two shocks</p></li>
+<li><p>Let’s concentrate only on the movement (or responses) of the first variable (dx). The FEVD of the first variable is calculated as:</p></li>
+</ul>
+<p><br></p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">dx_e1 &lt;-<span class="st"> </span>our_IRF1[[<span class="dv">1</span>]][, <span class="dv">1</span>]  <span class="co">#-- effect of the 1st shock in the first variable (dx) </span></a>
+<a class="sourceLine" id="cb63-2" data-line-number="2">dx_e2 &lt;-<span class="st"> </span>our_IRF1[[<span class="dv">2</span>]][, <span class="dv">1</span>]  <span class="co">#-- effect of the 2nd shock in the first variable (dx)</span></a>
+<a class="sourceLine" id="cb63-3" data-line-number="3">d2x_e1 &lt;-<span class="st"> </span>dx_e1<span class="op">^</span><span class="dv">2</span>  <span class="co">#-- IRF to the square  (why?)</span></a>
+<a class="sourceLine" id="cb63-4" data-line-number="4">d2x_e2 &lt;-<span class="st"> </span>dx_e2<span class="op">^</span><span class="dv">2</span>  <span class="co">#-- IRF to the square</span></a>
+<a class="sourceLine" id="cb63-5" data-line-number="5">ac_d2x_e1 &lt;-<span class="st"> </span><span class="kw">cumsum</span>(d2x_e1)  <span class="co">#-- accumulating the squared IRF (why?)</span></a>
+<a class="sourceLine" id="cb63-6" data-line-number="6">ac_d2x_e2 &lt;-<span class="st"> </span><span class="kw">cumsum</span>(d2x_e2)  <span class="co">#-- accumulating the squared IRF</span></a>
+<a class="sourceLine" id="cb63-7" data-line-number="7">fevd_dx_e1 =<span class="st"> </span>ac_d2x_e1<span class="op">/</span>(ac_d2x_e1 <span class="op">+</span><span class="st"> </span>ac_d2x_e2)  <span class="co">#-- % of the FEV explained by the 1st shock</span></a>
+<a class="sourceLine" id="cb63-8" data-line-number="8">fevd_dx_e2 =<span class="st"> </span>ac_d2x_e2<span class="op">/</span>(ac_d2x_e1 <span class="op">+</span><span class="st"> </span>ac_d2x_e2)  <span class="co">#-- % of the FEV explained by the 2nd shock</span></a></code></pre></div>
+<p><br></p>
+<ul>
+<li>Let’s see, step by step, what we have done:</li>
+</ul>
+<p><br></p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1">dx_e1[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]  <span class="co">#-- effects of 1st shock in the first variable (dx)</span></a></code></pre></div>
+<pre><code>[1]  0.673376268 -0.053782498  0.128637414 -0.058189069  0.005719843</code></pre>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1">dx_e2[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]  <span class="co">#-- effects of 2nd shock in the first variable (dx)</span></a></code></pre></div>
+<pre><code>[1]  0.00000000 -0.07791893 -0.20102724 -0.05503664 -0.05474057</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1">d2x_e2[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]  <span class="co">#-- IRF to the square </span></a></code></pre></div>
+<pre><code>[1] 0.000000000 0.006071360 0.040411950 0.003029032 0.002996530</code></pre>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1">ac_d2x_e2[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]  <span class="co">#-- accumulating the squared IRF</span></a></code></pre></div>
+<pre><code>[1] 0.00000000 0.00607136 0.04648331 0.04951234 0.05250887</code></pre>
+<p><br> <br></p>
+<ul>
+<li>Checking if we have calculated the FEVD correctly:</li>
+</ul>
+<p><br></p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1">fevd_dx_e1[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</a></code></pre></div>
+<pre><code>[1] 1.0000000 0.9868699 0.9104987 0.9058296</code></pre>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1">fevd_dx_e2[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</a></code></pre></div>
+<pre><code>[1] 0.00000000 0.01313012 0.08950130 0.09417038</code></pre>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="kw">fevd</span>(our_var, <span class="dt">n.ahead =</span> <span class="dv">4</span>)</a></code></pre></div>
+<pre><code>$dx
+            dx         dn
+[1,] 1.0000000 0.00000000
+[2,] 0.9868699 0.01313012
+[3,] 0.9104987 0.08950130
+[4,] 0.9058296 0.09417038
+
+$dn
+             dx        dn
+[1,] 0.01999496 0.9800050
+[2,] 0.04077447 0.9592255
+[3,] 0.05972348 0.9402765
+[4,] 0.07601943 0.9239806</code></pre>
+<p><br></p>
+<ul>
+<li>OK, we know already how to estimate-validate-use a VAR in reduced form &amp; to obtain and interpret the Cholesky IRF &amp; FEDV.</li>
+</ul>
+<p><br></p>
+<ul>
+<li>In the next Lab we will illustrate other ways to identify a SVAR</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+
+
+<footer class="footer">
+  <div class="text-muted">-----</div>
+  <div class="text-muted"><strong> Web</strong> creada por Pedro J. Pérez, profesor de la Universitat de València. &copy;  2020. If you find any bugs please report them to <a href=”mailto:pedro.j.perez@uv.es”> pedro.j.perez@uv.es</a>.</div>
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

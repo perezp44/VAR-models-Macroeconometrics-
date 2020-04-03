@@ -1,0 +1,48 @@
+---
+#title: "Macroenometrics (44343)"
+output:
+  html_document:
+    theme: united
+    highlight: monochrome 
+    self_contained: yes
+---
+
+
+```{r chunk_setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE, message = FALSE, warning = FALSE, 
+                      cache = FALSE, cache.path = "/caches/", comment = "#>",
+                      #fig.width = 7, fig.height= 7,   
+                      #out.width = 7, out.height = 7,
+                      collapse = TRUE,  fig.show = "hold",
+                      fig.asp = 7/9, out.width = "75%", fig.align = "center")
+```
+
+```{r options_setup, echo = FALSE}
+options(scipen = 999) #- para quitar la notacion cientifica
+```
+
+<br><br>
+
+### VAR models (4th topic of Macroenometrics (44343))
+
+<br><br>
+
+
+Hi students! 
+L
+This is the website for the 4th topic of the 2019-2020 Macroeconometrics course from the Master in Economics at the University of Valencia. Mariam has delivered already the first 3 topics and I’m in charge of the last and 4th: **VAR models**. The repo of this web is hosted in Gitbub, [here](https://github.com/perezp44/prueba_deploy_Rmarkdown).
+
+As you know the classes were face-to-face but then the covid-19 ... I hope all this will pass soon!! We will try our best lo learn something about VAR models!!
+
+**Wellcome to the course website!!**
+
+-- Pedro J. Pérez
+
+<br>
+
+**Topic summary:** The topic is an introduction to structural VAR models, one of the principal research toolkit in macroeconomic research.
+
+<br><br> 
+  
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+    

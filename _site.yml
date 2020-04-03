@@ -1,0 +1,24 @@
+name: "Macroeconometrics"
+navbar:
+  title: "VAR models"
+  type: inverse
+  left:
+    - text: "Wellcome"
+      href: index.html
+    - text: "Logistics"
+      href: 01-Logistics.html
+    - text: "Slides"
+      href: 02-Slides.html      
+    - text: "Lab"
+      href: 03-Lab-Gali.html
+    - text: "MAS"
+      href: 04-Mas.html
+      
+output_dir: "docs"    
+output:
+  html_document:
+    theme: united
+    highlight: textmate
+    include:
+      after_body: footer.html
+    css: styles.css

@@ -1,0 +1,111 @@
+---
+title: "My VAR model: SPAIN"
+author: "Your name"
+date: "`r format(Sys.time(), '%d %B, %Y')`" 
+output: 
+  html_document:
+    highlight: monochrome
+    theme: sandstone
+    toc: yes
+    toc_float: yes
+---
+
+
+```{r setup, echo = FALSE}
+suppressWarnings(library("knitr"))
+opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+```{r instalando y cargando los packages, echo = FALSE, results = "hide", eval = FALSE}
+PACKAGES <- c("devtools","ggplot2", "tidyr", "dplyr","knitr", "curl", "vars", "forecast", "dygraphs", "eurostat", "rmdformats", "DiagrammeR", "rio", "tidyverse")  #- packages to load
+inst <- match(PACKAGES, .packages(all=TRUE))
+need <- which(is.na(inst))
+if (length(need) > 0) install.packages(PACKAGES[need])
+lapply(PACKAGES, require, character.only=T)            #- loading packages with require()
+remove(inst, need, PACKAGES)
+```
+
+
+```{r}
+library(tidyverse)
+library(dygraphs)
+library(vars)
+```
+
+
+# 1. Introduction
+
+I'm going to estimate a VAR model with Eurostat data. I downloaded the data the xx/xx/2019 using the `eurostat` package
+
+<br>
+
+---------------------------------------
+
+# 2. Data preparation
+
+
+## Loading my data
+
+```{r}
+data <- readRDS(here::here("datos", "ES_VAR_data.rds"))   #- to load my_var_data
+```
+
+
+## Creating the `ts` objects
+
+Creating time series: `ts`` object
+
+```{r}
+ser <- list(data$Vol, data$Vol_15, data$Vol_us)
+series <- lapply(ser, ts, start = c(1995 ,1) , end = c(2015 , 4) , frequency = 4)
+names(series) <- c("Vol","Vol_15","Vol_us")
+```
+
+
+Creating logs and first log-differences of the time series
+
+```{r}
+series.l  <- lapply(series, log)
+series.dl <- lapply(series.l, diff)
+```
+
+<br>
+
+Making some descriptive graphs
+
+```{r}
+PIBs <- cbind(series[[1]], series[[2]], series[[3]])
+colnames(PIBs) <- c("Vol","Vol_15","Vol_us")
+```
+
+<br>
+
+A dynamic graph (with the `dygraph` package):
+
+```{r}
+dygraph(PIBs, main = "Evolution of GDP levels")  %>%  dyRangeSelector() %>%
+dyOptions(colors = RColorBrewer::brewer.pal(3, "Set2")) 
+```
+
+<br>
+
+Making a graph: (1-L)logGDP
+
+```{r}
+d.PIBs <- cbind(series.dl[[1]], series.dl[[2]], series.dl[[3]])
+colnames(d.PIBs) <- c("Vol","Vol_15","Vol_us")
+dygraph(d.PIBs, main = "Evolution of (1-L) log GDP")  %>%  dyRangeSelector() 
+```
+
+
+<br>
+
+-------------------------------------------------------
+
+<br>
+
+
+ 
+# 3. Estimation of the VAR model
+
+
