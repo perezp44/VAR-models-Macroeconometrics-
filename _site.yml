@@ -3,12 +3,9 @@ navbar:
   title: "VAR models"
   type: inverse
   left:
-    - icon: fa-question fa-lg
-      href: https://example.com
-  right:
-    - text: "Wellcome"
-      icon: fa-home
+    - icon: fa-home
       href: index.html
+  right:
     - text: "Logistics"
       icon: fa-info
       href: 01-Logistics.html
