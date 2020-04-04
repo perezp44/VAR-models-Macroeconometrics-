@@ -9,7 +9,7 @@
 This is the repo that builds the website for the 4th topic of the 2019-2020 Macroeconometrics
 course (44343, Master in Economics at the University of Valencia).
 
-The website is here: <https://perezp44.github.io/VAR-models-web/index.html>
+The website is here: <https://perezp44.github.io/VAR-models-web/index.html>{target="_blank"}
 
 Hi students\!
 

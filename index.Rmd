@@ -30,7 +30,7 @@ options(scipen = 999) #- para quitar la notacion cientifica
 Hi students! 
 
 
-This is the website for the 4th topic of the 2019-2020 Macroeconometrics course from the Master in Economics at the University of Valencia. Mariam has delivered already the first 3 topics and I’m in charge of the last and 4th: **VAR models**. The repo of this web is hosted in Gitbub, [here](https://github.com/perezp44/VAR-models-web/).
+This is the website for the 4th topic of the 2019-2020 Macroeconometrics course from the Master in Economics at the University of Valencia. Mariam has delivered already the first 3 topics and I’m in charge of the last and 4th: **VAR models**. The repo of this web is hosted in Gitbub, [here](https://github.com/perezp44/VAR-models-web/){target="_blank"}.
 
 As you know the classes were face-to-face but then the covid-19 ... I hope all this will pass soon!! We will try our best lo learn something about VAR models!!
 
