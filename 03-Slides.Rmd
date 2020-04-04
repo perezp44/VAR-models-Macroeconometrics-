@@ -11,6 +11,7 @@ output:
     toc_float: true
     #code_folding: show
     self_contained: TRUE
+    code_download: true
 ---
 
 <!--- definiendo estilos CSS o HTML -->
@@ -42,14 +43,6 @@ opts_chunk$set(echo=TRUE,
 
 opts_knit$set(width=75)
 ```
-
-
-
---------------------   
-
-
-# Notes on Applied VAR Modelling
-
 
 
 --------------------  

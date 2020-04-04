@@ -12,7 +12,7 @@
 <meta name="author" content="Pedro J. Perez" />
 
 
-<title>Lab VAR models (Gali)</title>
+<title>Lab on Applied VAR Modelling</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,6 +24,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -87,6 +88,15 @@ code span.va { } /* Variable */
 code span.vs { color: #008080; } /* VerbatimString */
 code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -321,6 +331,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -484,18 +497,23 @@ div.tocify {
 
 <div class="fluid-row" id="header">
 
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
 
 
-<h1 class="title toc-ignore">Lab VAR models (Gali)</h1>
+
+<h1 class="title toc-ignore">Lab on Applied VAR Modelling</h1>
 <h4 class="author">Pedro J. Perez</h4>
 <h4 class="date">2020, April</h4>
 
 </div>
 
 
-<hr />
-<div id="lab-on-applied-var-modelling" class="section level1">
-<h1>Lab on Applied VAR Modelling</h1>
 <hr />
 <ol style="list-style-type: decimal">
 <li>Objective<br />
@@ -531,7 +549,6 @@ div.tocify {
 </ol>
 <p><br> <br></p>
 <hr />
-</div>
 <div id="objective" class="section level1">
 <h1>1. Objective</h1>
 <p><br></p>
@@ -1474,6 +1491,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
 
 <script>
 $(document).ready(function ()  {
