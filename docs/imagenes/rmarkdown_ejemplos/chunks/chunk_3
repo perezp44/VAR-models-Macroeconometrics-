@@ -1,0 +1,3 @@
+```{r, echo = TRUE, eval = FALSE}
+summary(iris)
+```

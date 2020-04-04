@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Pedro J. Pérez" />
+
+<meta name="date" content="2020-04-04" />
+
+<title>Documentos Rmarkdown (WIP)</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 64px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h2 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h3 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h4 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h5 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h6 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">VAR models</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="01-Course-plan.html">Course "plan"</a>
+</li>
+<li>
+  <a href="02-Logistics.html">
+    <span class="fa fa-laptop"></span>
+     
+    Logistics
+  </a>
+</li>
+<li>
+  <a href="03-Slides.html">
+    <span class="fa fa-book"></span>
+     
+    Slides
+  </a>
+</li>
+<li>
+  <a href="04-Lab-Gali.html">
+    <span class="fa fa-keyboard"></span>
+     
+    Lab
+  </a>
+</li>
+<li>
+  <a href="05-Schedulle.html">
+    <span class="fa fa-calendar-alt"></span>
+     
+    Schedulle
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-gear"></span>
+     
+    MáS
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">In Spanish</li>
+    <li>
+      <a href="tt_01_primeros-pasos-con-R.html">Primeros pasos con R</a>
+    </li>
+    <li>
+      <a href="tt_02_Rmarkdown.html">Rmarkdown</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Documentos Rmarkdown (WIP)</h1>
+<h4 class="author">Pedro J. Pérez</h4>
+<h4 class="date">2020-04-04</h4>
+
+</div>
+
+
+<hr />
+<div id="introducción" class="section level1">
+<h1>1. Introducción</h1>
+<p>El proceso habitual para hacer un informe (o unas transparencias) en el que aparezcan gráficos o tablas resumen de algún análisis estadístico consiste en :</p>
+<ol style="list-style-type: decimal">
+<li>Escribir el texto en un programa (Word, Powerpoint, Prezi, etc.)</li>
+<li>Realizar los cálculos estadísticos y gráficos en otro programa (R, Stata, Eviews, etc.)</li>
+<li>Pegar los gráficos y tablas en el documento de texto.</li>
+</ol>
+<p>Este proceso tiene ciertas desventajas: dificulta la investigación reproducible, puede ser tedioso de rehacer si por ejemplo cambian ligeramente los datos, etc.</p>
+<p><br></p>
+<p><strong>En R es posible realizar todo el informe</strong>, tanto la escritura del texto como la realización de los cálculos y gráficos, <strong>en un único documento</strong>. Hay varias formas de hacerlo, pero nos centraremos en los documentos RMarkdown (.Rmd).</p>
+<p>Los <strong>documentos RMarkdown (.Rmd)</strong> facilitan mucho la realización de informes y transparencias ya que permiten combinar texto, código y resultados de la evaluación del código en un único documento. Si por ejemplo cambian los datos sólo habría que cambiar la ruta a los nuevos datos y el informe (gráficos, tablas etc…) se volvería a generar automáticamente con los nuevos datos.</p>
+<p>La razón para hacer los análisis reproducibles no sólo es cumplir con los estándares científicos, que también, sino también hay un interés personal para el analista. Para entenderlo puedes ver el siguiente <a href="https://www.youtube.com/watch?v=s3JldKoA0zw&amp;feature=youtu.be">video de 1’44’’</a> que muestra una de las principales ventajas de usar documentos <code>.Rmd</code>.</p>
+<p>Hace poco David Keyes pregunto en Twitter a la comunidad R cuales eran los principales beneficios de usar ficheros .Rmd para tus investigaciones/informes:</p>
+<blockquote class="twitter-tweet">
+<p lang="en" dir="ltr">
+Help me out <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> hive mind. I've been asked to explain the benefits of RMarkdown. I'm developing a list on a continuum from simple (i.e. do what you currently do, just better) to complex (i.e. completely transform how you work). Here 'tis:
+</p>
+— David Keyes (<span class="citation">@dgkeyes</span>) <a href="https://twitter.com/dgkeyes/status/1101554699566641152?ref_src=twsrc%5Etfw">March 1, 2019</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>Con las respuestas al tweet, David elaboró <a href="https://rfortherestofus.com/2019/03/r-killer-feature-rmarkdown/">este post</a>.</p>
+<p><br></p>
+<p>Ya hemos trabajado con algunos <strong>documentos Rmarkdown</strong> (<code>.Rmd</code>); de hecho, todos los tutoriales del curso (incluido éste que estás viendo) se han elaborado usando ficheros .Rmd. Los tutoriales se escriben en ficheros RMarkdown, pero estos ficheros .Rmd se convierten a html, que suele ser el formato final en el que se muestran los tutoriales. En RStudio el proceso de conversión de .Rmd a .html consiste simplemente en pinchar un botón; además, simplemente cambiando una linea podemos convertir los documentos .Rmd a una gran variedad de formatos: html, pdf, word, ioslides, beamer, etc…</p>
+<p>Si quieres ver algunos ejemplos de la gran variedad de formatos a los que puedes transformar un documento .Rmd ve a la siguiente <a href="http://rmarkdown.rstudio.com/gallery.html">galería</a>. Para iniciarte en el universo Rmarkdown puedes consultar <a href="https://bookdown.org/yihui/rmarkdown/"><code>R Markdown: The Definitive Guide</code></a>.</p>
+<p><br></p>
+<div id="proceso-para-convertir-los-.rmd-a-otros-formatos-opcional" class="section level4">
+<h4>Proceso para convertir los .Rmd a otro(s) formatos [OPCIONAL]</h4>
+<p>Como trabajamos con RStudio, en la práctica, procesar los ficheros .Rmd consistirá solamente en pinchar en el icono <code>Knit</code><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Muy fácil!!</p>
+<p>No es necesario, pero quizá os interese saber cómo se procesan realmente los ficheros .Rmd para acabar convirtiéndose en html, pdf, etc.</p>
+<p>La respuesta es que se ocupan de ello dos paquetes de R, <a href="https://yihui.name/knitr/"><code>knitr</code></a> y <a href="https://github.com/rstudio/rmarkdown"><code>rmarkdown</code></a> y un programa llamado <a href="https://es.wikipedia.org/wiki/Pandoc"><code>pandoc</code></a>.</p>
+<p><strong>En palabras:</strong> knitr se ocupa de ejecutar todos los trozos con código R que haya en el fichero .Rmd, después de ejecutar el código, pegará los resultados de la evaluación del código (gráficos, tablas etc…) junto con el texto en un documento intermedio (con extensión .md), para después transferir, con la ayuda del paquete <code>rmarkdown</code>, este documento .md a <code>pandoc</code> que se encargará de traducirlo al formato elegido (html, pdf, …)<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>. Knitr sabe diferenciar el texto del código R porque éste se señaliza con unas marcas.</p>
+<p><strong>Visualmente:</strong></p>
+<p><img src="imagenes/tt_8_RMarkdownFlow.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><br></p>
+<hr />
+</div>
+</div>
+<div id="creando-.rmds-en-rstudio" class="section level1">
+<h1>2 Creando .Rmd’s en RStudio</h1>
+<p>En la práctica, RStudio facilita mucho la creación de documentos Rmarkdown. Para generar un documento .Rmd basta con seguir la siguiente ruta de menús: <code>File &gt; New File &gt; R Markdown ...</code></p>
+<p><img src="imagenes/tt_8_crear_rmarkdown_1.PNG" width="45%" style="display: block; margin: auto;" /></p>
+<p>Se abrirá una ventana que nos solicitará un título y un autor para nuestro .Rmd, así como el formato de salida.</p>
+<p><img src="imagenes/tt_8_crear_rmarkdown_2.PNG" width="50%" /><img src="imagenes/tt_8_crear_rmarkdown_3.PNG" width="50%" /></p>
+<p>Cuando aceptemos nos generará un documento/plantilla para nuestro .Rmd. Si queremos procesarlo o “knitearlo” tendremos que hacer click en el icono <strong><code>Knit</code></strong></p>
+<p><img src="imagenes/tt_8_crear_rmarkdown_4.PNG" width="50%" /><img src="imagenes/tt_8_crear_rmarkdown_5.PNG" width="50%" /></p>
+<p><br></p>
+<hr />
+</div>
+<div id="qué-son-los-documentos-.rmd" class="section level1">
+<h1>3. ¿Qué son los documentos .Rmd?</h1>
+<p>Son simplemente ficheros de texto (se pueden escribir en cualquier editor de texto, por ejemplo Notepad); PERO <strong>facilitan mucho la tarea de generar informes o transparencias</strong> con contenido estadístico, ya que permiten mezclar en un mismo documento texto y código R.</p>
+<p>El código R (así como los resultados de la evaluación del código) se mostrarán automáticamente (gracias a <code>knitr</code>) en el documento final; de esta forma, se facilita mucho la realización de informes y transparencias ya que evita el tener que ir copiando los resultados (tablas, gráficos etc…) en el informe.</p>
+<p><br></p>
+<p>Veamos un <strong>ejemplo</strong> con un documento Rmarkdown muy sencillo:</p>
+<pre><code>---
+title: &quot;El título de mi informe&quot;
+author: &quot;Yo mismo&quot;
+date: &quot;Marzo de 2017&quot;
+output: html_document
+---
+
+En este informe haremos un resumen (o summary) del conjunto de datos iris.
+
+```{r}
+summary(iris)
+```
+
+El trozo de arriba es un chunk de código R. Cuando compile el documento, knitr ejecutará el código y mostrará los resultados en el documento final.
+
+
+Con esto finalizamos este informe.</code></pre>
+<p><br></p>
+<p>Como veis, los documentos Rmarkdown tienen 3 partes o elementos:</p>
+<ul>
+<li>encabezamiento</li>
+<li>trozos de código R</li>
+<li>texto</li>
+</ul>
+<p>Luego hablaremos de ellas. Antes veamos como quedaría el documento .Rmd tras ser procesado por knitr (“kniteado”). Tras pasar por knitr y pandoc se generará un documento .html que se verá así:</p>
+<p><img src="imagenes/rmarkdown_ejemplos/imagenes/ejemplo_1_imagen.PNG" width="85%" style="display: block; margin: auto;" /></p>
+<p>Como veis, el chunk con código R <code>summary(iris)</code> se ha ejecutado y se ha mostrado tanto el código como el resultado de su evaluación en unas cajas de texto.</p>
+<p><br></p>
+<hr />
+</div>
+<div id="partes-de-los-ficheros-.rmd" class="section level1">
+<h1>4. Partes de los ficheros .Rmd</h1>
+<p>Los documentos Rmarkdown tienen 3 partes o elementos:</p>
+<ul>
+<li>Encabezamiento o yaml header</li>
+<li>Trozos de código R(chunks)</li>
+<li>Texto (escrito en markdown)</li>
+</ul>
+<p>Veámoslas una a una.</p>
+<p><br></p>
+<hr />
+<div id="encabezamiento-yaml-header" class="section level2">
+<h2>Encabezamiento (yaml header)</h2>
+<p><br></p>
+<p>Abajo tenéis un ejemplo sencillo de un yaml header:</p>
+<pre><code>---
+title: &quot;El título de mi informe&quot;
+author: &quot;Yo mismo&quot;
+date: &quot;Marzo de 2017&quot;
+output: html_document
+---</code></pre>
+<p><br></p>
+<p>Como podéis imaginar, el encabezamiento se coloca <strong>al principio del documento y comienza y acaba con una marca de 3 guiones</strong>: <strong><code>---</code></strong></p>
+<p>En el encabezamiento se introducen elementos básicos del documento como el título, el autor, fecha, y el formato de salida del documento. En el ejemplo hemos elegido como formato de salida <code>html</code>; si preferimos pdf, habría que sustituir <code>output: html_document</code> por <code>output: pdf_document</code></p>
+<p><br></p>
+<p>El yaml header puede incluir otros elementos para personalizar un poco más el documento final o output. Abajo tenéis un ejemplo más complejo de un yaml header. Es el que utilizamos para hacer los tutoriales del curso de introducción a R.</p>
+<pre><code>---
+title: &quot;Documentos Rmarkdown (.Rmd)&quot;
+author: &quot;Vicente Coll &amp; Pedro J. Pérez&quot;
+date: &quot;`r Sys.Date()`&quot;  
+output:
+  html_document:
+    code_folding: show
+    theme: journal
+    toc: yes
+    toc_float: yes
+---</code></pre>
+<p><br></p>
+<p>En la práctica, RStudio se ocupará por nosotros de escribir el encabezamiento de los documentos Rmarkdown.</p>
+<p><br></p>
+<hr />
+</div>
+<div id="chunks-o-código-r" class="section level2">
+<h2>Chunks (o código R)</h2>
+<p><br></p>
+<p>Los trozos de código R o chunks permiten hacer análisis estadísticos y mostrar los resultados en el documento final.</p>
+<p>Para que knitr distinga las instrucciones de R del texto normal <strong>tenemos que poner las instrucciones de R dentro de unas marcas</strong> o identificadores: <code>```{r}</code> al principio y <code>```</code> al final.</p>
+<p>Por ejemplo:</p>
+<pre><code>```{r}
+summary(iris)
+```</code></pre>
+<p>Knitr interpreta ese trozo de texto como instrucciones de R porque van dentro de las marcas, y hará que R las ejecute y muestre los resultados en el documento final.</p>
+<p><br></p>
+<p>Los chunks pueden tienen diversas opciones que permiten una mayor flexibilidad en como se muestra el código y los resultados en el documento final. Las opciones más usadas son:</p>
+<ul>
+<li>echo</li>
+<li>eval</li>
+</ul>
+<p><br></p>
+<p>Por ejemplo, si introducimos este texto en nuestro fichero .Rmd:</p>
+<pre><code>```{r, echo = TRUE, eval = TRUE}
+summary(iris)
+```</code></pre>
+<p>En este caso, se mostrará el chunk(<code>echo = TRUE</code>) y también se evaluará (<code>eval = TRUE</code>) y, por tanto, se mostrarán los resultados en el documento final. Se verá algo como:</p>
+<pre class="r"><code>summary(iris)
+#&gt;   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+#&gt;  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+#&gt;  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+#&gt;  Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+#&gt;  Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+#&gt;  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+#&gt;  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+#&gt;        Species  
+#&gt;  setosa    :50  
+#&gt;  versicolor:50  
+#&gt;  virginica :50  
+#&gt;                 
+#&gt;                 
+#&gt; </code></pre>
+<p><br></p>
+<p>Mientras que si en el .Rmd escribimos lo siguiente:</p>
+<pre><code>```{r, echo = TRUE, eval = FALSE}
+summary(iris)
+```</code></pre>
+<p>Se mostrará el código (<code>echo = TRUE</code>), pero no se evaluará (<code>eval = FALSE</code>) y ,por lo tanto, no se mostrarán los resultados en el documento final.</p>
+<p><br></p>
+<p>Si en el .Rmd escribimos lo siguiente:</p>
+<pre><code>```{r, echo = FALSE, eval = TRUE}
+summary(iris)
+```</code></pre>
+<p>NO se mostrará el código (<code>echo = FALSE</code>), pero SI se evaluará (<code>eval = FALSE</code>) y ,por lo tanto, SI se mostrarán los resultados en el documento final.</p>
+<p><br></p>
+<p>Si en el .Rmd escribimos lo siguiente:</p>
+<pre><code>```{r, echo = FALSE, eval = TRUE, results = &quot;hide&quot;}
+summary(iris)
+```</code></pre>
+<p>NO se mostrará el código (<code>echo = FALSE</code>), SI se evaluará (<code>eval = FALSE</code>), PERO como <code>results = &quot;hide&quot;</code> NO se mostrarán los resultados en documento final.</p>
+<p><br></p>
+<p>Hay más opciones sobre los chunks que nos permiten una mayor flexibilidad sobre como mostrar los resultados y el código; pero si quieres ver todas las opciones tendrás que ir a la <a href="https://yihui.name/knitr/options/">página web de knitr</a> o al <a href="https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf">cheat sheet sobre Rmarkdown</a></p>
+<p><br></p>
+<hr />
+</div>
+<div id="el-texto-en-rmarkdown" class="section level2">
+<h2>El texto (en Rmarkdown)</h2>
+<p><br></p>
+<p>La parte principal de un informe suele ser texto (narratives). En un fichero .Rmd, todo lo que no sea encabezamiento o chunks será interpretado por knit como texto y lo mostrará tal cual; es decir, como texto.</p>
+<p>Aquí podríamos acabar nuestro tutorial sobre como escribir texto en un fichero .Rmd; pero generalmente en un texto queremos resaltar ciertas palabras con negrita, o ponerlas en cursiva, o poner un titulo de sección y de sub-secciones. Todo esto lo tendremos que hacer utilizando <strong>Markdown</strong>. Markdown es un lenguaje de marcas ligero y muy sencillo de aprender (lo básico se aprende en unos 10 minutos) pero muy utilizado. Es posible que alguno de vosotros haya utilizado una variante de Markdown al escribir en negrita en Whatsapp.</p>
+<p>El texto de un documento .Rmd es “simplemente” texto PERO está escrito en <strong>Markdown</strong>. Ahora lo veremos, pero antes vamos a ver un poco más sobre qué es Markdown.</p>
+<p><br></p>
+<div id="qué-es-markdown-opcional" class="section level4">
+<h4>¿Qué es Markdown? [OPCIONAL]</h4>
+<p>Mardown es un lenguaje de marcado ligero ideado en 2004 por Jhon Grueber y <a href="https://es.wikipedia.org/wiki/Aaron_Swartz">Aaron Swartz</a>. Podemos pensar que es un método de escritura: evidentemente sirve para escribir. La ventaja de escribir en Markdown es que es un lenguaje muy fácil de aprender y que como está basado en un formato de texto plano, es y será compatible con la mayoría de plataformas.</p>
+<p>La mayoría de vosotros escribís en Word. Es muy fácil escribir en Word pero un archivo word solo es posible leerlo en el programa WORD de Microsoft. Si intentas abrir un documento .doc en Notepad, éste será completamente ilegible; sin embargo, la mayoría de plataformas y servicios web saben interpretar y mostrar correctamente un documento escrito en Markdown.</p>
+<p>Lo que escribas en Rmarkdown se mostrará tal cual en el documento final, pero lo más habitual es que quieras dar un poco de formato el texto: negritas, cursivas, listas, enlaces de internet, etc…</p>
+<p>Todos estos formatos (negrita, …) se introducen en rmarkdown con marcas; por ejemplo si quieres que una palabra se resalte en negritas tienes que escribirla enmarcada en <code>**</code>: <strong><code>**esto se mostraría en negrita**</code></strong></p>
+<p>Para aprender las principales reglas de Rmarkdown podéis usar un <a href="https://vuejs.org/v2/examples/">editor on-line de Markdown</a> y probar a escribir algo.</p>
+<p>En este otro <a href="https://www.markdowntutorial.com/">tutorial de Markdown</a>, se puede leer lo siguiente:</p>
+<blockquote>
+<p>Markdown is a way to write content for the web. It’s written in what nerds like to call “plaintext”, which is exactly the sort of text you’re used to writing and seeing. Plaintext is just the regular alphabet, with a few familiar symbols. Unlike cumbersome word processing applications, text written in Markdown can be easily shared between computers, mobile phones, and people. It’s quickly becoming the writing standard for academics, scientists, writers, and many more. Websites like GitHub and reddit use Markdown to style their comments.</p>
+</blockquote>
+<div id="aquí-tienes-algunas-reglas-de-markdown" class="section level5">
+<h5>Aquí tienes algunas reglas de Markdown</h5>
+<p><img src="imagenes/rmarkdown_ejemplos/imagenes/imagen_ejemplo_markdown.PNG" width="110%" style="display: block; margin: auto;" /></p>
+<p>Si abres el fichero el fichero: <code>./rmarkdown_ejemplos/ejemplo_Rmd_completo.Rmd</code>, podrás ver un documento Rmd con algún ejemplo más: míralos y luego <em>knitea</em> el documento.</p>
+<p><br></p>
+</div>
+</div>
+</div>
+</div>
+<div id="más-cosas-de-rmarkdown" class="section level1">
+<h1>5. Más cosas de RMarkdown</h1>
+<p>En la página web de Markdown, concretamente <a href="https://daringfireball.net/projects/markdown/syntax#html">aquí</a> nos avisan de lo siguiente:</p>
+<blockquote>
+<p>Markdown is not a replacement for HTML, or even close to it. Its syntax is very small, corresponding only to a very small subset of HTML tags … The idea for Markdown is to make it easy to read, write, and edit prose. HTML is a publishing format; Markdown is a writing format. Markdown was not designed to solve everything.</p>
+</blockquote>
+<p>A pesar de que, como nos avisó Jhon Grueber, el desarrollador de Markdown, Markdown no está diseñado para resolver todas las necesidades de un escritor/científico, en Rmarkdown se pueden introducir también elementos como:</p>
+<div id="ecuaciones" class="section level3">
+<h3>Ecuaciones</h3>
+<p>Se pueden introducir formulas matemáticas escritas en Látex. Para formulas en linea se usa la marca <code>$</code> y para formulas independientes se usa <code>$$</code>.</p>
+<ul>
+<li><p>Para fórmulas en linea (o dentro del texto) se utiliza la marca <code>$</code> al principio y final de la formula. Por ejemplo <code>$\sum_{i=1}^n X_i$</code> se mistaría así: <span class="math inline">\(\sum_{i=1}^n X_i\)</span>. Ves, la formula está dentro del texto, en una linea del texto.</p></li>
+<li><p>Para presentar una ecuación independiente (en una linea independiente), se usa la marca <code>$$</code> al principio y final de la formula. Si escribes <code>$$E = mc^{2}$$</code>, se mostrará en una linea independiente tal que así:</p></li>
+</ul>
+<p><span class="math display">\[E = mc^{2}\]</span></p>
+<p>¿Que pasa, que no sabes escribir formulas o ecuaciones en Latex? Yo tampoco mucho, pero puedes utilizar un programa como <a href="https://www.lyx.org/">Lyx</a>, o mucho más fácil, puedes utilizar algún editor online de Latex, por ejemplo: <a href="http://www.sciweavers.org/free-online-latex-equation-editor">este</a> o <a href="https://www.latex4technics.com/">este</a>. En <a href="https://dereksonderegger.github.io/570L/16-rmarkdown-tricks.html">este libro</a> tienen algunos ejemplos de ecuaciones en Latex.</p>
+<p>Recientemente, el paquete <a href="https://github.com/datalorax/equatiomatic"><code>equatiomatic</code></a> permite obtener fácilmente la ecuación de un modelo:</p>
+<pre class="r"><code># remotes::install_github(&quot;datalorax/equatiomatic&quot;)
+library(equatiomatic)
+
+# Fit a simple model
+mod1 &lt;- lm(mpg ~ cyl + disp, mtcars)
+
+# Give the results to extract_eq
+extract_eq(mod1)</code></pre>
+<p><span class="math display">\[
+\text{mpg} = \alpha + \beta_{1}(\text{cyl}) + \beta_{2}(\text{disp}) + \epsilon
+\]</span></p>
+<p>También de un modelo estimado:</p>
+<pre class="r"><code>extract_eq(mod1, use_coefs = TRUE)</code></pre>
+<p><span class="math display">\[
+\text{mpg} = 34.66 - 1.59(\text{cyl}) - 0.02(\text{disp}) + \epsilon
+\]</span></p>
+<p><br></p>
+</div>
+<div id="imágenes" class="section level3">
+<h3>Imágenes</h3>
+<p>Para mostrar una imagen basta con poner:</p>
+<pre><code>![Una imagen chula](./imagenes/img1.jpeg) </code></pre>
+<p>Aunque yo prefiero hacerlo así:</p>
+<pre><code>```{r eval = TRUE, echo = TRUE}
+knitr::include_graphics(here::here(&quot;./imagenes/rmarkdown_ejemplos/imagenes/fucking_ages_image.jpeg&quot;)  )
+```</code></pre>
+<div class="figure" style="text-align: center">
+<img src="imagenes/rmarkdown_ejemplos/imagenes/fucking_ages_image.jpeg" alt="Una imagén chula" width="55%" />
+<p class="caption">
+Una imagén chula
+</p>
+</div>
+</div>
+<div id="hyperlinks" class="section level3">
+<h3>Hyperlinks</h3>
+<p>Para poner hyperlinks se puede escribir lo siguiente: <code>&lt;http://www.wikipedia.es&gt;</code> y se mostrará así: <a href="http://www.wikipedia.es" class="uri">http://www.wikipedia.es</a></p>
+<p>Pero es mejor ponerlo así: <code>[enlace a la Wikipedia](http://www.wikipedia.es)</code> y se mostrará así: <a href="http://www.wikipedia.es" target="_blank">enlace a la Wikipedia</a>.</p>
+<p>Si quieres que el enlace se abra en el navegador en una página nueva has de añadir <code>{target=&quot;_blank&quot;}</code></p>
+</div>
+<div id="notas-al-pie-de-página" class="section level3">
+<h3>Notas al pie de página</h3>
+<p>Para poner notas al pie has de poner <code>[^1]</code> y luego al final del documento poner <code>[^1]: esto es una nota al pie.</code>, y se verá esto: <a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<p>O alternativamente poner, en el sitio del texto donde quieras insertar una nota al pie, esta marca: <code>^[el texto que quiero que se lea en la nota al pie]</code> y se mostrará como una nota al pie.</p>
+</div>
+<div id="tablas" class="section level3">
+<h3>Tablas</h3>
+<p>Habrá un tutorial especifico para tablas, pero para mostrar una tabla, lo más básico y sencillo es utilizar la función <code>knitr::kable()</code>:</p>
+<pre><code>```{r}   
+knitr::kable(summary(iris))    
+```    </code></pre>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="center">Sepal.Length</th>
+<th align="center">Sepal.Width</th>
+<th align="center">Petal.Length</th>
+<th align="center">Petal.Width</th>
+<th align="center">Species</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td align="center">Min. :4.300</td>
+<td align="center">Min. :2.000</td>
+<td align="center">Min. :1.000</td>
+<td align="center">Min. :0.100</td>
+<td align="center">setosa :50</td>
+</tr>
+<tr class="even">
+<td></td>
+<td align="center">1st Qu.:5.100</td>
+<td align="center">1st Qu.:2.800</td>
+<td align="center">1st Qu.:1.600</td>
+<td align="center">1st Qu.:0.300</td>
+<td align="center">versicolor:50</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td align="center">Median :5.800</td>
+<td align="center">Median :3.000</td>
+<td align="center">Median :4.350</td>
+<td align="center">Median :1.300</td>
+<td align="center">virginica :50</td>
+</tr>
+<tr class="even">
+<td></td>
+<td align="center">Mean :5.843</td>
+<td align="center">Mean :3.057</td>
+<td align="center">Mean :3.758</td>
+<td align="center">Mean :1.199</td>
+<td align="center">NA</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td align="center">3rd Qu.:6.400</td>
+<td align="center">3rd Qu.:3.300</td>
+<td align="center">3rd Qu.:5.100</td>
+<td align="center">3rd Qu.:1.800</td>
+<td align="center">NA</td>
+</tr>
+<tr class="even">
+<td></td>
+<td align="center">Max. :7.900</td>
+<td align="center">Max. :4.400</td>
+<td align="center">Max. :6.900</td>
+<td align="center">Max. :2.500</td>
+<td align="center">NA</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+</div>
+</div>
+<div id="aún-más-cosas" class="section level1">
+<h1>6. Aún más cosas</h1>
+<p>Hay más cosas, como referencias bibliográficas, pero ya será para el segundo curso de R o lo tendrás que aprender por tu cuenta en <a href="https://bookdown.org/yihui/rmarkdown/"><code>R Markdown: The Definitive Guide</code></a>.</p>
+<p>A pesar de que Markdown permite formatear el texto, en ciertos sentidos es limitado; pero si quieres aún más flexibilidad en el output, tendrás que aprender html y mejor html+CSS.</p>
+<p><br></p>
+<p><strong>Algunos ejemplos:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Si quieres introducir un párrafo en otro color tendrás que hacerlo en html, tendrás que escribir: <code>&lt;FONT COLOR=&quot;Red&quot;&gt;Esto se mostrará en ROJO!!&lt;/FONT&gt;</code></p>
+<p><FONT COLOR="Red">Esto se mostrará en ROJO!!</FONT></p></li>
+</ol>
+<p><br></p>
+<ol start="2" style="list-style-type: decimal">
+<li>si quieres centrar un párrafo, tendrás que escribir: <code>&lt;CENTER&gt;Este párrafo irá centrado&lt;/CENTER&gt;</code></li>
+</ol>
+<CENTER>
+Este párrafo irá centrado
+</CENTER>
+<p><br></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Puedes insertar en tu documento (sólo si el output es html) una página web completa, para ello has de escribir: <code>&lt;iframe src=&quot;http://www.eldiario.es/&quot; height=&quot;400&quot; width=&quot;800&quot;&gt;&lt;/iframe&gt;</code></li>
+</ol>
+<p><br></p>
+<iframe src="http://www.eldiario.es/" height="400" width="800">
+</iframe>
+<p><br></p>
+<p><br></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Un vídeo. Has de escribir: <code>&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/ACv9zaBa1A4&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</code></li>
+</ol>
+<p><br></p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ACv9zaBa1A4" frameborder="0" allowfullscreen>
+</iframe>
+<p><br></p>
+<hr />
+<p><br></p>
+<div id="aún-más-cosas-ii" class="section level2">
+<h2>Aún más cosas (II)</h2>
+<ul>
+<li>El paquete <a href="https://github.com/kbodwin/demoR"><code>demoR</code></a> ayuda a presentar el código R en documentos Rmd. Por ejemplo, permite marcar/highligt algunas partes de una sentencia o código R. Para aprender puedes ir a la <a href="https://web.calpoly.edu/~kbodwin/demoR/articles/demoR.html">viñeta</a> del paquete. Por ejemplo, en el próximo chunk voy a marcar en amarillo el operador pipe <code>%&gt;%</code></li>
+</ul>
+<pre class='prettyprint'><code>aa <- iris <span style='background-color:#ffff7f'>%>%</span> group_by(Species) <span style='background-color:#ffff7f'>%>%</span> summarize(mean(Sepal.Length))</code></pre>
+<ul>
+<li><p>Podemos <a href="https://ropensci.org/technotes/2018/05/15/icon/">usar iconos</a> en nuestros Rmds. Por ejemplo: <i class="fas  fa-rocket " style="color:#1FA67A;"></i> + <i class="fab  fa-r-project " style="color:#384CB7;"></i> = <i class="fas  fa-heart " style="color:red;"></i></p></li>
+<li><p>Podemos usar cajas de colores para resaltar un trozo de texto por ejemplo para poner conclusiones. Esto lo aprendí <a href="https://holtzy.github.io/Pimp-my-rmd/#figures_caption">aquí</a>. Gracias Holtz!!</p></li>
+</ul>
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
+</style>
+<div class="blue">
+<p><strong>Conclusiones:</strong></p>
+<ul>
+<li>This is my first conclusion</li>
+<li>This is my second conclusion</li>
+</ul>
+</div>
+<p><br></p>
+<hr />
+<p><br></p>
+</div>
+</div>
+<div id="investigación-reproducible-y-rmd" class="section level1">
+<h1>7. Investigación reproducible y Rmd</h1>
+<p>Hemos hablado muy poco de investigación reproducible pero, es evidente que usar documentos <code>.Rmd</code> y trabajar con <code>Rprojects</code> facilita la investigación reproducible. No la garantiza del todo, para ello habría que ver/usar más herramientas (docker, packrat, github, …). No lo vamos a hacer, pero al menos señalar dos prácticas que facilitan que tus análisis se acerquen a ser reproducibles:</p>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li><p>Cuando estás haciendo un análisis y quieres compartirlo hay que estar seguro de los packages que se necesitan cargar para replicarlo, por eso es bueno hacer el análisis desde una sesión nueva/fresca de R y cargar los paquetes al principio del script. Para ello, puede ser de utilidad saber que paquetes tienes cargados en un momento dado, y puedes saberlo con: <code>(.packages())</code>.</p></li>
+<li><p>A pesar de que nosotros no lo hemos hecho (👎), es recomendable introducir al final de los ficheros <code>.Rmd</code> la siguiente instrucción: <code>sessionInfo()</code>. De esta forma, proporcionarás información sobre que ordenador, sistema operativo y versión de R utilizaste en tu análisis, así como de las opciones locales de tu sistema (idioma, etc …) y de los paquetes que tienes cargados en memoria. Por ejemplo, ahora mismo mi sessionInfo es:</p></li>
+</ol>
+<p><br></p>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>#&gt; R version 3.6.3 (2020-02-29)
+#&gt; Platform: x86_64-pc-linux-gnu (64-bit)
+#&gt; Running under: Ubuntu 18.04.4 LTS
+#&gt; 
+#&gt; Matrix products: default
+#&gt; BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.7.1
+#&gt; LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.7.1
+#&gt; 
+#&gt; locale:
+#&gt;  [1] LC_CTYPE=es_ES.UTF-8       LC_NUMERIC=C              
+#&gt;  [3] LC_TIME=es_ES.UTF-8        LC_COLLATE=es_ES.UTF-8    
+#&gt;  [5] LC_MONETARY=es_ES.UTF-8    LC_MESSAGES=es_ES.UTF-8   
+#&gt;  [7] LC_PAPER=es_ES.UTF-8       LC_NAME=C                 
+#&gt;  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+#&gt; [11] LC_MEASUREMENT=es_ES.UTF-8 LC_IDENTIFICATION=C       
+#&gt; 
+#&gt; attached base packages:
+#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     
+#&gt; 
+#&gt; other attached packages:
+#&gt;  [1] icon_0.1.0              demoR_0.0.0.9000        equatiomatic_0.0.0.9000
+#&gt;  [4] here_0.1                dygraphs_1.1.1.6        forcats_0.5.0          
+#&gt;  [7] stringr_1.4.0           dplyr_0.8.5             purrr_0.3.3            
+#&gt; [10] readr_1.3.1             tidyr_1.0.2             tibble_3.0.0           
+#&gt; [13] ggplot2_3.3.0           tidyverse_1.3.0         vars_1.5-3             
+#&gt; [16] lmtest_0.9-37           urca_1.3-0              strucchange_1.5-2      
+#&gt; [19] sandwich_2.5-1          zoo_1.8-7               MASS_7.3-51.5          
+#&gt; [22] DiagrammeR_1.0.5.9000   rmdformats_0.3.7        knitr_1.28             
+#&gt; 
+#&gt; loaded via a namespace (and not attached):
+#&gt;  [1] httr_1.4.1         jsonlite_1.6.1     modelr_0.1.6       assertthat_0.2.1  
+#&gt;  [5] highr_0.8          emo_0.0.0.9000     cellranger_1.1.0   yaml_2.2.1        
+#&gt;  [9] pillar_1.4.3       backports_1.1.5    lattice_0.20-40    glue_1.4.0        
+#&gt; [13] digest_0.6.25      RColorBrewer_1.1-2 rvest_0.3.5        colorspace_1.4-1  
+#&gt; [17] htmltools_0.4.0    pkgconfig_2.0.3    broom_0.5.5        haven_2.2.0       
+#&gt; [21] bookdown_0.18      scales_1.1.0       generics_0.0.2     ellipsis_0.3.0    
+#&gt; [25] withr_2.1.2        cli_2.0.2          magrittr_1.5       crayon_1.3.4      
+#&gt; [29] readxl_1.3.1       evaluate_0.14      fs_1.3.2           fansi_0.4.1       
+#&gt; [33] nlme_3.1-145       xts_0.12-0         xml2_1.2.5         tools_3.6.3       
+#&gt; [37] hms_0.5.3          formatR_1.7        lifecycle_0.2.0    munsell_0.5.0     
+#&gt; [41] reprex_0.3.0       compiler_3.6.3     rlang_0.4.5        grid_3.6.3        
+#&gt; [45] rstudioapi_0.11    htmlwidgets_1.5.1  visNetwork_2.0.9   rmarkdown_2.1     
+#&gt; [49] gtable_0.3.0       DBI_1.1.0          R6_2.4.1           lubridate_1.7.4   
+#&gt; [53] rprojroot_1.3-2    stringi_1.4.6      Rcpp_1.0.4         vctrs_0.2.4       
+#&gt; [57] dbplyr_1.4.2       tidyselect_1.0.0   xfun_0.12</code></pre>
+<p><br></p>
+<p>Si quieres ver todos los paquetes que tienes instalados en tu ordenador, lo puedes hacer así:</p>
+<pre class="r"><code>pkgs_instalados &lt;- installed.packages(fields = c(&quot;Package&quot;, &quot;Version&quot;)) %&gt;% 
+                        as.data.frame()</code></pre>
+<p><br></p>
+<p><br></p>
+<hr />
+<hr />
+</div>
+<div id="bibliografía" class="section level1">
+<h1>Bibliografía</h1>
+<p><a href="http://rmarkdown.rstudio.com/lesson-1.html">Tutorial oficial de Rmarkdown</a> Muy bueno y muy completo. Quizás la primera opción para aprender.</p>
+<p><a href="http://www.sfs.uni-tuebingen.de/~jvanrij/Tutorial/tutorialMarkdown.html">Tutorial completo</a>. Tutorial sencillo pero bastante completo. Bastante didáctico.</p>
+<p><a href="https://yihui.name/knitr/">Pagina oficial de knitr</a>. Solamente para verla. Usarla sólo cuando ya “pilotes”.</p>
+<p><a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-spanish.pdf">Cheat Sheet de Rmarkdown en castellano</a>. Parece complicado, pero cuando te acostumbras es una fantástica chuleta.</p>
+<p><a href="https://fernandosansegundo.wordpress.com/2016/05/05/programacion-literaria-en-r-con-knitr-y-markdown/">Tutorial de Rmarkdown en español</a></p>
+<p><a href="http://joedicastro.com/pages/markdown.html">Otro tutorial de Markdown en español</a></p>
+<p><a href="https://slides.yihui.name/2017-rstudio-conf-ext-rmd-Yihui-Xie.html#1">Customizing &amp; Extending R Markdown</a>. Tutorial del desarrollador de knitr. Corto pero avanzado.</p>
+<p><a href="https://bookdown.org/yihui/rmarkdown/">R Markdown: The Definitive Guide</a>. Pues eso, la guía definitiva. Fantástica!!</p>
+<hr />
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>En realidad, under the hood estaremos usando la función <code>rmarkdown::render()</code><a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Si te interesa saber un poco más de este proceso puedes ir <a href="https://stackoverflow.com/questions/40563479/relationship-between-r-markdown-knitr-pandoc-and-bookdown">aquí</a><a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>esto es una nota al pie.<a href="#fnref3" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+
+
+
+
+
+<footer class="footer">
+  <div class="text-muted">-----</div>
+  <div class="text-muted"><strong> Web</strong> creada por Pedro J. Pérez, profesor de la Universitat de València. &copy;  2020. If you find any bugs please report them to <a href=”mailto:pedro.j.perez@uv.es”> pedro.j.perez@uv.es</a>.</div>
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

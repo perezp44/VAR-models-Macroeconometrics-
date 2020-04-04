@@ -6,25 +6,30 @@ navbar:
     - icon: fa-home
       href: index.html
   right:
-    - text: "Course-plan"
-      icon: fa-head-side-virus  
+    - text: "Course \"plan\""
       href: 01-Course-plan.html  
     - text: "Logistics"
       icon: fa-laptop
-      href: 01-Logistics.html
+      href: 02-Logistics.html
     - text: "Slides"
       icon: fa-book
-      href: 02-Slides.html      
-    - text: "Lab-Gali"
+      href: 03-Slides.html      
+    - text: "Lab"
       icon: fa-keyboard
-      href: 03-Lab-Gali.html
+      href: 04-Lab-Gali.html
     - text: "Schedulle"
       icon: fa-calendar-alt
-      href: 04-Schedulle.html      
-    - text: "MAS"
-      icon: fa-download
-      href: 05-Mas.html
-
+      href: 05-Schedulle.html      
+    - text: "MáS"
+      icon: fa-gear      
+      menu:
+        - text: "In Spanish"
+        - text: "Primeros pasos con R"
+          href: tt_01_primeros-pasos-con-R.html
+        - text: "Rmarkdown"
+          href: tt_02_Rmarkdown.html
+     
+   
       
 output_dir: "docs"    
 output:

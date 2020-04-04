@@ -1,0 +1,1464 @@
+---
+title: "Notes on Applied VAR Modelling"
+author: "Pedro J. Pérez"
+date: "2020, April"
+output: 
+  html_document:
+    highlight: pygments 
+    number_sections: no
+    #theme: united
+    toc: true
+    toc_float: true
+    #code_folding: show
+    self_contained: TRUE
+---
+
+<!--- definiendo estilos CSS o HTML -->
+<style>
+  p {margin: 40px 0 40px 0;}  #- top, izquierda, abajo, left
+</style> 
+<style>
+  body { line-height:1.6;}   #- anchura de las lineas 1.0 is the default in Firefox. 2.0 provides a large space
+</style>
+  
+<style>
+  h1, h2, h3, h4, h5  {color:darkblue;}  #- esto me hace los h2 en blue
+</style>  
+
+<!--- definiendo opciones globales para los chunks -->
+```{r knitr_init, echo=FALSE, cache=FALSE, warning=FALSE}
+library(knitr)
+library(rmdformats)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=TRUE,
+	             cache=FALSE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+
+opts_knit$set(width=75)
+```
+
+
+
+--------------------   
+
+
+# Notes on Applied VAR Modelling
+
+
+
+--------------------  
+
+
+1. Introduction
+2. VAR models in reduced form (Estimation)
+     + Model Specification
+     + Estimation
+     + Validation
+3. VAR models in reduced form (Uses)     
+     + Causality Analysis
+     + Forecasting
+     + Moving average representation (MVA)
+     + Structural analysis
+        + Impulse response functions (IRF)
+        + Forecast Error Variance Decomposition (FEVD)
+        + Historical Decomposition
+4. Structural VAR models
+      + Introduction
+      + Identification with short-run restrictions (on the effects of shocks)
+      + Identification with long-run restrictions (on the effects of shocks)
+      + Identification with contemporaneous interactions among the endogenous variables
+      + Identifying the SVAR by both types of restrictions (The AB-model)
+
+
+<br>
+
+---------------------
+
+
+# 1. Introduction
+
+
+* Most of the questions in empirical macroeconomics are similar to:  what is the effect of a policy intervention or shock (interest rate increase, tax cut, ... ) on the macroeconomic aggregates of interest?  
+
+
+* Ideally, we would like to know the dynamic effect of a shock ($\varepsilon_{t}$) on { $Y_{t},Y_{t+1}$, ... }   
+    + In macro, this dynamic causal effect is called the impulse response function (IRF) of $Y_{t}$ to the shock $\varepsilon_{t}$
+    
+    + That's the typical purpose of **Vector Autoregressive (VAR) models**: to estimate the IRF of a macroeconomic series ($Y_{t}$) to a shock ($\varepsilon_{t}$)
+
+
+
+* During the three decades following [Sims's (1980) paper](https://ideas.repec.org/a/ecm/emetrp/v48y1980i1p1-48.html), VAR models have become a standard instrument in econometrics to analyse multivariate time series and one of the major ways to obtain information about the economy
+
+
+
+* VAR's have proven their worth in forecasting, but also in uncovering the transmission mechanisms of key macroeconomic shocks. In particular VAR's:
+
+    + have a central role in investigating the sources of business cycle fluctuations
+    
+    + have become a benchmark instrument against which modern dynamic theories (DSGE models) are evaluated
+
+
+* After identification, **Structural Vector Autoregressive (SVAR) models** have been mainly used to address the 2 following type of questions: 
+
+    + How does the economy ($Y_{t}$) respond to different economic shocks? (**IRF**)
+    
+    + What is the contribution of the different shocks to the movements in $Y_{t}$? (**FEVD**)
+
+
+* SVAR's have been used in an incredibly large number of areas and topics, and have had and continue to have a central role for understanding aggregate fluctuations and disentangling the importance of different economic shocks  
+
+
+As [Kilian (2011)](https://ideas.repec.org/p/cpr/ceprdp/8515.html) says:  
+
+> Notwithstanding the increased use of estimated dynamic stochastic general equilibrium (DSGE) models over the last decade, **structural vector autoregressive (VAR) models continue to be the workhorse of empirical macroeconomics and finance**
+
+<br>
+
+## 1.1 Origins & development of VAR models 
+
+
+* Origins: [Sims (1980)](https://ideas.repec.org/a/ecm/emetrp/v48y1980i1p1-48.html) in his paper Macroeconomics and Reality    
+
+
+* A little bit of history: In the mid 70's, Cowles Commission's approach to econometric modelling was attacked on several grounds and was eventually abolished. Two major critiques:  
+
+    +    **Lucas critique**: expectations are not taken into account explicitly, so identified parameters are a mixture of deep parameters (preference and technology) and expectational parameters that are not stable across policy regimes(parameter invariance). Hence, models are not useful for policy simulations   
+    
+    +    **Sims "critique"**: "incredible identification restrictions". Sims raised several objections to the traditional way of identifying macroeconometric models, where exclusion restrictions were routinely imposed and the decision whether a variable should be regarded as exogenous with respect to the system was made rather arbitrarily. In particular, according to Sims, no variable can be deemed as exogenous in a world of rational forward looking agents.  
+    
+    
+
+* Sims (1980) advocates for the use of VAR models as a theory-free method to estimate economic relationships   
+
+    +    Sims's basic idea was to treat all variables as endogenous and first estimate an unrestricted model in a reduced form. No prior knowledge is used except to decide which variables should enter the system. 
+    
+    +    The estimation of the VAR is usually made by OLS (which we will see is consistent and, under normality of the error terms, efficient)  
+    
+    +    Once the VAR is estimated, different analysis could be done but the most usual are the obtaining of IRF and FEVD, but for this, the structural shocks should be identified  
+    
+    +    Guided by economic theory, the econometrician imposes restrictions (usually on how the structural shocks impact the variables within the model system) transforming the VAR model into a Structural Vector Autoregressive (**SVAR**) model  
+    
+    +    Sims's original idea to obtain IRF&FEVD was to assume recursive contemporaneous interactions among variables, i.e. by imposing a certain structural ordering of the variables. In terms of the moving average (MA) representation, the structural shocks do not affect preceding variables simultaneously (Cholesky)  
+    
+    +    Later on, restrictions to obtain the SVAR, came in several forms: general short run restrictions, (zero or linear relationships), long run restrictions, cointegration and sign restrictions, etc.   
+    
+
+<br>
+
+##  1.2 A guided tour through VAR methodology:  
+
+  
+```{r  uuuuu, echo=F, results='asis', cache=F}
+library("DiagrammeR")   #- cargo libreria (github.com/rich-iannone/DiagrammeR) and (//rcapsules.com/tag/diagrammer/)
+#- * Defino el flowchart. Parece complicado pero no
+VAR_flow="
+digraph org{
+layout = dot
+node [shape='box']
+1[label='Specification & Estimation of VAR (in reduced form)']
+2[label='Model Cheking', fontcolor='red'] 
+1 -> 2
+edge [color='brown',penwidth=2]
+2 -> 1
+node [shape='box']
+a[label='Forecasting']
+b[label='Causality']
+c[label='Structural Analysis']
+edge [color='black',penwidth=1]
+2 ->  {a b c}
+node [shape='box', fixedsized = false]
+w[label='Forecast scenarios']
+x[label='Historical decompositions']
+y[label='IRFs']
+z[label='FEVD']
+c ->  {w x y z }
+} 
+"
+DiagrammeR::grViz(VAR_flow)  #- Una vez definido, lo gráfico
+```
+
+
+Similar to Figure 1, p.3, in [Lütkepohl(2011)](http://cadmus.eui.eu/bitstream/handle/1814/19354/ECO_2011_30.pdf)    
+
+<br>
+
+------
+
+<br>
+
+
+# 2. VAR models (in reduced form)  
+
+
+As we will see in short, there are different representations for a VAR: VAR vs. VMA, structural vs. reduced VAR's. By now we will start with a question: 
+
+
+#### What is exactly a VAR model? 
+
+
+* A VAR is an econometric model used to capture the linear interdependencies among multiple time series. In fact, a VAR(p) is a generalization of the AR(p) model to the multivariate case.  
+
+
+* All variables in a VAR are treated symmetrically: each variable has an equation explaining its evolution based on its own lags and the lags of the other model variables    
+
+
+* A VAR analysis starts by estimating a (reduced form) VAR model of order p. 
+
+<br>
+
+#### An example: a trivariate VAR(p=2) model
+
+
+* trivariate:  {GDP, Prices, Money}:  
+
+  - two lags (p=2)  
+  
+  - all variables I(0)!!!  
+
+
+
+$$\left\{ 
+\begin{array}{c}
+Y_{t}=0.6Y_{t-1}+0.2Y_{t-2}+0.3P_{t-1}-0.2P_{t-2}+0.5M_{t-1}-0.5M_{t-2}+v_{t}^{Y}
+\\ 
+P_{t}=-0.7_{t-1}+0.1_{t-2}+0.5P_{t-1}+0.4P_{t-2}+0.6M_{t-1}-0.6M_{t-2}+v_{t}^{P}
+\\ 
+M_{t}=-0.6_{t-1}+0.3_{t-2}+0.5P_{t-1}+0.4P_{t-2}+0.9M_{t-1}-0.2M_{t-2}+v_{t}^{M}%
+\end{array}%
+\right\} $$
+
+
+* The variables could be arranged in different ways, but the most common way of visualization is:   
+
+
+$$%
+\begin{array}{c}
+Y_{t}=0.6Y_{t-1}+0.3P_{t-1}+0.5M_{t-1}+0.2Y_{t-2}-0.2P_{t-2}-0.5M_{t-2}+v_{t}^{Y}
+\\ 
+P_{t}=-0.7Y_{t-1}+0.5P_{t-1}+0.6M_{t-1}+0.1Y_{t-2}+0.4P_{t-2}-0.6M_{t-2}+v_{t}^{P}
+\\ 
+M_{t}=-0.6Y_{t-1}+0.5P_{t-1}+0.9M_{t-1}+0.3Y_{t-2}+0.4P_{t-2}+-0.2M_{t-2}+v_{t}^{M}%
+\end{array}%$$
+
+
+* We can simplify the visualization of the VAR by defining the following vectors:   
+
+
+$$y_{t}=\left[ 
+\begin{array}{c}
+Y_{t} \\ 
+P_{t} \\ 
+M_{t}%
+\end{array}%
+\right] \ \ \ \ \ v_{t}=\left[ 
+\begin{array}{c}
+v_{t}^{Y} \\ 
+v_{t}^{P} \\ 
+v_{t}^{M}%
+\end{array}%
+\right] $$
+
+
+
+* Then, the VAR could be written as:
+
+$$y_{t}=\left[ 
+\begin{array}{ccc}
+0.6 & 0.3 & 0.5 \\ 
+-0.7 & 0.5 & 0.6 \\ 
+-0.6 & 0.5 & 0.9%
+\end{array}%
+\right] y_{t-1}+\left[ 
+\begin{array}{ccc}
+0.2 & -0.2 & -0.5 \\ 
+0.1 & 0.4 & -0.6 \\ 
+0.3 & 0.4 & -0.2%
+\end{array}%
+\right] y_{t-2}+v_{t}$$
+
+
+
+* As well as:
+
+$$y_{t}=A_{1}y_{t-1}+A_{2}y_{t-2}+v_{t}$$
+
+* And, also more compactly, as: 
+
+$$A(L)y_{t}=v_{t}$$
+
+with       $A(L)=(I_{K}-A_{1}L^{1}-A_{2}L^{2})$
+
+
+
+* After estimation & validation, a VAR (in reduced form) could be used for testing (for example, Granger causality) and for forecasting
+
+
+* The principal instruments (or usages) of VAR modelling are the IRF & FEVD but for these uses it's necessary to identify the structural disturbances, that is, to estimate a SVAR model 
+  
+
+<br> 
+
+------
+
+## 2.1 Model Specification  
+
+<br> 
+
+
+* Let  $y_{t~}=~\left[ Y_{1t~},~Y_{2t}~,~....~,~Y_{Kt}\right] ^{^{\prime}}$ denote a (Kx1) vector of random variables, then a VAR(p) model can be written as :  
+
+
+
+
+$$y_{t}~=A_{1}y_{t-1}+A_{2}y_{t-2}+\ \ ...\ \
++A_{p}y_{t-p}+CD_{t}+v_{t}\ \ \ \ \ \ \ \ [1]$$
+
+
+
+where:  
+
+
+ $\boldsymbol{D_{t}}$ is a vector $(M\times 1)$ with the appropriate deterministic regressors (constant, trend, dummies ...), $\boldsymbol{C}$ is the coefficient matrix for $\boldsymbol{D_{t}}$ 
+
+
+ $\boldsymbol{A_{i}}$ are $(K\times K)$ coefficient matrices,  
+ $\boldsymbol{v_{t}}$  is a $(K\times 1)$ vector of white noise ($v_{t}\rightarrow (0,\Sigma _{v})$).
+
+
+<br>
+
+* As Lütkepohl (2011) points out:  
+
+> Using terminology from the simultaneous equations literature, the VAR model [1] is in reduced
+> form because all right-hand side variables are lagged or predetermined.  
+
+* Be aware that, for a VAR (in reduced form):  
+
+> The instantaneous relations between the variables are summarized in the residual covariance matrix
+
+<br>
+
+### A compact way to write a VAR(p) model  
+
+
+* For simplicity in the notation, let's suppose that the deterministic part of our VAR(p) model is zero;  then our VAR(p) would be :  
+
+
+$$y_{t}~=A_{1}y_{t-1}+A_{2}y_{t-2}+\ \ ...\ \
++A_{p}y_{t-p}+v_{t}\ \ \ \ \ \ \ \ \ \ [2]$$ 
+
+
+Model $[2]$ can be written using a polynomial in the lag operator as: 
+
+$$A(L)y_{t}=v_{t}\ \ \ \ \ \ \ \ \ \ [3]$$  
+
+with $A(L)=(I_{K}-A_{1}L^{1}-A_{2}L^{2}-...-A_{p}L^{p})$
+
+
+<br>
+
+### Stability of the VAR(p)
+
+
+* An important issue in VAR modelling is **stability**  
+
+
+* The VAR(p) process is stable if all roots of the determinantal polynomial ($\det A(z)=\det (I_{K}-A_{1}z^{1}-A_{2}z^{2}-...-A_{p}z^{p})=0$) are outside the complex unit circle (or equivalently if the eigenvalues of the companion matrix have modulus less than one)  
+
+
+* Under habitual assumptions, a stable process is covariance stationary. Then, if the VAR is stable, the variables in $y_{t}$ would be $I(0)$, and in this case we could estimate the VAR with the variables in levels (VAR in levels).  
+
+
+* But, if the solution of the above equation, $\det A(z)=0$, has a root for $z=1$, that is, if the process has a unit root, then some (or all) variables in the VAR(p) are $I(1)$. Then the process is nonstationary and before starting the analysis we should transform the variables to reach stationarity; usually by first differences (VAR in first differences)  
+
+
+* If some of the variables are I(1), then we have to check the possibility that cointegration exits. If that was the case, a VECM should be used.  
+
+<br>
+
+------
+
+## 2.2 Estimation
+
+
+VAR models can be estimated with standard methods: OLS or ML. VAR models can also be estimated by Bayesian methods  
+
+
+* As all the equations in the VAR share the same set of regressors and all of them are lagged variables, the VAR could be estimated efficiently by OLS for each equation separately.  
+
+
+
+* If the residuals are normally distributed (Gaussian) like ($v_{t}\rightarrow N(0,\Sigma _{v})$) the **OLS estimator of our VAR model will have desirable asymptotic properties**: it will be asymptotically normally distributed and will have the smallest asymptotic covariance matrix   
+
+
+* Then, if the VAR is stable, usual inference procedures are asymptotically valid: t-statistics could be used for inference about individual parameters and the F-test could be used for testing hypotheses for sets of parameters.
+
+
+* Note also that if $y_{t}$ is a normally distributed (Gaussian) process, then the OLS estimator is identical to the ML estimator (conditional on the initial pre-sample values).
+
+
+* If restrictions are imposed on the parameters, OLS estimation may be inefficient. In that case GLS estimation may be beneficial. The GLS estimator is consistent and asymptotically normally distributed and usual methods for inference are
+valid asymptotically.
+
+
+* Note that if the disturbances in one equation are for example autocorrelated, the theory does not apply. Then IV estimators, including GMM, would be needed. 
+
+
+* Under-specification of p might result in autocorrelated residuals
+
+
+ 
+### How to estimate a VAR model in R?  
+
+
+* We are going to use the R package `vars` written by Bernhard Pfaff. A short description of the functionalities of the Pfaff's package can be found [here](http://www.jstatsoft.org/v27/i04/paper).  For a more detailed exposition, please go [here](http://cran.r-project.org/web/packages/vars/vars.pdf)  
+
+
+* To illustrate the different topics in VAR modelling, we are going to use as an example the analysis and data used in [Gali's (1999)](http://crei.cat/people/gali/jgaer99.pdf) paper : "Technology, Employment, and the Business Cycle: Do Technology Shocks Explain Aggregate Fluctuations?   
+
+
+* In his paper, Gali estimates a bivariate VAR for productivity and hours to look mainly at the response of hours to a technology shock  
+
+
+* In fact we are going to "replicate" Gali's paper but only for his benchmark model:
+
+
+    - U.S. quarterly  data for  **1948:1 - 1994:4** from Citibase    
+  
+    - bivariate VAR model: productivity($x_{t}$) and hours($n_{t}$)  
+    
+    - $y_{t~}=~\left[ x_{t~},n_{t}\right] ^{^{\prime }}$, both variables in (log) **first differences**    
+  
+
+
+<br>
+
+#### Let's open the LAB slides
+<br>
+
+
+------
+
+###  Model Specification 
+
+Imagine that we have already decided wchich variables to include in our VAR model, the sample, if the variables are I(1) vs. I(0) , and the deterministics components . In this case we have almost finished the model specification. Almost, because ... we need to decide the order of the VAR.  
+
+
+#### How to select (p) the order of the VAR?
+
+For a more detailed exposition go to [Lütkepohl(2011)](http://cadmus.eui.eu/bitstream/handle/1814/19354/ECO_2011_30.pdf), pp. 10-11
+
+- The idea is that we have to select an order(p) sufficiently large to ensure that the residuals shown no autocorrelation but without exhausting the degrees of freedom.  
+
+
+
+- The order of the VAR could be selected by:   
+
+     1) Sequential testing procedures  
+     
+     2) Model selection criteria
+
+
+    
+- **Sequential testing procedures** approach:   
+
+    - A maximum *reasonable* lag order($p_{\max }$) is chosen  
+    
+    - Then, the following sequence of null hypotheses ios tested: $H_{0}:A_{p_{\max }}=0$ , 
+$H_{0}:A_{p_{\max -1}}=0$, ...   
+
+    - For a stationary VAR the usual LR test could be used   
+
+    - The procedure stops when the null hypothesis is rejected for the first time   
+   
+
+
+- **Model selection criteria** approach: 
+
+    - A model selection criteria is chosen (AIC, HQ, SC, FPE). For multivariate expression of these criteria see [Lütkepohl(2011)](http://cadmus.eui.eu/bitstream/handle/1814/19354/ECO_2011_30.pdf)
+   
+    - Again, a maximum *reasonable* lag order($p_{\max }$) is chosen
+   
+    - A set of VAR(m) are estimated for $m=1,...,~p_{\max }$
+   
+    - Choose p as the lags of the VAR(m) which minimize the chosen criteria
+   
+    - AIC usually overestimates p
+
+
+
+- The package "vars" has the **VARselect()** function which allows us to apply the 2^nd^ approach to select p.
+
+
+- As we will see in the LAB slides, three criteria (AIC,HQ &FPE) choose p=2;  BUT, as our data are quarterly, probably, as Gali does, a more sensible choice would be p=4   
+
+
+
+
+#### Finally, we are now ready to estimate our VAR with p=4. Let's go the LAB slides!!!    
+
+
+<br><br>
+
+-------------------------------   
+
+## 2.3 Validation of the VAR
+
+
+
+- After estimation, and before using or transforming our VAR to a SVAR, we have to check their validity mainly looking at the residuals
+
+- Again, let's go to the LAB!!!  
+
+
+ <br> 
+
+----------------------    
+
+<br>
+
+# 3. VAR models in reduced form (Uses)   
+
+The two principal uses of VAR models in reduced form are testing (causality testing) and forecasting, BUT the most used instruments in the VAR metholodogy are IRF & FEVD.  
+
+IRF & FEVD only have a clear mening if we transform our reduced form VAR model to an structural VAR. We will develop this idea in a while  
+
+
+## 3.1 Uses of VAR: Causality testing 
+
+
+- After validation, the VAR could be used for testing, for example, for testing Granger causality.  
+
+
+- As we said, if the residuals are normally distributed (Gaussian) like ($v_{t}\rightarrow N(0,\Sigma _{v})$) the **OLS estimator has desirable asymptotic properties**. In particular, it will be asymptotically normally distributed, and then, if the VAR is stable, usual inference procedures are asymptotically valid: t-statistics could be used for inference about individual parameters and F-test for testing hypotheses for sets of parameters.  
+
+
+- Even if t-tests are asymptotically valid, due to collinearity problems, it would not be sensible to interpret or to test only one parameter in isolation.  
+
+
+- In regression analysis, we label one variable as the dependent variable and the others as explanatory. But most of the time, it is not obvious which variable causes which. As you know, we should always be cautious about interpreting correlation and regression results as reflecting causality.  
+
+
+- With time series data we can make slightly stronger statements about causality simply by exploiting the fact that time does not run backward. If event A happens before B, then it's possible that A causes B, but not that B causes A. These ideas can be investigated through regression models using the notion of Granger causality.  
+
+  
+- **Granger causality**: Granger called a variable X causal for Y if the information in past and present values of X is helpful for improving the forecast of Y. If Granger causality holds, this does not guarantee that X causes Y. But, it suggests that X might be causing Y.
+
+- Sometimes econometricians use the shorter term *causes* as shorthand for *Granger causes*. You should notice, however, that Granger causality is not causality in a deep sense of the word. It just talks about linear prediction, and it only has "teeth" if we only find Granger causality in one direction.  
+
+- The definition of Granger causality did not mention anything about possible instantaneous correlation between variables. If the innovations are correlated we will say that there exists instantaneous causality  
+
+
+- In the context of VAR models, if we want to test for Granger causality, we need to test zero constraints in some of the coefficients.  
+
+ 
+* Suppose that 2 variables ( $y_{1t}$ and $y_{2t}$ ) are generated by a bivariate VAR(p) process like:
+
+
+
+
+$$\left[ 
+\begin{array}{c}
+y_{1t} \\ 
+y_{2t}%
+\end{array}%
+\right] =\overset{p}{\underset{i=1}{\sum }}\left[ 
+\begin{array}{cc}
+\alpha _{11,i} & \alpha _{12,i} \\ 
+\alpha _{21,i} & \alpha _{22,i}%
+\end{array}%
+\right] \left[ 
+\begin{array}{c}
+y_{1t-i} \\ 
+y_{2t-i}%
+\end{array}%
+\right] +u_{t}$$  
+
+
+
+  - Then, $y_{2t}$ is not Granger-causal for $y_{1t}$ if and only if :    
+  
+$$\alpha _{12,i}=0\ \ ,\ \ i=1,2,\cdots ,p$$  
+
+ 
+  
+  - That is, $y_{2t}$ does not Granger cause $y_{1t}$ if $y_{2t}$ does not appear in the equation for $y_{1t}$
+ 
+
+ 
+ 
+* If there are more than 2 variables in the VAR, testing Granger causality becomes more complicated, because Granger-causality depends on the information set considered, but this is beyond the scope of this course. For a complete treatment of the topic see, as usual, [Lütkepohl(2005)](http://www.springer.com/economics/econometrics/book/978-3-540-40172-8)  
+
+
+* It's possible to test Granger causality through the Wald or F-test. In the *vars* package, we can use:
+
+    - F-test to test Granger causality
+   
+    - Wald test for instantaneous Granger causality (non zero correlation among the $v_{it}$)
+
+
+```{r, eval = F}
+#-- We can test Granger causality
+causality(our_var, cause = c("dx"))    #-- dx Granger-cause the other(s) variables?
+causality(our_var, cause = c("dn"))    #-- dn Granger-cause the other(s) variables?
+````
+
+<br>
+
+-------------------------  
+
+
+
+## 3.2 Uses of VAR: Forecasting
+
+
+- We are not going to develop this topic, but ... for instance: [Real time forecasting with a MIDAS VAR](https://helda.helsinki.fi/bof/bitstream/handle/123456789/13660/dp1315[1].pdf?sequence=1)
+
+
+
+- After validation, a VAR could also be used  for forecasting
+  
+```{r, eval = F}
+#-- We can use the VAR for forecasting
+predict(our_var, n.ahead = 3)  
+fanchart(predict(our_var))
+````
+
+<br>
+
+-------------------------  
+
+
+
+## 3.3 Moving average representation (MVA) of a VAR(p)
+ 
+
+ 
+* You all know that stationary AR process could be transformed (inverted) into an infinite MA($\infty$) process. This result applies also to a stationary (stable) VAR
+
+ 
+
+* By inverting the autoregressive polynomial A(L) we can obtain the VMA form of a VAR like:
+
+ 
+
+
+$$y_{t}~=C_{0}v_{t}+C_{1}v_{t-1}+C_{2}v_{t-2}+\ ...\  [3]$$
+
+being $C_{0}=I_{K}$, the rest of the $C_{s}$ matrices could be computed recursively as 
+
+ $$C_{s}=\underset{j=1}{\overset{s}{\sum }}C_{s-j}A_{j}\ \ \
+\ \ \ \ \ \ for\ j=1,\
+2,\cdots $$
+
+ 
+ <br>
+
+* As with the VAR, model $[3]$ can be written using a polynomial in the lag operator as:
+ 
+
+$$y_{t}=C(L)v_{t}\ \ \ \ \ \ \ \ \ \ \ \ [4]$$
+
+being $C(L)=(I_{K}+C_{1}L^{1}+C_{2}L^{2}+\ \ ...)$.
+
+
+
+* Model $[3]$ (or $[4]$) are also called the Wold VMA representation  
+
+
+
+* The two principal instruments of VAR's, IRF & FEVD, are defined in terms of their VMA representation [3]   
+
+
+* IRF & FEVD will show the effects of a shock, **BUT** in order to have a clear meaning, they must be interpreted under the assumption that all the other shocks are held constant;  however, in the Wold representation the shocks are not orthogonal; that's why we will turn,  in the next section, to **structural VAR models**   
+
+<br>
+
+-------------------------  
+
+
+
+## 3.4 Uses of VAR: "Structural" analysis
+
+
+
+
+* Usually the main interest in VAR modelling is to look at the dynamic effect of a shock on the variables of interest
+
+
+
+
+* This dynamic effect could be easily obtained through the VMA representation [3] of the VAR, also called Wold VMA representation   
+
+
+
+* In particular the response of the variable $y_{n}$ to an impulse of size one in $v_{m}$ $j$-periods ahead is given by the $(n,m)$*-th* element of $C_{j}$. That is, the $C_{i}$ matrices contain the responses of the variables to the innovations for different periods (or steps) ahead   
+
+
+
+* As the $u_{i}$ are forecast error's, those effects are called forecast error impulse responses or in short impulse response functions (IRF's)   
+
+
+#### BUT...
+
+
+
+* BUT, usually the VAR disturbances are correlated, so the interpretability of the impulse responses to innovation becomes problematic: if the innovations are correlated (off diagonal elements of $\Sigma _{v}$ different from zero) then, an impulse in $v_{m}$ would be associated with impulses in innovations in the other equations of the VAR model.  
+
+
+    - In other words, as the innovations are not likely to occur in isolation, then tracking the effect of an innovation in isolation does not reflect what actually happens in the system after an innovation hits the system.  
+ 
+   
+
+* Therefore, Sims proposed assuming recursive contemporaneous interactions among variables, i.e. imposing a certain structural ordering in the variables. In terms of the MVA representation this means that the transformed or "structural" shocks will not affect the preceding variables instantaneously.    
+
+
+    - That means that an innovation in the first equation could contemporaneously affects  all the variables in the VAR, while the innovation in the second equation could contemporaneously affect  all the variables in the VAR except the first one, ... and finally, an innovation in the last equation could contemporaneously affects  only the last variable in the VAR  
+ 
+   
+
+* In practice, imposing a recursive contemporaneous order among the variables of the VAR model, is operationalised performing a Cholesky decomposition in $\Sigma _{v}$. Let's show that:  
+ 
+
+    - The Cholesky factor, $P$, of $\Sigma _{v}$ is defined as the unique lower triangular matrix such that $PP^{^{\prime }}=\Sigma _{v}$
+    
+
+
+* With the Cholesky factor($P$) we could transform the VAR in [3] as:
+
+
+$$A(L)y_{t}=PP^{-1}v_{t}$$
+
+with $\varepsilon _{t}=P^{-1}v_{t}$, then our transformed  VAR becomes 
+
+$$A(L)y_{t}=P\varepsilon _{t}\ \ \ \ \ \ \ \ \ \ \ \ [2*]$$   
+
+
+
+
+
+- That is, we have written our VAR in terms of a new vector of shocks $\varepsilon _{t}$, with identity covariance matrix ($\Sigma _{\varepsilon }=I$)   
+
+
+
+* Now, as the $\varepsilon _{t}$ shocks are uncorrelated their IRF would have a clear interpretation   
+
+<br>
+--------------  
+
+
+### 3.4.1 IRF (Impulse- response functions)   
+
+
+
+* From [2*] we can obtain the VMA representation in terms of the $\varepsilon _{t}$ shocks:
+
+$$y_{t}=C(L)P\varepsilon _{t}\ \ \ \ \ \ \ \ \ \ \ \ [5\ast ]$$
+
+
+$$y_{t}=D(L)\varepsilon _{t}\ \ \ \ \ \ \ \ \ \ \ \ [5]$$
+
+being $D(L)=C(L)P$ , 
+
+
+
+$D(L)=(D_{0}+D_{1}L^{1}+D_{2}L^{2}+D_{3}L^{3}-\ \ ...)$,          with    $D_{i}=C_{i}P$ , 
+
+
+
+then $D_{0}=C_{0}P=I_{N}P=P$
+
+
+
+* As $D_{0}=P$, and P is lower triangular, the system is recursive: the first shock ($\varepsilon _{t}^{1}$) could have an instantaneous effect on all the variables of the VAR, while the first variable in the VAR could only be contemporaneously affected by $\varepsilon _{t}^{1}$
+
+* The $D_{i}$ matrices contain the response of the variables to the $\varepsilon _{t}$
+
+* In particular the response of the variable $y_{n}$ to an impulse of size one in $\varepsilon_{m}$ $j$-periods ahead is given by the $(n,m)$*-th* element of $D_{j}$. 
+
+ 
+
+
+* Don't worry too much now firstly because we will usually do this with R and secondly because we are going to practise the calculations by hand at the Lab, but ....
+
+
+
+* As an example to illustrate:
+
+$$y_{t}=\left[ 
+\begin{array}{c}
+Y_{t} \\ 
+P_{t}%
+\end{array}%
+\right] \ \ \ \varepsilon _{t}=\left[ 
+\begin{array}{c}
+\varepsilon _{t}^{1} \\ 
+\varepsilon _{t}^{2}%
+\end{array}%
+\right] $$
+
+
+
+$$y_{t}~=D_{0}\varepsilon _{t}+D_{1}\varepsilon
+_{t-1}+D_{2}\varepsilon _{t-2}+D_{3}\varepsilon _{t-3}+D_{4}\varepsilon
+_{t-4}+...$$
+
+
+
+$$y_{t}~=\left[ 
+\begin{array}{cc}
+0.9 & 0.8 \\ 
+0.7 & 0.6%
+\end{array}%
+\right] \varepsilon _{t}+\left[ 
+\begin{array}{cc}
+0.5 & 0.4 \\ 
+0.3 & 0.2%
+\end{array}%
+\right] \varepsilon _{t-1}+\left[ 
+\begin{array}{cc}
+0.1 & -0.1 \\ 
+-0.2 & -0.3%
+\end{array}%
+\right] \varepsilon _{t-2}+...$$
+
+
+
+$$...+\left[ 
+\begin{array}{cc}
+-0.4 & -0.5 \\ 
+-0.6 & -0.7%
+\end{array}%
+\right] \varepsilon _{t-3}+D_{4}\varepsilon _{t-4}+...$$
+
+- It would be possible that the element (1,2) of $D_{0}$ were 0.8?   
+
+<br>
+
+--------------  
+
+
+### 3.4.2 FEVD (Forecast error variance decomposition)
+
+
+* Once we have orthogonalised IRF's (the $D_{i}$  matrices ), the FEVD can be easily computed. Let's see how:  
+
+
+* The h-step ahead forecast error can be represented as:     
+
+
+$$y_{T+h}-y_{T+h\mid T}=D_{0}\varepsilon _{T+h}+D_{1}\varepsilon_{T+h-1}+\cdots +D_{h-1}\varepsilon _{T+1}$$
+
+As $\Sigma _{\varepsilon }=I$, the forecast error variance of the k-th component of $y_{T+h}$ is:
+
+
+$$\sigma _{k}^{2}(h)=\overset{K}{\underset{j=1}{\sum }}(d_{kj,0}^{2}+\cdots
++d_{kj,h-1}^{2})$$
+
+
+where $d_{nm,j}$ denotes the $(n,m)-th$ element of $D_{j}$.
+
+
+
+* The quantity $(d_{kj,0}^{2}+\cdots +d_{kj,h-1}^{2})/\sigma _{k}^{2}(h)$ represents the contribution of the $j$-th shock to the h-step ahead forecast error variance  of variable $k$.  
+
+
+* Don't worry too much now firstly because we will usually do this with R and secondly because we are going to practise the calculations by hand at the Lab, but ....
+
+
+
+* As an example to illustrate:
+
+
+$$y_{t}=\left[ 
+\begin{array}{c}
+Y_{t} \\ 
+P_{t}%
+\end{array}%
+\right] \ \ \ \varepsilon _{t}=\left[ 
+\begin{array}{c}
+\varepsilon _{t}^{1} \\ 
+\varepsilon _{t}^{2}%
+\end{array}%
+\right] $$
+
+
+
+$$y_{t}~=D_{0}\varepsilon _{t}+D_{1}\varepsilon
+_{t-1}+D_{2}\varepsilon _{t-2}+D_{3}\varepsilon _{t-3}+D_{4}\varepsilon
+_{t-4}+...$$
+
+
+
+$$y_{t}~=\left[ 
+\begin{array}{cc}
+0.9 & 0.0 \\ 
+0.7 & 0.6%
+\end{array}%
+\right] \varepsilon _{t}+\left[ 
+\begin{array}{cc}
+0.5 & 0.4 \\ 
+0.3 & 0.2%
+\end{array}%
+\right] \varepsilon _{t-1}+\left[ 
+\begin{array}{cc}
+0.1 & -0.1 \\ 
+-0.2 & -0.3%
+\end{array}%
+\right] \varepsilon _{t-2}+...$$
+
+
+
+$$...+\left[ 
+\begin{array}{cc}
+-0.4 & -0.5 \\ 
+-0.6 & -0.7%
+\end{array}%
+\right] \varepsilon _{t-3}+D_{4}\varepsilon _{t-4}+...$$
+
+
+
+
+<br>
+<br>
+
+
+----------------------------  
+
+
+### 3.4.3  Obtaining the IRF & FEVD (with R) 
+
+
+Going to the LAB!!
+
+<br>
+<br>
+
+
+----------------------------
+
+
+
+
+
+### 3.4.4 Historical Decomposition
+
+* It's another instrument of the VAR methodology, the third.
+
+
+
+* It's less commonly used than IRF & FEVD
+
+
+
+* IRFs show the average response of the model variables to a structural shock (of size 1 standard deviation)
+
+
+
+* FEVD quantifies the importance of the different structural shocks in the variability of the data: FEVD gives the percentage of the variance of the error made in forecasting a variable due to a specific shock at a given horizon   
+
+
+
+* Historical decomposition quantifies the importance of the different shocks to the evolution of the variables in specific periods of time
+
+
+
+* SVARs also allow the construction of forecast scenarios conditional on hypothetical  sequences of future structural shocks
+
+<br>
+<br>
+
+--------------------------------   
+
+
+
+
+
+
+# 4. Structural VAR's
+
+
+ 
+> The success of VAR models as descriptive tools and to some extent as forecasting 
+> tools is well established. The ability of structural representations of VAR 
+> models to differentiate between correlation and causation, in contrast, has 
+> remained contentious [Kilian(2011), p.1](https://ideas.repec.org/p/cpr/ceprdp/8515.html)
+
+
+## 4.1. Introduction
+
+* A VAR model can be a good forecasting model but, in the end, it is an atheoretical model (as all the reduced form models are). The raw estimation results for a VAR are rarely interesting. Alternatively, one can represent a VAR as responses to impulses; however, the responses to some steps ahead of innovation($v_{t}$) or prediction errors are rarely economically interesting.
+
+
+
+* To interpret the VAR in an economically meaningful way, one needs to disentangle the vector of innovations($v_{t}$) into "structural" shocks ($\varepsilon _{t}$), like monetary policy shocks, productivity shocks, etc.,
+
+
+* Ideally we would like to have:  1) orthogonal shocks  2) shocks with economic meaning. 
+
+
+
+* That is, we would like to have (identify) a structural VAR (SVAR) like:
+
+
+
+
+
+$$B(L)y_{t}=\varepsilon _{t}\ \ \ \ \ \ \ \ \ \ [6]$$  
+
+where $B(L)=(B_{0}-B_{1}L^{1}-B_{2}L^{2}-...-B_{p}L^{p})$, $B_{0}$ is a matrix representing the contemporaneous interactions among the endogenous variables and the structural shocks are orthogonal ($\Sigma _{\varepsilon }=I$). 
+
+
+
+* As any stable VAR, we could invert [6] to obtain the structural VMA representation of our SVAR
+
+$$y_{t}=D(L)\varepsilon _{t}\ \ \ \ \ \ \ \ \ \ \ \ [5]$$
+
+where  $D(L)=(D_{0}-D_{1}L^{1}-D_{2}L^{2}-D_{3}L^{3}-\ \ ...)$, $D_{0}$ is the matrix representing the contemporaneous effects of the shocks, and remember that $\Sigma _{\varepsilon }=I$
+
+
+
+* BUT, how to obtain estimates of the SVAR? We will use our estimation of the VAR model and the relations between the VAR and the SVAR
+
+
+<br>
+
+#### Four representations of the same DGP
+
+
+* Remember that we have two models (the VAR & the SVAR), but four representations:   
+ 
+$$\begin{array}{ccccc}
+A(L)y_{t} & = & v_{t} & \;\;\;\;\;[3] & VAR\\
+y_{t} & = & C(L)v_{t} & \;\;\;\;\;[4] & VMA\\
+B(L)y_{t} & = & \varepsilon_{t} & \;\;\;\;\;[6] & SVAR\\
+y_{t} & = & D(L)\varepsilon_{t} & \;\;\;\;\;[5] & SVMA
+\end{array}$$
+
+* How to estimate the SVAR? In fact we have already seen the first proposal (Sims) to identify the structural form by means of the Cholesky decomposition but ...
+
+     
+* In the previous section we learned that the Cholesky factorization is equivalent to choosing a recursive system of equations. **BUT**, as you can imagine, the order matters: identification is not unique.
+
+* It is important to keep in mind that the "orthogonalization" of the reduced-form residuals by applying a Cholesky decomposition is appropriate only if the recursive structure embodied in P can be justified on economic grounds.
+
+* The distinguishing feature of "orthogonalization" by Cholesky decomposition is that the resulting structural model is recursive (conditional on lagged variables). This means that we impose a particular causal chain rather than learning about causal relationships from the data
+
+
+* Cooley and LeRoy (1985) criticized the VAR methodology because of its "atheoretical" identification scheme. They argued that Sims did not explicitly justify the identification restrictions and claimed that a model identified by this arbitrary procedure cannot be interpreted as a structural model, because a different variable ordering yields different structural parameters. 
+
+* Sims (1986) propose trying different orderings (there are n!) and checking if the results are robust. In general, the higher the elements off-diagonal elements of $\Sigma _{v}$ are, the highrer the cjhanges in the results.
+
+* But, even if there were no differences across these n! specifications, this would only prove that the results are robust among all recursive orderings, but there is no reason for the model to be recursive in the first place.
+
+* Since then, several ways to identify VAR models have been proposed (short-run restrictions, long-run restrictions, cointegration restrictions, sign restriction, narrative approaches etc. ).
+
+* As an alternative to the recursive identification scheme, Bernanke (1986) and Blanchard and Watson (1986) among others introduced non-recursive restrictions on the contemporaneous interactions among variables for identification
+
+* As economic theory often does not provide enough meaningful contemporaneous restrictions (and the more variables you put into your system, the more restrictions you need), the search for additional identifying restrictions led Blanchard and Quah (1989) and subsequently Shapiro and Watson (1988) and Gali (1992) to introduce restrictions on the system's long-run properties. These long run restrictions are usually based on neutrality postulates
+
+* Faust and Leeper (1997) have criticized the use of long run restrictions to identify structural shocks, and show that unless the economy satisfies some types of strong restrictions, the long run restrictions will be unreliable
+
+* More recently, imposing sign restrictions, allows you to test the implications of all types of restrictions. By dropping one after one of the "dubious restrictions", one can test whether the responses to shocks are sensitive to the restrictions often imposed
+
+* For a detailed exposition and examples of different sources of identifying restrictions see [Kilian(2011)](https://ideas.repec.org/p/cpr/ceprdp/8515.html)
+
+<br>
+
+----------------------------
+
+
+##  4.2. Identifying the SVAR by short-run restrictions on the effects of shocks
+
+* If we compare equations [4] and [5], we have that $v_{t}=D_{0}\varepsilon _{t}$ 
+
+* We obtain a consistent estimation of $v_{t}$ from the estimation of the VAR model [3]. If we could have $D_{0}$ we would be able to recover the structural shocks ($\varepsilon _{t}$) 
+
+* By now, we will recover the structural parameters from the VAR estimates focusing on the impact matrix  $D_{0}$ and using the fact that $v_{t}=D_{0}\varepsilon _{t}$.
+
+$$E(v_{t}v_{t}^{^{\prime }})=E(D_{0}\varepsilon _{t}\varepsilon
+_{t}^{^{\prime }}D_{0}^{^{\prime }})$$
+
+$$\Sigma _{v}=D_{0}\Sigma _{\varepsilon }D_{0}^{^{\prime }}$$
+
+$$\Sigma _{v}=D_{0}D_{0}^{^{\prime }}$$
+
+
+* The last expression imposes (n*(n+1))/2 restrictions on the elements of $D_{0}$; that is, we will need n(n-1)/2 additional restrictions to  recover estimates of all the elements of $D_{0}$
+
+* Once we have recovered $D_{0}$ and using the fact that $v_{t}=D_{0}\varepsilon _{t}$, we can write the VAR as  $A(L)y_{t}=D_{0}\varepsilon _{t}$ and if we invert the VAR we will recover the SVAR VMA form as $y_{t}=C(L)D_{0}\varepsilon _{t}$ ; that is, we can obtain the structural matrices $D_{i}=C_{i}D_{0}$  
+
+* In the terminology of Amisano & Giannini, this way of identification is called a C-model($v_{t}=C\varepsilon _{t}$). The $C$ matrix is in fact our $D_{0}$ matrix.
+
+* A particular case of a C-model is the Cholesky approach. Remember that we obtained the Cholesky factor $P$ from $PP^{^{\prime }}=\Sigma _{v}$ and we obtained the $D_{i}=C_{i}P$ ; that is,  $P$ is equivalent to our $D_{0}$
+
+
+* Most short-run restrictions are zero restrictions (e.g., that output reacts only with a lag to monetary shocks). 
+
+* The last assumption seems reasonable, but clearly the frequency of the data is of crucial importance: with annual data, a contemporaneous zero restriction is likely to be more debatable than with quarterly or monthly data
+
+
+
+#### Example: Kilian, L. (2009), "Not All Oil Price Shocks Are Alike: Disentangling Demand and Supply Shocks in the Crude Oil Market", American Economic Review, vol. 99
+
+* Kilian analyses the global market for crude oil with a trivariate SVAR:
+$y_{t}=\left[ \Delta Ypetrol_{t},WBC_{t},Ppetrol_{t},\right] ^{^{\prime }}\
+\ \ \ \ \ \ \ \ \ \ \ \varepsilon _{t}=\left[ \varepsilon _{t}^{supply},\varepsilon _{t}^{demand},\varepsilon _{t}^{o\_demand}\right]$
+
+    - $Ypetrol_{t}$, is world crude oil production in logs
+    - $WBC_{t}$ is a measure of world business cycle (detrended GDP)  
+    - $Ppetrol_{t}$ is the log of the real price of oil  
+    - $\varepsilon _{t}^{supply}$ is a flow oil supply shock
+    - $\varepsilon _{t}^{demand}$ is a flow oil demand shock
+    - $\varepsilon _{t}^{o\_demand}$ are other oil demand shocks
+    - Data are monthly
+
+* The identification restrictions are modelled in the following matrix
+
+$$D_{0}=%
+\begin{bmatrix}
+a & 0 & 0 \\ 
+b & c & 0 \\ 
+d & e & f%
+\end{bmatrix}%
+$$
+
+
+* The two demand shocks are identified by the delay restriction that other oil-demand shocks may raise the price of oil, but without slowing down global real economic activity within the same month 
+
+* Kilian raises the question whether it would be reasonable to impose an over-identifying restriction of the form $b=0$
+    
+    
+*  Let's look at the summary of Kilian's paper: 
+
+> Shocks to the real price of oil may reflect oil supply shocks, shocks to the global
+> demand for all industrial commodities, or demand shocks that are specific to the
+> crude oil market. Each shock has different effects on the real price of oil and on US 
+> macroeconomic aggregates.   
+> Changes in the composition of shocks help explain why 
+> regressions of macroeconomic aggregates on oil prices tend to be unstable. Evidence 
+> that the recent surge in oil prices was driven primarily by global demand shocks 
+> helps explain why this shock so far has failed to cause a major recession in the 
+> United States.   
+
+
+
+#### Example: Kilian (2011, pp 11), Semi-structural Models of Monetary Policy 
+
+* Often we do not have enough restrictions to fully identify a VAR model.
+
+* If some cases researchers are only interested in identifying a single (or a group) of shocks; as the shocks are orthogonal, the model could be partially identified. 
+
+
+* Then we are using a semi-structural VAR. The most common application is to identify the effects of monetary policy shocks
+
+* For instance we would like to recover the monetary policy shocks from a trivariate VAR: $y_{t}=\left[ \Delta GDP_{t},\pi _{t},i_{t},\right] ^{^{\prime }}\ \ \ \ \ \\ \ \ \ \ \ \ \ \ \ \varepsilon _{t}=\left[ \varepsilon _{t}^{1},\varepsilon_{t}^{2},\varepsilon _{t}^{M}\right]$  
+
+
+    - $GDP_{t}$, is real GDP in logs  
+    - $\pi _{t}$ is the inflation rate    
+    - $i_{t}$ is the "federal" funds rate (a policy intervention rate)  
+    - $\varepsilon _{t}^{1}$ and $\varepsilon _{t}^{2}$ are two unidentified structural shocks    
+    - $\varepsilon _{t}^{M}$ is the monetary policy shock  
+
+
+* Let's look at the relations between the innovation and the structural shocks ($\varepsilon _{t}$)
+
+
+$$%
+\begin{bmatrix}
+u_{t}^{\Delta GDP} \\ 
+u_{t}^{\pi } \\ 
+u_{t}^{i}%
+\end{bmatrix}%
+=%
+\begin{bmatrix}
+a & 0 & 0 \\ 
+b & c & 0 \\ 
+d & e & f%
+\end{bmatrix}%
+\begin{bmatrix}
+\varepsilon _{t}^{1} \\ 
+\varepsilon _{t}^{2} \\ 
+\varepsilon _{t}^{M}%
+\end{bmatrix}%
+$$
+
+
+* The last equation of the model is interpreted as a monetary policy reaction function. The monetary authority responds to $u_{t}^{\Delta GDP}$ and $u_{t}^{\pi }$, and then the monetary shock ($\varepsilon _{t}^{M}$) is identified as ...
+
+
+
+* As we are only interested in the monetary shocks, the other two shocks are not identified. We could do that because any alternative decomposition of the first two shocks would leave $\varepsilon _{t}^{M}$unaffected. Thus, for simplicity, we impose the recursive structure on the first two equations. 
+
+
+* It is common to enrich the set of variables ordered above the interest rate relative to this simple benchmark model and estimate larger VAR systems. To be aware of the shortcomings and problems with this way of identifying monetary shocks, see page 12 in Kilian(2011)
+
+<br>
+
+---------------------------  
+
+
+## 4.3. Identifying the SVAR by long-run restrictions on the effects of shocks
+
+* This approach is really similar to the previous one, but instead of focusing on $D_{0}$ , we concentrate on $D(1)$, the matrix of long-run impacts of the shocks
+
+* Remember that the matrix of long-run effects ($C(1)=\sum_{i=0}^{\infty}C_{i}$) could be obtained by inverting the autoregressive polynomial as: $C(1)=(I_{K}-A_{1}-\cdots -A_{p})^{-1}$
+ 
+
+* We will recover the structural parameters from the VAR estimates focusing on the long-run impact matrix  $D(1)$ and using the fact that $C(1)v_{t}=D(1)\varepsilon _{t}$.
+
+* Then, as previously:
+
+$$E(C(1)v_{t}v_{t}^{^{\prime }}C(1)^{^{\prime }})=E(D(1)\varepsilon _{t}\varepsilon
+_{t}^{^{\prime }}D(1)^{^{\prime }})$$
+
+
+$$C(1)\Sigma _{v}C(1)^{\prime }=D(1)D(1)^{^{\prime }}$$
+
+* Again, the last expression imposes (n+(n+1))/2 restrictions on the elements of $D(1)$; that is, we will need n(n-1)/2 additional restrictions to  recover estimates of all the elements of $D(1)$
+
+* Once we have recovered $D(1)$ and using the fact that $C(1)v_{t}=D(1)\varepsilon _{t}$, we can write the VAR as  $A(L)y_{t}=C(1)^{-1}D(1)\varepsilon _{t}$ and inverting the VAR we will recover the SVAR VMA form as $y_{t}=C(L)C(1)^{-1}D(1)\varepsilon _{t}$ ; that is, we can obtain the structural matrices $D_{i}=C_{i}\ast C(1)^{-1}D(1)$  
+
+* This way of identification is also (in the terminology of Amisano & Giannini) a C-model ($v_{t}=C\varepsilon _{t}$) where  $C=C(1)^{-1}D(1)$   
+
+
+
+
+#### Example: Blanchard and Quah (1989), "The Dynamic Effects of Aggregate Demand and Supply Disturbances", American Economic Review,  vol. 79(4), pages 655-73
+
+* Blanchard and Quah (89) estimate a bivariate VAR with output and unemployment: 
+    - $y_{t}=\left[ \Delta GDP_{t},u_{t}\right] ^{^{\prime }}$
+    - $n=2$ , then $n(n-1)/2=1$ ; that is, only a restriction is needed to identify the SVAR
+    - This additional restriction was that the second shock of the VAR ($\varepsilon _{t}^{2}$) has no long-run effect on real GDP
+    - B&Q(89) interpret $\varepsilon _{t}^{2}$ as a demand shock and $\varepsilon _{t}^{1}$ (which is permitted to have long-run effect on GDP) as a supply shock
+    
+
+
+
+* There is a greater consensus amongst theoretical models in terms of long-run results. It should be unsurprising, therefore, that the most common set of restrictions is to nullify the long-run response of output to monetary or demand shocks
+
+* Long-run restrictions have been frequently employed, see King et al. (1991), Francis and Ramey (2004), Fisher (2006), among many others.
+
+* It is also possible to adopt a combination of short and long run restrictions as originally demonstrated by Gali (1992), Gerlach and Smets (1995), Peersman and Smets (2001) and Mamoudou et al. (2009).
+
+* Unfortunately, long-run schemes are far from critique-free. Faust and Leeper show that with finite data, the long-run effect of shocks is imprecisely estimated, and that this imprecision is  exacerbated by long-run restrictions causing serious bias to IRFs even with large samples. 
+
+<br>
+
+---------------------------------
+
+
+## 4.4. Identifying the SVAR by restrictions on the contemporaneous interactions among the endogenous variables (K-model in the terminology of Amisano & Giannini)
+
+* In this approach the SVAR is identified by restrictions on the contemporaneous interactions among the endogenous variables ($y_{i}$) instead of restrictions on the effects of the shocks
+
+* The matrix of contemporaneous effects among the ($y_{i}$) is the $B_{0}$ matrix (called the $K$-matrix by Amisano & Giannini)
+
+* Comparing the VAR [3] and the SVAR [6], we find that if we look at the variables in t, 
+
+     - From the VAR: $y_{t}=v_{t}$
+     - From the SVAR:  $B_{0}y_{t}=\varepsilon _{t}$
+     - then, if we pre-multiply the first equation by $B_{0}$
+     - we obtain $B_{0}v_{t}=\varepsilon _{t}$
+     - taking expectations to obtain variance-covariance matrices,  $E\left[B_{0}v_{t}v_{t}^{^{\prime }}B_{0}^{^{\prime }}\right] =E\left[\varepsilon_{t}\varepsilon _{t}^{^{\prime }}\right]$
+     - which leads to: $B_{0}\Sigma _{v}B_{0}^{^{\prime }}=I$
+
+* The last expression imposes (n+(n+1))/2 restrictions on the elements of $B_{0}$; that is, we will need n(n-1)/2 additional restrictions to  recover estimates of all the elements of $B_{0}$
+
+* Once $B_{0}$ is estimated, we can obtain the SVAR model as: $B_{i}=B_{0}A_{i}$
+
+* We can also obtain the VMA of the SVAR as $D_{i}=C_{i}B_{0}^{-1}$
+
+<br>
+
+-------------------------------  
+
+## 4.5. Identifying the SVAR by both types of restrictions (The AB-model)
+
+* Amisano & Giannini show how to combine both types of restrictions; that is restrictions on the effects of the shocks and restrictions on the contemporaneous interactions among the $y_{t}$.
+
+* They call that approach the AB-model, because there are going to appear two matrices ( A & B); in fact, the A and B matrices are the previous K and C matrices in Amisano & Giannini environment 
+
+* The `vars` package uses this AB terminology
+
+* In our environment, [3] to [6], the AB matrices are related to our $B_{0}$ and $D_{0}$ respectively
+
+* These two matrices link the innovations to the structural shocks as $Av_{t}=B\varepsilon _{t}$
+
+* The AB parametrisation nests the C and K models:
+
+     - If $A=I_{n}$ we are in the C-model approach and we only specify restrictions on the effects of the shocks
+     - If $B=I_{n}$ we are in the K-model approach and we only specify restrictions on the contemporaneous relations among the $y_{t}$
+
+* To identify the $2n^{2}$ elements of the $A$ and $B$ matrices we need, obviously $2n^{2}$ conditions
+
+* From $Av_{t}=B\varepsilon _{t}$, we could obtain  $Av_{t}v_{t}^{^{\prime }}A^{^{\prime }}=B\varepsilon _{t}\varepsilon _{t}^{^{\prime }}B^{^{\prime }}$ and then taking expectations $A\Sigma _{v}A^{^{\prime }}=BB^{^{\prime }}$ we obtain $n(n-1)/2$ restrictions.
+
+
+* Then, if we specify an AB-model we will need $[2n^{2}-n(n+1)/2]$ extra restrictions to identity our SVAR
+
+
+* Amisano & Giannini (assuming a Gaussian distribution) explain how to recover the A & B matrices using full information maximum likelihood (FIML) methods. This is the route followed in the vars package.
+
+* This approach involves the maximization of the concentrated likelihood with respect to the structural model parameters subject to the identifying restrictions (see, e.g., Lütkepohl 2005).
+
+
+
+* Another alternative is the GMM framework: the identifying restrictions on $B_{0}$ or on $D_{0}$ generate moment conditions that can be used to estimate the unknown coefficients.
+
+
+
+* Once we have an estimation of the AB matrices we can recover the SVAR and its VMA representation as:  
+
+  - The SVAR matrices:  $B_{i}=B^{-1}AA_{i}$ , obviously $B_{0}=B^{-1}A$   
+                
+  - The matrices for the SVAR VMA representation: $D_{i}=C_{i}A^{-1}B$,  where $D_{0}=A^{-1}B$   
+
+
+
+#### Example: Blanchard (1989), "A Traditional Interpretation of Macroeconomic Fluctuations", American Economic Review, 79, 1146-1164.
+
+* Blanchard (89) uses a "traditional" Keynesian model to analyse the US macroeconomic fluctuations by means of a structural VAR A-B model.  
+
+* Blanchard's model has 5 equations: an aggregate demand equation, Okun's law, a price-setting equation, the Phillips curve and a monetary policy rule.
+
+* The VAR has 5 variables and 5 structural shocks:
+
+$$y_{t}=\left[ Y_{t},U_{t},P_{t},W_{t},M_{t}\right] ^{^{\prime }}\ \ \ \ \ \
+\ \ \ \ \ \ \ \ \ \ \varepsilon _{t}=\left[ \varepsilon _{t}^{D},\varepsilon
+_{t}^{S},\varepsilon _{t}^{P},\varepsilon _{t}^{W},\varepsilon _{t}^{M}%
+\right] ^{^{\prime }}$$
+
+
+* The A and B matrices to recover the SVAR are:
+
+$$A=%
+\begin{bmatrix}
+1 & 0 & 0 & 0 & 0 \\ 
+a_{21} & 1 & 0 & 0 & 0 \\ 
+a_{31} & 0 & 1 & a_{34} & 0 \\ 
+0 & a_{42} & a_{43} & 1 & 0 \\ 
+a_{51} & a_{52} & a_{53} & a_{54} & 1%
+\end{bmatrix}%
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  \ \ \ \ \ \ \ B=%
+\begin{bmatrix}
+b_{11} & b_{12} & 0 & 0 & 0 \\ 
+0 & b_{22} & 0 & 0 & 0 \\ 
+0 & b_{32} & b_{33} & 0 & 0 \\ 
+0 & b_{42} & 0 & b_{44} & 0 \\ 
+0 & 0 & 0 & 0 & b_{55}%
+\end{bmatrix}%
+$$
+
+* The restrictions on the A & B matrices come from:
+    - $Y_{t}=b_{11}\varepsilon _{t}^{D}+b_{12}\varepsilon _{t}^{S}$. Aggregate demand equation: real GDP is contemporaneously affected  by $\varepsilon _{t}^{D}$ and $\varepsilon _{t}^{S}$
+    - $U_{t}=-a_{21}Y_{t}+b_{22}\varepsilon _{t}^{S}$. Okun's law: unemployment is simultaneously related to output and instantaneously affected by $\varepsilon _{t}^{S}$
+    - $P_{t}=-a_{31}Y_{t}-a_{34}W_{t}+b_{32}\varepsilon _{t}^{S}+b_{33}\varepsilon
+_{t}^{P}$. Price setting equation: the price level is simultaneously related to output and wages, and instantaneously affected by $\varepsilon _{t}^{S}$ and $\varepsilon _{t}^{P}$
+    - $W_{t}=-a_{42}U_{t}-a_{43}P_{t}+b_{42}\varepsilon _{t}^{S}+b_{44}\varepsilon
+_{t}^{W}$. Phillips curve: the nominal wage is simultaneously related to unemployment and prices, and instantaneously affected by $\varepsilon _{t}^{S}$ and $\varepsilon _{t}^{P}$
+    - $M_{t}=-a_{51}Y_{t}-a_{52}U_{t}-a_{53}P_{t}-a_{54}W_{t}+b_{55}\varepsilon
+_{t}^{M}$. Monetary rule equation: nominal money is simultaneously related to all the other 4 variables, but is only and instantaneously affected by monetary structural disturbances($\varepsilon _{t}^{M}$)
+
+- For a complete economic interpretation of these equations, see Blanchard (1989, section II).
+
+
+* Together, the 2 matrices (A-B) have 17 free elements, while from $A\Sigma _{v}A^{^{\prime }}=BB^{^{\prime }}$ we obtain only $n(n-1)/2 = 15$ restrictions.To satisfy the order condition we need two additional restrictions.
+
+* For this reason, Blanchard (1989) assigned fixed numerical values to the coefficients $a_{34}$ and $b_{12}$. The numerical value given to $a_{34}$ was derived from previous studies, whereas that assigned to $b_{12}$ resulted from a sort of calibration reasoning.
+
+<br>
+
+-------------------------
+
+
+# Additional topics
+
+- VECM  
+
+- Bayesian VARs  
+
+- Sign restrictions
+
+- Identification by Heteroskedasticity    
+
+- Non-fundamentalness  
+
+- Factor-augmented VAR (FAVAR)   
+
+-  TVAR & STVAR  
+
+
+<br>
+
+------------------------------  
+
+
+
+# To sum up
+
+* Structural vector autoregressive (SVAR) models have been used extensively for economic analysis since they were advocated by Sims (1980) as alternatives to classical econometric simultaneous equations models.  
+
+
+
+- Despite their popularity, a number of authors have questioned their reliability and usefulness on different grounds. 
+
+- For example, Cooley and LeRoy (1985) call VAR analysis atheoretical if no structural assumptions from economic theory are used in structural interpretations.  
+
+-  Cooley and Dwyer (1998) question the robustness of the evidence from SVARs with respect to the statistical model specifications. 
+
+
+* Non-arbitrary orthogonalisation schemes which impose contemporaneous restrictions on the VAR are referred to as short-run identification schemes. Most short-run restrictions are zero restrictions (e.g. that output reacts only with a lag to monetary shocks). 
+
+* Opinions concerning short-run restrictions are mixed. Faust and Leeper (1997) claim there is often simply an insufficient number of tenable contemporary restrictions to achieve identification. However, Christiano et al. (2006) argue that short-run SVARs perform remarkably well.  
+
+
+* Pioneering work by Shapiro and Watson (1988) and Blanchard and Quah (1989) described how restrictions could be placed on the long-run responses. 
+
+* There is a greater consensus amongst theoretical models in terms of long-run results. It should be unsurprising therefore that the most common set of restrictions is to nullify the long-run response of output to monetary shocks.
+
+* Ever since their introduction, long-run restrictions have been frequently employed, see King et al. (1991), Francis and Ramey (2004), Fisher (2006) among many others.
+
+* It is also possible to adopt a combination of short and long run restrictions as originally demonstrated by Gali (1992), Gerlach and Smets (1995), Peersman and Smets (2001) and Mamoudou et al. (2009).
+
+* VAR methodology is under continuous development (VECM, sign restrictions, Heteroskedasticity restrictions, STVAR, etc.)  
+
+- In their review of the VAR methodology, [Stock and Watson (2001)](http://www.jstor.org/discover/10.2307/2696519?uid=3737952&uid=2&uid=4&sid=21106079897071) conclude that VARs successfully capture the rich interdependent dynamics of data well, but that their structural implications are only as sound as their identification schemes'. 
+
+
+
+
+
+
+
+
+# Bibliography
+
+**The slides are based on the following documents:**  
+(and probably some others that I have not remembered at the time of the final making. Thanks to all of them)
+
+
+- Amisano, G., and Giannini, C. (1997). [Topics in Structural VAR Econometrics](http://www.springer.com/gp/book/9783662027578). Springer. 
+- Bjørnland, H. C., and Thorsrud, L. (2015). [Applied Time Series for Macroeconomics](http://www.gyldendal.no/Faglitteratur/OEkonomi-og-administrasjon/Samfunnsoekonomi/Applied-time-series-for-macroeconomics-2.-utg),  Gyldendal Akademisk. 
+- Gali, J. (1999), [Technology, Employment, and the Business Cycle: Do Technology Shocks
+Explain Aggregate Fluctuations?](http://www.crei.cat/wp-content/uploads/users/pages/jgaer99.pdf), American Economic Review, 89, 249-271.
+- Gottschalk, J. (2001), [An Introduction into the SVAR Methodology: Identification, Interpretation and Limitations of SVAR models](https://www.ifw-members.ifw-kiel.de/publications/an-introduction-into-the-svar-methodology-identification-interpretation-and-limitations-of-svar-models/kap1072.pdf), Kiel Working Paper nº 1072
+- Kilian, L. (2011),  [Structural Vector Autoregression](https://ideas.repec.org/p/cpr/ceprdp/8515.html), CEPR Discussion Paper Series n^o^ 8515.
+- Sims, C.A. (1980), [Macroeconomics and Reality](https://ideas.repec.org/a/ecm/emetrp/v48y1980i1p1-48.html), Econometrica, 48, 1-48
+- Lütkepohl, H. (2005), [New Introduction to Multiple Time Series Analysis](http://www.springer.com/gp/book/9783540401728). Springer: New York.
+- Lütkepohl, H. (2011), [Vector Autoregressive Models](http://cadmus.eui.eu/bitstream/handle/1814/19354/ECO_2011_30.pdf), EUI Working Paper ECO2011/30
+- Pfaff, B. (2008a), [VAR, SVAR and SVEC Models: Implementation Within R Package vars](http://www.jstatsoft.org/v27/i04/paper), Journal of Statistical Software, 27(4)
+- Pfaff, B. (2008b), [Analysis of Integrated and Cointegrated Time Series with R](http://www.springer.com/gp/book/9780387759661), Springer
+- Pfaff, B. (2014), [Package 'vars'](http://cran.r-project.org/web/packages/vars/vars.pdf), CRAN R package.
+- Stock, J. H. (2008), [Recent Developments in Structural VAR Modelling](http://www.nber.org/WNE/slides7-14-08/Lecture7.pdf), NBER Summer Institute
+
+
+

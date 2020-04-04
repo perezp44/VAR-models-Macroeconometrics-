@@ -11,7 +11,7 @@
 
 
 
-<title>index.utf8</title>
+<title>05-Schedulle.utf8</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,6 +19,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
@@ -234,6 +237,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -241,6 +307,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -327,21 +403,58 @@ $(document).ready(function () {
 </div>
 
 
-<p><br><br><br></p>
-<div id="var-models-4th-topic-of-macroenometrics-44343" class="section level3">
-<h3>VAR models (4th topic of Macroenometrics (44343))</h3>
+<p><br></p>
+<div id="schedulle" class="section level2">
+<h2>Schedulle</h2>
+<hr />
+<p>VAR models, the 4th topic of Macroeconometrics, was planned to be delibered in 5 classes: 16th, 20th, 23th, 27th and 30th of April, from 8:30 to 10:30 (spanish time, UTC + 2 hours)</p>
+<p>I think it is better to keep the official schedule, then, if nothing happens, we are going to have 5 on-line meetings using Black Board Collaborate. You can access the meetings throught <a href="https://aulavirtual.uv.es/course/view.php?id=9759">Aula Virtual</a>.</p>
 <hr />
 <p><br></p>
-<p>Hi students! Wellcome to the course website!!</p>
+<p>“The plan” is to meet you 5 times:</p>
+<hr />
 <p><br></p>
-<p>This is the website for the 4th topic of the 2019-2020 Macroeconometrics course (Master in Economics) at the University of Valencia. Mariam has delivered already the first 3 topics and I’m in charge of the last and 4th: <strong>VAR models</strong>. The repo to build this web is hosted <a href="https://github.com/perezp44/VAR-models-web/" target="_blank">here</a> on Gitbub.</p>
-<p><strong>Topic summary:</strong> The topic is an introduction to structural VAR models, one of the principal research toolkit in macroeconomic research.</p>
-<p>As you know the classes were face-to-face but then the covid-19 … I hope all this will pass soon!! We will try our best lo learn as much as possible about VAR models!!</p>
-<p>For more information about the mini-course, please visit the <a href="https://perezp44.github.io/VAR-models-web/01-Course-plan.html">Course “plan”</a> section of the website.</p>
+<div id="st-session" class="section level3">
+<h3>1st session</h3>
+<p><strong><code>Date/time</code>:</strong> Thursday 16th of April at <strong>9:00</strong> (time of Spain, UTC+2 hours).</p>
+<p>The first class should be devoted to explain:</p>
+<ul>
+<li><p>how to deliver the VAR assignment</p></li>
+<li><p>a litle bite of R &amp; Rmarkdown (because you will have to deliver your assignment using Rmarkdown)</p></li>
+<li><p>what is a VAR?</p></li>
+<li><p>When the VARs were started to de used in Macroeconomics?</p></li>
+<li><p>How we can estimate</p></li>
+</ul>
 <p><br></p>
-<p>– Pedro J. Pérez</p>
-<p><br><br><br><br></p>
-<p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
+<hr />
+<p><br></p>
+</div>
+<div id="nd-session" class="section level3">
+<h3>2nd session</h3>
+<p><code>**Date/time**</code>: Tuesday 20th of April at <strong>9:00</strong> (time of Spain, UTC+2 hours).</p>
+<p>The second class … we will see how first class works!!</p>
+<p><br></p>
+<hr />
+<p><br></p>
+</div>
+<div id="rd-session" class="section level3">
+<h3>3rd session</h3>
+<p><code>**Date/time**</code>: Thursday 23th of April at <strong>9:00</strong> (time of Spain, UTC+2 hours).</p>
+<p><br></p>
+<hr />
+<p><br></p>
+</div>
+<div id="th-session" class="section level3">
+<h3>4th session</h3>
+<p><code>**Date/time**</code>: Tuesday 27th of April at <strong>9:00</strong> (time of Spain, UTC+2 hours).</p>
+<p><br></p>
+<hr />
+<p><br></p>
+</div>
+<div id="th-session-1" class="section level3">
+<h3>5th session</h3>
+<p><code>**Date/time**</code>: Thursday 30th of April at <strong>9:00</strong> (time of Spain, UTC+2 hours).</p>
+</div>
 </div>
 
 
@@ -354,6 +467,8 @@ $(document).ready(function () {
 </footer>
 
 
+</div>
+</div>
 
 </div>
 
@@ -386,6 +501,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

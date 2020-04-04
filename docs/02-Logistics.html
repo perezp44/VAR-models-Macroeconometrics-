@@ -11,7 +11,7 @@
 
 
 
-<title>index.utf8</title>
+<title>02-Logistics.utf8</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,6 +19,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
@@ -234,6 +237,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -241,6 +307,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -327,21 +403,55 @@ $(document).ready(function () {
 </div>
 
 
-<p><br><br><br></p>
-<div id="var-models-4th-topic-of-macroenometrics-44343" class="section level3">
-<h3>VAR models (4th topic of Macroenometrics (44343))</h3>
+<p><br></p>
+<p>During the mini-course we are going to use, aside from this website, the following:</p>
+<div id="resources" class="section level3">
+<h3>Resources:</h3>
+<ul>
+<li><p><a href="https://aulavirtual.uv.es/course/view.php?id=9759"><strong><code>Aula Virtual site for Macroeconometrics</code></strong></a>: from here we will use Black Board Collaborate to make on-line meetings</p></li>
+<li><p><a href="https://etherpad.wikimedia.org/p/var_18"><strong><code>Etherpad</code></strong></a>: during the course we are going to make some work with R, we will use an etherpad to collaborate with the code.</p></li>
+</ul>
+<p><br></p>
 <hr />
+</div>
+<div id="materials" class="section level3">
+<h3>Materials:</h3>
+<ul>
+<li><p><a href="https://perezp44.github.io/VAR-models-web/03-Slides.html"><strong><code>Slides</code></strong></a>: the slides that I used last year to teach the course. Last, and previous, years the teaching was not on-line.</p></li>
+<li><p><a href="https://perezp44.github.io/VAR-models-web/04-Lab-Gali.html"><strong><code>Lab</code></strong></a>. A document that replicates the <a href="http://www.crei.cat/wp-content/uploads/users/pages/jgaer99.pdf">Gali(1999) paper</a>, providing an example of use structural VAR methodology using R and the <a href="http://cran.r-project.org/web/packages/vars/vars.pdf">vars package</a>.</p></li>
+</ul>
 <p><br></p>
-<p>Hi students! Wellcome to the course website!!</p>
-<p><br></p>
-<p>This is the website for the 4th topic of the 2019-2020 Macroeconometrics course (Master in Economics) at the University of Valencia. Mariam has delivered already the first 3 topics and I’m in charge of the last and 4th: <strong>VAR models</strong>. The repo to build this web is hosted <a href="https://github.com/perezp44/VAR-models-web/" target="_blank">here</a> on Gitbub.</p>
-<p><strong>Topic summary:</strong> The topic is an introduction to structural VAR models, one of the principal research toolkit in macroeconomic research.</p>
-<p>As you know the classes were face-to-face but then the covid-19 … I hope all this will pass soon!! We will try our best lo learn as much as possible about VAR models!!</p>
-<p>For more information about the mini-course, please visit the <a href="https://perezp44.github.io/VAR-models-web/01-Course-plan.html">Course “plan”</a> section of the website.</p>
-<p><br></p>
-<p>– Pedro J. Pérez</p>
-<p><br><br><br><br></p>
-<p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
+<hr />
+</div>
+<div id="more-resources" class="section level3">
+<h3>More resources:</h3>
+<p>The assignment of the course should be delivered as an <code>Rproject</code> and written in <code>Rmarkdown</code>, then you should know what they are. Don’t worry I will explain this the first day. It’s funny and really useful. You could read this tutorials. Sorry there comes from another course I have, then there are in Spanish. Sorry I have no time to translate but internet is plenty of resources in English.</p>
+<ul>
+<li><p><a href="https://perezp44.github.io/VAR-models-web/tt_01_primeros_pasos-con-R.html"><strong><code>Tutorial about Rprojects</code></strong></a>: section 3 of this tutorial explain how to make an Rprojects and why it is useful They have also references in English</p></li>
+<li><p><a href="https://perezp44.github.io/VAR-models-web/tt_02_Rmarkdown.html"><strong><code>Rmarkdown Tutorial</code></strong></a>: an introduction to Rmarkdown. Also plenty of references in English</p></li>
+</ul>
+<hr />
+<p><br><br></p>
+<hr />
+</div>
+<div id="bibliography" class="section level3">
+<h3>Bibliography</h3>
+<p><strong>The slides and the course are based on the following documents:</strong><br />
+(and probably some others that I have not remembered at the time of the final making. Thanks to all of them)</p>
+<ul>
+<li>Amisano, G., and Giannini, C. (1997). <a href="http://www.springer.com/gp/book/9783662027578">Topics in Structural VAR Econometrics</a>. Springer.</li>
+<li>Bjørnland, H. C., and Thorsrud, L. (2015). <a href="http://www.gyldendal.no/Faglitteratur/OEkonomi-og-administrasjon/Samfunnsoekonomi/Applied-time-series-for-macroeconomics-2.-utg">Applied Time Series for Macroeconomics</a>, Gyldendal Akademisk.</li>
+<li>Gali, J. (1999), <a href="http://crei.cat/people/gali/jgaer99.pdf">Technology, Employment, and the Business Cycle: Do Technology Shocks Explain Aggregate Fluctuations?</a>, American Economic Review, 89, 249-271.</li>
+<li>Gottschalk, J. (2001), <a href="https://www.ifw-members.ifw-kiel.de/publications/an-introduction-into-the-svar-methodology-identification-interpretation-and-limitations-of-svar-models/kap1072.pdf">An Introduction into the SVAR Methodology: Identification, Interpretation and Limitations of SVAR models</a>, Kiel Working Paper nº 1072</li>
+<li>Kilian, L. (2011), <a href="https://ideas.repec.org/p/cpr/ceprdp/8515.html">Structural Vector Autoregression</a>, CEPR Discussion Paper Series n<sup>o</sup> 8515.</li>
+<li>Sims, C.A. (1980), <a href="https://ideas.repec.org/a/ecm/emetrp/v48y1980i1p1-48.html">Macroeconomics and Reality</a>, Econometrica, 48, 1-48</li>
+<li>Lütkepohl, H. (2005), <a href="http://www.springer.com/gp/book/9783540401728">New Introduction to Multiple Time Series Analysis</a>. Springer: New York.</li>
+<li>Lütkepohl, H. (2011), <a href="http://cadmus.eui.eu/bitstream/handle/1814/19354/ECO_2011_30.pdf">Vector Autoregressive Models</a>, EUI Working Paper ECO2011/30</li>
+<li>Pfaff, B. (2008a), <a href="http://www.jstatsoft.org/v27/i04/paper">VAR, SVAR and SVEC Models: Implementation Within R Package vars</a>, Journal of Statistical Software, 27(4)</li>
+<li>Pfaff, B. (2008b), <a href="http://www.springer.com/gp/book/9780387759661">Analysis of Integrated and Cointegrated Time Series with R</a>, Springer</li>
+<li>Pfaff, B. (2014), <a href="http://cran.r-project.org/web/packages/vars/vars.pdf">Package ‘vars’</a>, CRAN R package.</li>
+<li>Stock, J. H. (2008), <a href="http://www.nber.org/WNE/slides7-14-08/Lecture7.pdf">Recent Developments in Structural VAR Modelling</a>, NBER Summer Institute</li>
+</ul>
 </div>
 
 
@@ -354,6 +464,8 @@ $(document).ready(function () {
 </footer>
 
 
+</div>
+</div>
 
 </div>
 
@@ -386,6 +498,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

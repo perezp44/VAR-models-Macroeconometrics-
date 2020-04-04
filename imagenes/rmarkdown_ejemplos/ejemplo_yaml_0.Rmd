@@ -1,0 +1,6 @@
+---
+title: "El título de mi informe"
+author: "Yo mismo"
+date: "Marzo de 2017"
+output: html_document
+---

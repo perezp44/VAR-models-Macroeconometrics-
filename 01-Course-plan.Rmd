@@ -19,7 +19,7 @@ output:
   
 This mini-course, the topic about VAR, represents 1 of the 5 ECTS of the Macroeconometrics subject. As you know, the course was intended to be face to face but then covid-19 arrived, then, **we all have to adapt to the new situation**.
 
-The course is an introduction to structural VAR models, one of the principal research toolkit in macroeconomic research. After a theoretical introduction to the VAR models and methodology, we will focus on the practical imnplementation of VAR models; that is, at the end of the course you have to be able to estimate, interpret and make use of a VAR model. For this we will use R through RStudio.
+The course is an introduction to structural VAR models, one of the principal research toolkit in macroeconomic research. After a theoretical introduction to the VAR models and methodology, we will focus on the practical implementation of VAR models; that is, at the end of the course you have to be able to estimate, interpret and make use of a VAR model. For this we will use R through RStudio.
 
 You have already used R and RStudio during the course with Mariam, but now we are going to use Rprojects and we will learn to make reports with Rmarkdown. In fact this website was made with Rmarkdown. We will talk about that in the first session. 
  
@@ -30,22 +30,106 @@ You have already used R and RStudio during the course with Mariam, but now we ar
 
 <br>
 
-## "The plan"
+## The "plan"
 
-The truth is that I would have preferred to delay the classes but finally we are going **to start the classes** as planned the **16th of April** at 9:00 (spanish time, UTC + 2 hours), but on-line.
+The truth is that I would have preferred to delay the classes but finally we are going **to start the classes** as planned the **16th of April** at 9:00 (Spanish time, UTC + 2 hours), but on-line.
 
-I do not know if in your confinement site you have everything you need to follow the classes, but I hope so. Also, I have no experience teaching online, then **I will need your help to make the course work**.
+I do not know if in your confinement site you have everything you need to follow the classes, but I hope so. Also, I have no experience teaching on-line, then **I will need your help to make the course work**.
 
-My topic (VAR models) was planned to be delibered in 5 classes: 16th, 20th, 23th, 27th and 30th of April, from 8:30 to 10:30. I think it is better to keep the official schedule. Please see the [Schedulle](Schedulle) section of the web.
+My topic (VAR models) was planned to be delivered in 5 sessions, starting the 16th of April. I think it is better to keep the official schedule, then, please see the [Schedulle](https://perezp44.github.io/VAR-models-web/05-Schedulle.html) section of the web.
 
-My plan/intention is to meet you 5 times, but instead to deliver a traditional class where the teacher talks about a subject, I think it would be better if you read the materials firts and we dedicate the session to solve doubts and provide feedback. In fact my classes, even when I teach face to face, have always an important component of making and solving questions. We will see how it works on-line and in English.
+My plan/intention is to meet you 5 times, but instead to deliver a traditional class where the teacher talks about a subject, I think it would be better if you read the materials first and we dedicate the session to solve doubts and provide feedback. In fact my classes, even when I teach face to face, have always an important component of making and solving questions. We will see how it works on-line and in English.
 
-Then, before to attend to the on-line meetings you will have some workhome to do, usually reading a section of the [Slides](Slides) or doing some task in R. Previous to each session, I will send you and email thougth Aula Virtual, that is, to your official UV e-mail, with the homework you have to do before the e-meeting. 
+Then, before to attend the on-line meetings you will have some work home to do, usually reading a section of the [Slides](https://perezp44.github.io/VAR-models-web/03-Slides.html) or doing some task with R. Previous to each session, I will send you and email through Aula Virtual, that is, to your official UV e-mail, with the homework you have **to do before the e-meeting**. 
 
 
-I repeat,  you should go to the on-line meetings having done the work I will send to your UV e-mail 
+I repeat:
 
-Remenber, our first on-line meeting will be the **Thursday 16th of April at 9:00** (time of Spain, UTC+2 hours). You could find the date, time and more details about the on-line meetings in the [Schedulle](Schedulle) section of the website
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "blue">
+
+You should go to the on-line meetings **having done** the workhome I will send to your UV e-mail.
+
+</div>
+
+
+
+<br>
+
+
+Remember, that our first on-line meeting will be the **Thursday 16th of April at 9:00** (time of Spain, UTC+2 hours). You could find the date, time and more details about the on-line meetings in the [Schedulle](https://perezp44.github.io/VAR-models-web/05-Schedulle.html) section of the website
+
+<br>
+
+------------------
+
+<br>
+
+## Logistics
+---
+#title: "Macroenometrics (44343)"
+output:
+  html_document:
+    theme: united
+    highlight: monochrome 
+    number_sections: no
+    toc: true
+    toc_float: true
+    #code_folding: show
+    #self_contained: TRUE
+---
+
+<br><br>
+
+-------------------
+
+## Intro
+  
+This mini-course, the topic about VAR, represents 1 of the 5 ECTS of the Macroeconometrics subject. As you know, the course was intended to be face to face but then covid-19 arrived, then, **we all have to adapt to the new situation**.
+
+The course is an introduction to structural VAR models, one of the principal research toolkit in macroeconomic research. After a theoretical introduction to the VAR models and methodology, we will focus on the practical implementation of VAR models; that is, at the end of the course you have to be able to estimate, interpret and make use of a VAR model. For this we will use R through RStudio.
+
+You have already used R and RStudio during the course with Mariam, but now we are going to use Rprojects and we will learn to make reports with Rmarkdown. In fact this website was made with Rmarkdown. We will talk about that in the first session. 
+ 
+ 
+<br>
+
+------------------
+
+<br>
+
+## The "plan"
+
+The truth is that I would have preferred to delay the classes but finally we are going **to start the classes** as planned the **16th of April** at 9:00 (Spanish time, UTC + 2 hours), but on-line.
+
+I do not know if in your confinement site you have everything you need to follow the classes, but I hope so. Also, I have no experience teaching on-line, then **I will need your help to make the course work**.
+
+My topic (VAR models) was planned to be delivered in 5 sessions, starting the 16th of April. I think it is better to keep the official schedule, then, please see the [Schedulle](https://perezp44.github.io/VAR-models-web/05-Schedulle.html) section of the web.
+
+My plan/intention is to meet you 5 times, but instead to deliver a traditional class where the teacher talks about a subject, I think it would be better if you read the materials first and we dedicate the session to solve doubts and provide feedback. In fact my classes, even when I teach face to face, have always an important component of making and solving questions. We will see how it works on-line and in English.
+
+Then, before to attend the on-line meetings you will have some workhome to do, usually reading a section of the [Slides](https://perezp44.github.io/VAR-models-web/03-Slides.html) or doing some task with R. Previous to each session, I will send you and email through Aula Virtual, that is, to your official UV e-mail, with the homework you have **to do before the e-meeting**. 
+
+
+I repeat:
+
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "blue">
+
+You should go to the on-line meetings **having done** the workhome I will send to your UV e-mail.
+
+</div>
+
+
+
+<br>
+
+
+Remember, that our first on-line meeting will be the **Thursday 16th of April at 9:00** (time of Spain, UTC+2 hours). You could find the date, time and more details about the on-line meetings in the [Schedulle](https://perezp44.github.io/VAR-models-web/05-Schedulle.html) section of the website
 
 <br>
 
@@ -57,7 +141,7 @@ Remenber, our first on-line meeting will be the **Thursday 16th of April at 9:00
 
 Of course you will need a computer and a internet connection. 
 
-During the course we are going to use some internet resources. You can find the details in the [Logistics](Logistics) section of the website.
+During the course we are going to use some internet resources. You can find the details in the [Logistics](https://perezp44.github.io/VAR-models-web/02-Logistics.html) section of the website.
 
 
 <br>
@@ -68,6 +152,27 @@ During the course we are going to use some internet resources. You can find the 
 
 ## Evaluation
 
-Of course you are interested in the marks. My mini-course contributes 1 ECTS out of 5, then the VAR topic represents the 20% of your Macroeconometrics mark. My intention ins not to make an exam, Mariam does already one, then my 20% will come from an assignment. Obviously the assignmente will consist on estimating, validating and using a VAR model. We will talk about this in the first session.
+Of course you are interested in the marks. My mini-course contributes 1 ECTS out of 5, then the VAR topic represents the 20% of your Macroeconometrics mark. My intention ins not to make an exam, Mariam does already one, then my 20% will come from an assignment and from the participation at the e-meetings. 
+
+Obviously, the assignment will consist on estimating, validating and using a VAR model. We will talk about this in the first session and latter I will send you, through your UV e-mail, precise information about the project assignment: format of delivery, deadline etc...
+
+
+Of course you will need a computer and a internet connection. 
+
+During the course we are going to use some internet resources. You can find the details in the [Logistics](https://perezp44.github.io/VAR-models-web/02-Logistics.html) section of the website.
+
+
+<br>
+
+------------------
+
+<br>
+
+## Evaluation
+
+Of course you are interested in the marks. My mini-course contributes 1 ECTS out of 5, then the VAR topic represents the 20% of your Macroeconometrics mark. My intention ins not to make an exam, Mariam does already one, then my 20% will come from an assignment and from the participation at the e-meetings. 
+
+Obviously, the assignment will consist on estimating, validating and using a VAR model. We will talk about this in the first session and latter I will send you, through your UV e-mail, precise information about the project assignment: format of delivery, deadline etc...
+
 
 
