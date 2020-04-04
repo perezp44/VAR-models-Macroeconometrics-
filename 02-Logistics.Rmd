@@ -11,10 +11,12 @@ output:
     #self_contained: TRUE
 ---
 
-<br>
+<br><br>
 
 
 During the mini-course we are going to use, aside from this website, the following:
+
+<br>
 
 ### Resources:
 
@@ -46,14 +48,14 @@ The assignment of the course should be delivered as an `Rproject` and written in
 
 - [**`Rmarkdown Tutorial`**](https://perezp44.github.io/VAR-models-web/tt_02_Rmarkdown.html): an introduction to Rmarkdown. Also plenty of references in English
 
----------------------------------
-
-
-
-<br><br>
+<br>
 
 ---------------------------------
-    
+
+
+<br>
+
+
 ### Bibliography
 
 **The slides and the VAR mini-course are based on the following documents:**  
@@ -73,3 +75,6 @@ Explain Aggregate Fluctuations?](http://crei.cat/people/gali/jgaer99.pdf), Ameri
 - Pfaff, B. (2008b), [Analysis of Integrated and Cointegrated Time Series with R](http://www.springer.com/gp/book/9780387759661), Springer
 - Pfaff, B. (2014), [Package 'vars'](http://cran.r-project.org/web/packages/vars/vars.pdf), CRAN R package.
 - Stock, J. H. (2008), [Recent Developments in Structural VAR Modelling](http://www.nber.org/WNE/slides7-14-08/Lecture7.pdf), NBER Summer Institute
+
+
+<br>

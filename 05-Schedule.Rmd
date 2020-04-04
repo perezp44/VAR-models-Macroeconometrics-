@@ -1,0 +1,137 @@
+---
+#title: "Macroenometrics (44343)"
+output:
+  html_document:
+    theme: united
+    highlight: monochrome 
+    number_sections: no
+    toc: true
+    toc_float: true
+    #code_folding: show
+    #self_contained: TRUE
+---
+
+<br><br>
+  
+## Schedule
+
+------------------------------
+
+VAR models, the 4th topic of Macroeconometrics, was planned to be delibered in 5 classes: 16th, 20th, 23th, 27th and 30th of April, from 8:30 to 10:30 (spanish time, UTC + 2 hours)
+
+I think it is better to keep the official schedule, then, if nothing happens, we are going to have 5 on-line meetings using Black Board Collaborate. You can access the meetings throught [Aula Virtual](https://aulavirtual.uv.es/course/view.php?id=9759).
+
+------------------------------
+
+<br>
+
+"The plan" is to meet you 5 times:
+
+-----------------------
+
+<br>
+
+### 1st session
+
+- **`Date/time`:** Thursday 16th of April at **9:00** (time of Spain, UTC+2 hours).  
+
+- The first class should be devoted to:  
+
+  - talk about how the course will works.  
+
+  - explain how to deliver the VAR assignment.  
+
+  - explain a litle bite of R, Rprojects & Rmarkdown (because you will have to deliver your assignment using Rmarkdown).  
+
+  - Start to learn about VAR models & methodology: Introduction to VAR models.  
+
+<br>
+
+- **`Homework`**: before the e-meeting, at least, you should,  
+
+    - read the [`Course "plan"`](https://perezp44.github.io/VAR-models-web/01-Course-plan.html) section of the website.  
+    
+    - read the sections 1, 2.1 & 2.2 of the [Slides](https://perezp44.github.io/VAR-models-web/03-Slides.html)
+    
+    - read section 3 of [this tutorial](https://perezp44.github.io/VAR-models-web/tt_01_primeros-pasos-con-R.html). If you have problems because it is written in Spanish, you could read something similar [here](https://rstats.wtf/project-oriented-workflow.html){target="_blank"}.
+
+<br>
+
+- After the e-meeting you should know:
+
+   - What is exactly a **VAR model**?
+   
+   - Why VAR are used in Macroeconomics?
+    
+   - When the VAR's were started to be used in Macroeconomics?
+
+   - To write down the equation(s) of a VAR model. 
+   
+   - What is it and what are the benefits of using **Rprojects**.
+   
+   - What is and what is the utility of **Rmarkdown**.
+  
+
+<br>
+
+Too much  for the first class? I don't think so, but we will see ...
+
+<br>
+
+**Challenge:** If you fully understand the following sentence you should deserve to pass the course already.
+
+> Sims's original idea to obtain IRF&FEVD was to assume recursive contemporaneous interactions among variables, i.e. by imposing a certain structural ordering of the variables. In terms of the moving average (MA) representation, the structural shocks do not affect preceding variables simultaneously (Cholesky)
+
+
+
+<br>
+
+
+
+----------------
+
+<br>
+
+### 2nd session
+
+`**Date/time**`: Tuesday 20th of April at **9:00** (time of Spain, UTC+2 hours).
+
+The second class ... we will see how first class works!!
+
+<br>
+
+----------------
+
+<br>
+
+
+### 3rd session
+
+`**Date/time**`: Thursday 23th of April at **9:00** (time of Spain, UTC+2 hours).
+
+<br>
+
+----------------
+
+<br>
+
+
+### 4th session
+
+`**Date/time**`: Tuesday 27th of April at **9:00** (time of Spain, UTC+2 hours).
+
+
+<br>
+
+----------------
+
+<br>
+
+### 5th session
+
+`**Date/time**`: Thursday 30th of April at **9:00** (time of Spain, UTC+2 hours).
+
+
+<br><br><br>
+
+

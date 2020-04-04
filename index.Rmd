@@ -41,7 +41,7 @@ This is the website for the 4th topic of the 2019-2020 Macroeconometrics course 
 As you know the classes were face-to-face but then the covid-19 ... I hope all this will pass soon!! We will try our best lo learn as much as possible about VAR models!!
 
 
-For more information about the mini-course, please visit the [Course "plan"](https://perezp44.github.io/VAR-models-web/01-Course-plan.html) section of the website.
+For more information about the mini-course, please visit the [`Course "plan"`](https://perezp44.github.io/VAR-models-web/01-Course-plan.html) section of the website.
 
 
 <br>
@@ -53,4 +53,3 @@ For more information about the mini-course, please visit the [Course "plan"](htt
 <br><br><br><br>
   
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
-    

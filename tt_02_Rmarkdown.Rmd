@@ -632,8 +632,8 @@ pkgs_instalados <- installed.packages(fields = c("Package", "Version")) %>%
 
 [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/). Pues eso, la guía definitiva. Fantástica!!
 
---------------------------------------------
 
+<br>
 
 
 
@@ -677,3 +677,4 @@ This template was developed in order to introduce this alternative  https://comm
 - PIMP your Rmd: https://holtzy.github.io/Pimp-my-rmd/#compile_in_a_website
 ```
 
+<br>

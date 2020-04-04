@@ -896,4 +896,6 @@ fevd(our_var, n.ahead = 4)
 
 <br>
 
-- In the next Lab we will illustrate other ways to identify a SVAR
+- In the next Lab we will illustrate other ways to identify a SVAR   
+
+<br>

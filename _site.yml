@@ -17,9 +17,9 @@ navbar:
     - text: "Lab"
       icon: fa-keyboard
       href: 04-Lab-Gali.html
-    - text: "Schedulle"
+    - text: "Schedule"
       icon: fa-calendar-alt
-      href: 05-Schedulle.html      
+      href: 05-Schedule.html      
     - text: "MáS"
       icon: fa-gear      
       menu:
