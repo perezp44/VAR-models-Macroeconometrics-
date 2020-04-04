@@ -6,16 +6,24 @@ navbar:
     - icon: fa-home
       href: index.html
   right:
+    - text: "Course-plan"
+      icon: fa-head-side-virus  
+      href: 01-Course-plan.html  
     - text: "Logistics"
-      icon: fa-info
+      icon: fa-laptop
       href: 01-Logistics.html
     - text: "Slides"
+      icon: fa-book
       href: 02-Slides.html      
     - text: "Lab-Gali"
+      icon: fa-keyboard
       href: 03-Lab-Gali.html
+    - text: "Schedulle"
+      icon: fa-calendar-alt
+      href: 04-Schedulle.html      
     - text: "MAS"
-      icon: fa-gear
-      href: 04-Mas.html
+      icon: fa-download
+      href: 05-Mas.html
 
       
 output_dir: "docs"    

@@ -1,0 +1,98 @@
+---
+#title: "Macroenometrics (44343)"
+output:
+  html_document:
+    theme: united
+    highlight: monochrome 
+    number_sections: no
+    toc: true
+    toc_float: true
+    #code_folding: show
+    #self_contained: TRUE
+---
+
+  <br>
+  
+## Schedulle
+
+------------------------------
+
+VAR models, the 4th topic of Macroeconometrics, was planned to be delibered in 5 classes: 16th, 20th, 23th, 27th and 30th of April, from 8:30 to 10:30 (spanish time, UTC + 2 hours)
+
+I think it is better to keep the official schedule, then, if nothing happens, we are going to have 5 on-line meetings using Black Board Collaborate. You can access the meetings throught [Aula Virtual](https://aulavirtual.uv.es/course/view.php?id=9759).
+
+------------------------------
+
+<br>
+
+"The plan" is to meet you 5 times:
+
+-----------------------
+
+<br>
+
+### 1st session
+
+`**Date/time**`: Thursday 16th of April at **9:00** (time of Spain, UTC+2 hours).
+
+The first class should be devoted to explain:
+
+- how to deliver the VAR assignment
+
+- a litle bite of R & Rmarkdown (because you will have to deliver your assignment using Rmarkdown)
+
+- what is a VAR?
+
+- When the VARs were started to de used in Macroeconomics?
+
+- How we can estimate 
+
+<br>
+
+----------------
+
+<br>
+
+### 2nd session
+
+`**Date/time**`: Tuesday 20th of April at **9:00** (time of Spain, UTC+2 hours).
+
+The second class ... we will see how first class works!!
+
+<br>
+
+----------------
+
+<br>
+
+
+### 3rd session
+
+`**Date/time**`: Thursday 23th of April at **9:00** (time of Spain, UTC+2 hours).
+
+<br>
+
+----------------
+
+<br>
+
+
+### 4th session
+
+`**Date/time**`: Tuesday 27th of April at **9:00** (time of Spain, UTC+2 hours).
+
+
+<br>
+
+----------------
+
+<br>
+
+### 5th session
+
+`**Date/time**`: Thursday 30th of April at **9:00** (time of Spain, UTC+2 hours).
+
+
+
+
+
