@@ -78,7 +78,7 @@ Too much  for the first class? I don't think so, but we will see ...
 
 <br>
 
-**Challenge:** If you fully understand the following sentence you should deserve to pass the course already.
+**Challenge:** If you fully understand the following sentence you **should** deserve to pass the course already.
 
 > Sims's original idea to obtain IRF&FEVD was to assume recursive contemporaneous interactions among variables, i.e. by imposing a certain structural ordering of the variables. In terms of the moving average (MA) representation, the structural shocks do not affect preceding variables simultaneously (Cholesky)
 
