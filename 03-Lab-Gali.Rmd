@@ -5,7 +5,7 @@ date: "Marzo de 2019"
 output: 
   html_document:
     highlight: haddock
-    theme: cerulean
+    #theme: cerulean
     toc: yes
     toc_float: yes
 ---

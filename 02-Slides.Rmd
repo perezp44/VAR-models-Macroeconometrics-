@@ -6,7 +6,7 @@ output:
   html_document:
     highlight: pygments 
     number_sections: no
-    theme: united
+    #theme: united
     toc: true
     toc_float: true
     #code_folding: show

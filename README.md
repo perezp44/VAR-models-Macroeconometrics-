@@ -5,19 +5,23 @@
 
 <!-- badges: end -->
 
-# Macroenometrics (44343). 4th topic: VAR models
 
-Hi students\!
-
-This is the repo to build a website for the 4th topic of the 2019-2020 Macroeconomerics
-course from the Master in Economics at the University of Valencia.
-Mariam has delivered already the first 3 topics and I’m in charge of the
-last and 4th: **VAR models**.
+This is the repo that builds the website for the 4th topic of the 2019-2020 Macroeconometrics
+course (44343, Master in Economics at the University of Valencia).
 
 The website is here: <https://perezp44.github.io/VAR-models-web/index.html>
 
+Hi students\!
+
+Mariam has delivered already the first 3 topics and I’m in charge of the
+last and 4th: **VAR models**.
+
 As you know the classes were face-to-face but then the covid-19 … I hope
-all this will pass soon. We will try our best lo learn something about
+all this will pass soon. 
+
+We will try our best lo learn as much as possible about
 VAR models\!\!
 
+
+-- Pedro J. Pérez
 
