@@ -174,7 +174,7 @@ data_15 %>% slice(1, nrow(data_c)) %>% gt::gt()
 
 <br>
 
-4. Dow loading data for the US
+4. Downloading data for the US
 
 ```{r}
 geo_f   <- c("US")      #- countries: US

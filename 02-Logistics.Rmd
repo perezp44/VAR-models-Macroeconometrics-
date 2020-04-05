@@ -42,11 +42,11 @@ During the mini-course we are going to use, aside from this website, the followi
 
 The assignment of the course should be delivered as an `Rproject` and written in `Rmarkdown`, then you should know what they are. Don't worry I will explain this the first day. It's funny and really useful. You could read the following two tutorials. They are written in Spanish because they come from another course I have. Sorry but I have no time to translate them, but internet is plenty of resources in English.
 
-- [**`Tutorial about Rprojects`**](https://perezp44.github.io/VAR-models-web/tt_01_primeros_pasos-con-R.html): section 3 of this tutorial explain how to make an Rprojects and why it is useful They have also references in English
+- [**`Tutorial about Rprojects`**](https://perezp44.github.io/VAR-models-web/tt_01_primeros_pasos-con-R.html): section 3 of this tutorial explain how to make an Rproject and why it is useful. It has also references in English, for instance [this one](https://rmd4sci.njtierney.com/workflow.html).
 
 
 
-- [**`Rmarkdown Tutorial`**](https://perezp44.github.io/VAR-models-web/tt_02_Rmarkdown.html): an introduction to Rmarkdown. Also plenty of references in English
+- [**`Rmarkdown Tutorial`**](https://perezp44.github.io/VAR-models-web/tt_02_Rmarkdown.html): an introduction to Rmarkdown. Also plenty of references in English, for instance [this one](https://rmd4sci.njtierney.com/).
 
 <br>
 
