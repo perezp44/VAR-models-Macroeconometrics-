@@ -605,7 +605,6 @@ pkgs_instalados <- installed.packages(fields = c("Package", "Version")) %>%
 <br>
 
 
---------------------------
 
 --------------------------
 

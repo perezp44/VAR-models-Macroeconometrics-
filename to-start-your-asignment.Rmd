@@ -80,17 +80,26 @@ Obviously, first I have to load my data. As I have saved the file with my data i
 
 ```{r, eval = FALSE}
 #- remenber that you should change the name of the path to the file
-data <- read_csv("./datos/my_data_ES.csv") 
+df <- read_csv("./datos/my_data_ES.csv") 
 ```
 
-Other way to load the data is: 
+Other way to load the data. This second way to load the data is preferable. 
 
 
 ```{r}
-data <- read_csv(here::here("datos", "my_data_ES.csv")) 
+df <- read_csv(here::here("datos", "my_data_ES.csv")) 
 ```
 
-This second way to load the data is preferable
+We are going to use only 3/4 the variables: Vol, Vol_15, Vol_us & time
+
+
+```{r}
+data <- df %>% dplyr::select(time, Vol_us, Vol_15, Vol)
+```
+
+
+
+
 
 
 <br>
@@ -100,11 +109,6 @@ This second way to load the data is preferable
 As the `vars` package need that the data are in a special format (`ts`), then, I have to convert my data to the `ts` format
 
 To do that, first we have to look at the common sample of our 3 series:
-
-
-```{r}
-data <- data %>% select(time, Vol_us, Vol_15, Vol)
-```
 
 Dropping rows with NAs to obtain the The common sample for my data.
 
