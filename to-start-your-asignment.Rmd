@@ -45,19 +45,19 @@ library(DT)            #- install.packages("DT")
 
 # 1. Intro
 
-As the 20% of my mark for Macroeconomtrics depends on the VAR asignment and my participation in the e-meetings, I'm going to start doning my asignment. 
+As the 20% of my mark for Macroeconometrics depends on the VAR assignment and my participation in the e-meetings, I'm going to start doing my assignment. 
 
-For my asignmente I'm going to estimate a VAR model with Eurostat data. I downloaded the data using the `to-download-my_data.Rmd` file   the `xx/04/2020`. Big thanks to the the `eurostat` package.
+For my assignment, I'm going to estimate a VAR model with Eurostat data. I downloaded the data using the `to-download-my_data.Rmd` file   the `xx/04/2020`. Big thanks to the the `eurostat` package.
 
-And remenber, as the lecturer said repeatedly during the e-meetings, that there are some rules to deliver the asignment to him:
+And remember, as the lecturer said repeatedly during the e-meetings, that there are some rules to deliver the assignment to him:
 
-- you have to deliver the asignment by mail to `pedro.j.perez@uv.es` **BEFORE the 15/05/2020**.   
+- you have to deliver the assignment by mail to `pedro.j.perez@uv.es` **BEFORE the 15/05/2020**.   
  
 - you should attach in you mail a **single .zip file**.   
 
-- this single .zip file has to contain your **asignment as an Rproject**.   
+- this single .zip file has to contain your **assignment as an Rproject**.   
 
-- Remenber that you have to name the folder of you Rproject like: <VAR_country_1st-surname_name>. That is, if for instance, in your asignment you have used data from `Spain` and your name would be "Pedro Pérez Vázquez", then, the folder of your Rproject should be named: `VAR_perez_pedro_spain`. Please, all in lower case, except VAR, and **no spaces, no punctuation marks** in the name of the folder.   
+- Remember that you have to name the folder of you Rproject like: <VAR_country_1st-surname_name>. That is, if for instance, in your assignment you have used data from `Spain` and your name would be "Pedro Pérez Vázquez", then, the folder of your Rproject should be named: `VAR_perez_pedro_spain`. Please, all in lower case, except VAR, and **no spaces, no punctuation marks** in the name of the folder.   
 
 - Then, if the name of the folder of your Rproject is `VAR_perez_pedro_spain` then the .zip file you have to send me by e-mail should be named: `VAR_perez_pedro_spain.zip`.   
 
@@ -90,7 +90,7 @@ Other way to load the data is:
 data <- read_csv(here::here("datos", "my_data_ES.csv")) 
 ```
 
-This second way to load teh data is preferable
+This second way to load the data is preferable
 
 
 <br>
@@ -106,7 +106,7 @@ To do that, first we have to look at the common sample of our 3 series:
 data <- data %>% select(time, Vol_us, Vol_15, Vol)
 ```
 
-Droping rows with NAs to obtain the The common sample for my data.
+Dropping rows with NAs to obtain the The common sample for my data.
 
 ```{r}
 data <- data %>% drop_na()
@@ -190,3 +190,4 @@ OK, I have to estimate the VAR, let's load the vars package .....
 
 
 
+<br><br><br><br>

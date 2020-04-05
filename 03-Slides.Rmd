@@ -1454,6 +1454,6 @@ Explain Aggregate Fluctuations?](http://www.crei.cat/wp-content/uploads/users/pa
 - Stock, J. H. (2008), [Recent Developments in Structural VAR Modelling](http://www.nber.org/WNE/slides7-14-08/Lecture7.pdf), NBER Summer Institute
 
 
-<br>
+<br><br><br><br>
 
 

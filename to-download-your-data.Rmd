@@ -1,5 +1,5 @@
 ---
-title: "Downloading my_data for the asignment"
+title: "Downloading my_data for the assignment"
 author: "You"
 date: "2020, April"
 output: 
@@ -34,7 +34,7 @@ options(scipen = 999) #- para quitar la notacion cientifica
 
 # 1. Intro
 
-The objective of this `.Rmd` file is to download data from Eurostat to be used for the students in their asignments
+The objective of this `.Rmd` file is to download data from Eurostat to be used for the students in their assignments
 
 We are going to need two packages, then we are going to load them:
 
@@ -49,7 +49,7 @@ library(DT)            #- install.packages("DT")
 
 <br>
 
-# 2. Countries availables from Eurostat
+# 2. Countries available from Eurostat
 
 
 First, we will see the list of available countries in the Eurostat database. They are in the data.frame called `eu_countries`
@@ -73,14 +73,14 @@ DT::datatable(country_codes)
 
 Every one of you should choose one different country. 
 
-During the lessons/e-meetings we will use data for Sapin, then here I choose **Spain**
+During the lessons/e-meetings we will use data for Spain, then here I choose **Spain**
 
 
 ```{r}
 my_country <- "ES"   #-  CHOOSE YOUR COUNTRY -  CHOOSE YOUR COUNTRY
 ```
 
-We can now start to download the data. I repeat, in the lessons I will use data for Spain , BUT for your asignment you should use other country. Each of you a different country
+We can now start to download the data. I repeat, in the lessons I will use data for Spain , BUT for your assignment you should use other country. Each of you a different country
 
 <br>
 
@@ -89,13 +89,13 @@ We can now start to download the data. I repeat, in the lessons I will use data 
 
 <br>
 
-# 4. Dowloading the data f
+# 4. Downloading the data for the assignment
 
-Ok. The code below will dowload some data **for the country you have chosen**
+OK. The code below will download some data **for the country you have chosen**
 
 <br>
 
-1. First, we have to set some parameters to say to the `eurostat` package API wchich series we want to dowload
+1. First, we have to set some parameters to say to the `eurostat` package API which series we want to download
 
 ```{r}
 geo_f <- my_country
@@ -148,7 +148,7 @@ data_c %>%  slice(1, nrow(data_c)) %>% gt::gt()
 <br>
 
 
-4. Dowloading data for the EU15
+4. Dow loading data for the EU15
 
 
 ```{r}
@@ -174,7 +174,7 @@ data_15 %>% slice(1, nrow(data_c)) %>% gt::gt()
 
 <br>
 
-4. Dowloading data for the US
+4. Dow loading data for the US
 
 ```{r}
 geo_f   <- c("US")      #- countries: US
@@ -206,7 +206,7 @@ data_us %>% slice(1, nrow(data_c)) %>% gt::gt()
 
 # 3. Merging the data
 
-We have downloades data for the country you have chosen, for E15, and for the US. We have to join the data in a unique data.frame. But they have to share the same sample.
+We have download data for the country you have chosen, for E15, and for the US. We have to join the data in a unique data.frame. But they have to share the same sample.
 
 
 
@@ -216,7 +216,7 @@ df <- full_join(df, data_us, by = c("time" = "time"))
 ```
 
 
-Good, we already have all teh data we need in one data.frame. We have to save it because you will do your asignment with this data
+Good, we already have all the data we need in one data.frame. We have to save it because you will do your assignment with this data
 
 <br>
 
@@ -227,7 +227,7 @@ Good, we already have all teh data we need in one data.frame. We have to save it
 
 # 4. Saving the data in a file
 
-For example we can tsave the data in .csv format:
+For example we can save the data in .csv format:
 
 
 ```{r}
@@ -249,7 +249,7 @@ Or in .rds format
 ```
 
 
-Please **uncoment the two previous chunks** to efectively save your data because you are going to need it for your asignment
+Please **uncomment the two previous chunks** to effectively save your data because you are going to need it for your assignment
 
-
+<br><br><br><br>
 

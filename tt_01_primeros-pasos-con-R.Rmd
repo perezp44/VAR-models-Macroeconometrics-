@@ -522,4 +522,4 @@ Para finalizar un consejo: PATIENCE!!! cuesta un poco aprender/empezar con R, pe
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Troubleshooting lessons I guess I&#39;ll just relearn forever: <br><br>- take a break<br>- it&#39;s almost certainly not a bug<br>- extra eyes are awesome<br>- spelling <a href="https://t.co/J17S8I6b3W">pic.twitter.com/J17S8I6b3W</a></p>&mdash; Allison Horst (@allison_horst) <a href="https://twitter.com/allison_horst/status/1213275783675822080?ref_src=twsrc%5Etfw">January 4, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 
 
-<br>
+<br><br><br><br>

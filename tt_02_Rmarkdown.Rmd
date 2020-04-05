@@ -500,7 +500,7 @@ A pesar de que Markdown permite formatear el texto, en ciertos sentidos es limit
 <br>
 
 
-<iframe src="http://www.eldiario.es/" height="400" width="800"></iframe>
+<iframe src="http://www.eldiario.es" height="400" width="800"></iframe>
  
  <br>
  
@@ -677,4 +677,4 @@ This template was developed in order to introduce this alternative  https://comm
 - PIMP your Rmd: https://holtzy.github.io/Pimp-my-rmd/#compile_in_a_website
 ```
 
-<br>
+<br><br><br><br>
