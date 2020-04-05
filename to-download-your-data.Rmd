@@ -1,0 +1,255 @@
+---
+title: "Downloading my_data for the asignment"
+author: "You"
+date: "2020, April"
+output: 
+  html_document:
+    theme: simplex
+    highlight: pygments 
+    number_sections: no
+    toc: true
+    toc_float: true
+    #code_folding: show
+    self_contained: TRUE
+    code_download: true
+---
+
+
+```{r, include = FALSE}
+#- definiendo opciones globales para los chunks de código R
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE, message = FALSE, warning = FALSE, 
+                      cache = FALSE, cache.path = "/caches/", comment = "#>",
+                      #fig.width = 7, fig.height= 7,   
+                      #out.width = 7, out.height = 7,
+                      collapse = TRUE,  fig.show = "hold",
+                      fig.asp = 7/9, out.width = "60%", fig.align = "center")
+```
+
+
+```{r, echo = FALSE}
+options(scipen = 999) #- para quitar la notacion cientifica
+```
+
+<br>
+
+# 1. Intro
+
+The objective of this `.Rmd` file is to download data from Eurostat to be used for the students in their asignments
+
+We are going to need two packages, then we are going to load them:
+
+
+```{r, echo = FALSE}
+library(tidyverse)     #- install.packages("tidyverse")
+library(eurostat)      #- install.packages("eurostat")
+library(gt)            #- install.packages("gt")
+library(DT)            #- install.packages("DT")
+```
+  
+
+<br>
+
+# 2. Countries availables from Eurostat
+
+
+First, we will see the list of available countries in the Eurostat database. They are in the data.frame called `eu_countries`
+
+```{r}
+country_codes <- eu_countries       #- avalailable countries in Eurostat data
+```
+
+Let's see the countries list as a table
+
+
+```{r}
+#gt::gt(country_codes)
+DT::datatable(country_codes)
+```
+
+
+<br>
+
+## 3. You have to chose your country
+
+Every one of you should choose one different country. 
+
+During the lessons/e-meetings we will use data for Sapin, then here I choose **Spain**
+
+
+```{r}
+my_country <- "ES"   #-  CHOOSE YOUR COUNTRY -  CHOOSE YOUR COUNTRY
+```
+
+We can now start to download the data. I repeat, in the lessons I will use data for Spain , BUT for your asignment you should use other country. Each of you a different country
+
+<br>
+
+------------------
+
+
+<br>
+
+# 4. Dowloading the data f
+
+Ok. The code below will dowload some data **for the country you have chosen**
+
+<br>
+
+1. First, we have to set some parameters to say to the `eurostat` package API wchich series we want to dowload
+
+```{r}
+geo_f <- my_country
+s_adj_f <- c("SCA")     #- Seasonally and calendar adjusted data
+unit_f  <- c( "CP_MEUR" , "PD05_EUR", "CLV_I10" )     #- units: CP_MEUR[Current prices, million euro], PD05_EUR[Price index (implicit deflator), 2005=100, euro], CLV_I10[Chain linked volumes, index 2010=100]
+na_item_f <-c("B1GQ")    #- economic series. B1GQ: Gross domestic product at market prices
+filtros <- list(geo = geo_f, na_item = na_item_f , unit = unit_f, s_adj = s_adj_f)
+```
+
+<br>
+
+
+2. Already downloading the data for the country you have chosen (`my_country`)
+
+```{r}
+df_l <- get_eurostat("namq_10_gdp", filters = filtros, type = "label", stringsAsFactors = F,   select_time = 'Q')   #- data with labels
+df <- get_eurostat("namq_10_gdp", filters = filtros, type = "code", stringsAsFactors = F,   select_time = 'Q')   #-  data with codes
+```
+
+<br>
+
+
+3. "Cleaning" the data for the country chosen
+
+```{r}
+#- the data are in long format: converting to the wide (more traditional) format
+df_la <- df_l %>% tidyr::spread(unit, values)
+dfa   <- df   %>% tidyr::spread(unit, values)
+
+#- Getting the range of available data (non-NA observations)
+first <- min(which(!is.na(dfa[,5])))  #- first non-NA observation
+last <- max(which(!is.na(dfa[,5])))   #- last non-NA observation
+data_c <- dfa[first:last,4:7]  #- getting only the valid observations of the last 3 columns (4:6)
+
+#- Renaming & transforming the series
+data_c <- data_c %>% rename(GDP = CP_MEUR, Def = PD05_EUR, Vol = CLV_I10)   #- renaming our data
+data_c <- data_c %>% mutate(GDPr = GDP/Def*100)              #- real GDP
+data_c <- data_c
+```
+
+<br>
+
+
+let's see what we have in the data.frame `data_c`
+
+```{r}
+data_c %>%  slice(1, nrow(data_c)) %>% gt::gt()
+```
+
+<br>
+
+
+4. Dowloading data for the EU15
+
+
+```{r}
+geo_f   <- c("EU15")      #- countries: EU15
+filtros <- list(geo = geo_f, na_item = na_item_f , unit = unit_f, s_adj = s_adj_f)
+df_l <- get_eurostat("namq_10_gdp", filters = filtros, type = "label", stringsAsFactors = F,   select_time = 'Q')   #- data with labels
+df <- get_eurostat("namq_10_gdp", filters = filtros, type = "code", stringsAsFactors = F,   select_time = 'Q')   #-  data with codes
+df_l <- df_l %>% tidyr::spread(unit, values)
+df   <- df   %>% tidyr::spread(unit, values)
+data_15 <- df[first:last,4:7]  #- getting only the valid observations of the last 3 columns (4:6)
+data_15 <- data_15 %>% rename(GDP_15 = CP_MEUR, Def_15 = PD05_EUR, Vol_15 = CLV_I10)   #- renaming our data
+data_15 <- data_15 %>% mutate(GDPr_15 = GDP_15/Def_15*100)              #- real GDP
+#data_15 <-  data_15[,-1]  #- removing first column
+```
+
+<br>
+
+let's see what we have in the data.frame `data_15`
+
+```{r}
+data_15 %>% slice(1, nrow(data_c)) %>% gt::gt()
+```
+
+<br>
+
+4. Dowloading data for the US
+
+```{r}
+geo_f   <- c("US")      #- countries: US
+na_item_f <- c("B1GQ", "PD05_NAC")    #- economic series. B1GQ: Gross domestic product at market prices
+filtros <- list(geo = geo_f, na_item = na_item_f ,  s_adj = s_adj_f)
+df_l <- get_eurostat("naidq_10_gdp", filters = filtros, type = "label", stringsAsFactors = F,   select_time = 'Q')   #- data with labels
+df <- get_eurostat("naidq_10_gdp", filters = filtros, type = "code", stringsAsFactors = F,   select_time = 'Q')   #-  data with codes
+df_l <- df_l %>% tidyr::spread(unit, values)
+df   <- df   %>% tidyr::spread(unit, values)
+data_us <- df[first:last,c(4,5,9,10)]  #- getting the data we need
+data_us <- data_us %>% rename(GDP_us = CP_MNAC, GDP_us_e = CP_MEUR, Vol_us = CLV_I10)   #- renaming our data
+data_us <- data_us %>% mutate(tc_e_d = GDP_us/GDP_us_e)              #- exchange rate
+#data_us <-  data_us[,-1]  #- removing first column
+```
+
+<br>
+
+let's see what we have in the data.frame `data_us`
+
+```{r}
+data_us %>% slice(1, nrow(data_c)) %>% gt::gt()
+```
+
+<br>
+
+------------------
+
+<br>
+
+# 3. Merging the data
+
+We have downloades data for the country you have chosen, for E15, and for the US. We have to join the data in a unique data.frame. But they have to share the same sample.
+
+
+
+```{r}
+df <- full_join(data_c, data_15, by = c("time" = "time")) #- merging df_c with df_15
+df <- full_join(df, data_us, by = c("time" = "time"))
+```
+
+
+Good, we already have all teh data we need in one data.frame. We have to save it because you will do your asignment with this data
+
+<br>
+
+---------------
+
+<br>
+
+
+# 4. Saving the data in a file
+
+For example we can tsave the data in .csv format:
+
+
+```{r}
+#- exporting df as a .csv file. The follwing 2 lines of code make the same
+# write_csv(df, "my_data_ES.csv")                         #- saving df as csv
+# write_csv(df, paste0("my_data_", my_country, ".csv"))   #- saving df as csv
+```
+
+<br>
+
+
+Or in .rds format
+
+
+
+```{r}
+#- saving df as a .rds file
+#write_csv(df, paste0("my_data_", my_country, ".rds"))  #- saving df as rds
+```
+
+
+Please **uncoment the two previous chunks** to efectively save your data because you are going to need it for your asignment
+
+
+

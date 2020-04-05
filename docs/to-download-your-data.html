@@ -1,0 +1,2150 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="You" />
+
+
+<title>Downloading my_data for the asignment</title>
+
+<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/simplex.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<script src="site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.12/datatables.js"></script>
+<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 41px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 46px;
+  margin-top: -46px;
+}
+.section h2 {
+  padding-top: 46px;
+  margin-top: -46px;
+}
+.section h3 {
+  padding-top: 46px;
+  margin-top: -46px;
+}
+.section h4 {
+  padding-top: 46px;
+  margin-top: -46px;
+}
+.section h5 {
+  padding-top: 46px;
+  margin-top: -46px;
+}
+.section h6 {
+  padding-top: 46px;
+  margin-top: -46px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">VAR models</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="01-Course-plan.html">
+    <span class="fa fa-graduation-cap"></span>
+     
+    Course "plan"
+  </a>
+</li>
+<li>
+  <a href="02-Logistics.html">
+    <span class="fa fa-laptop"></span>
+     
+    Logistics
+  </a>
+</li>
+<li>
+  <a href="03-Slides.html">
+    <span class="fa fa-book"></span>
+     
+    Slides
+  </a>
+</li>
+<li>
+  <a href="04-Lab-Gali.html">
+    <span class="fa fa-code"></span>
+     
+    Lab
+  </a>
+</li>
+<li>
+  <a href="05-Schedule.html">
+    <span class="fa fa-calendar-alt"></span>
+     
+    Schedule
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-download"></span>
+     
+    MáS
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">In Spanish</li>
+    <li>
+      <a href="tt_01_primeros-pasos-con-R.html">Primeros pasos con R</a>
+    </li>
+    <li>
+      <a href="tt_02_Rmarkdown.html">Rmarkdown</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Help for your asignment</li>
+    <li>
+      <a href="to-download-your-data.html">To download your data</a>
+    </li>
+    <li>
+      <a href="to-start-your-asignment.html">To start your asignment</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Downloading my_data for the asignment</h1>
+<h4 class="author">You</h4>
+<h4 class="date">2020, April</h4>
+
+</div>
+
+
+<p><br></p>
+<div id="intro" class="section level1">
+<h1>1. Intro</h1>
+<p>The objective of this <code>.Rmd</code> file is to download data from Eurostat to be used for the students in their asignments</p>
+<p>We are going to need two packages, then we are going to load them:</p>
+<p><br></p>
+</div>
+<div id="countries-availables-from-eurostat" class="section level1">
+<h1>2. Countries availables from Eurostat</h1>
+<p>First, we will see the list of available countries in the Eurostat database. They are in the data.frame called <code>eu_countries</code></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">country_codes &lt;-<span class="st"> </span>eu_countries       <span class="co">#- avalailable countries in Eurostat data</span></a></code></pre></div>
+<p>Let’s see the countries list as a table</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co">#gt::gt(country_codes)</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">DT<span class="op">::</span><span class="kw">datatable</span>(country_codes)</a></code></pre></div>
+<div id="htmlwidget-e689ea09a73a18f4b264" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e689ea09a73a18f4b264">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28"],["BE","BG","CZ","DK","DE","EE","IE","EL","ES","FR","HR","IT","CY","LV","LT","LU","HU","MT","NL","AT","PL","PT","RO","SI","SK","FI","SE","UK"],["Belgium","Bulgaria","Czechia","Denmark","Germany","Estonia","Ireland","Greece","Spain","France","Croatia","Italy","Cyprus","Latvia","Lithuania","Luxembourg","Hungary","Malta","Netherlands","Austria","Poland","Portugal","Romania","Slovenia","Slovakia","Finland","Sweden","United Kingdom"],["Belgium","Bulgaria","Czechia","Denmark","Germany (until 1990 former territory of the FRG)","Estonia","Ireland","Greece","Spain","France","Croatia","Italy","Cyprus","Latvia","Lithuania","Luxembourg","Hungary","Malta","Netherlands","Austria","Poland","Portugal","Romania","Slovenia","Slovakia","Finland","Sweden","United Kingdom"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>code<\/th>\n      <th>name<\/th>\n      <th>label<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+<p><br></p>
+<div id="you-have-to-chose-your-country" class="section level2">
+<h2>3. You have to chose your country</h2>
+<p>Every one of you should choose one different country.</p>
+<p>During the lessons/e-meetings we will use data for Sapin, then here I choose <strong>Spain</strong></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">my_country &lt;-<span class="st"> &quot;ES&quot;</span>   <span class="co">#-  CHOOSE YOUR COUNTRY -  CHOOSE YOUR COUNTRY</span></a></code></pre></div>
+<p>We can now start to download the data. I repeat, in the lessons I will use data for Spain , BUT for your asignment you should use other country. Each of you a different country</p>
+<p><br></p>
+<hr />
+<p><br></p>
+</div>
+</div>
+<div id="dowloading-the-data-f" class="section level1">
+<h1>4. Dowloading the data f</h1>
+<p>Ok. The code below will dowload some data <strong>for the country you have chosen</strong></p>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li>First, we have to set some parameters to say to the <code>eurostat</code> package API wchich series we want to dowload</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">geo_f &lt;-<span class="st"> </span>my_country</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">s_adj_f &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SCA&quot;</span>)     <span class="co">#- Seasonally and calendar adjusted data</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">unit_f  &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="st">&quot;CP_MEUR&quot;</span> , <span class="st">&quot;PD05_EUR&quot;</span>, <span class="st">&quot;CLV_I10&quot;</span> )     <span class="co">#- units: CP_MEUR[Current prices, million euro], PD05_EUR[Price index (implicit deflator), 2005=100, euro], CLV_I10[Chain linked volumes, index 2010=100]</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">na_item_f &lt;-<span class="kw">c</span>(<span class="st">&quot;B1GQ&quot;</span>)    <span class="co">#- economic series. B1GQ: Gross domestic product at market prices</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">filtros &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">geo =</span> geo_f, <span class="dt">na_item =</span> na_item_f , <span class="dt">unit =</span> unit_f, <span class="dt">s_adj =</span> s_adj_f)</a></code></pre></div>
+<p><br></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Already downloading the data for the country you have chosen (<code>my_country</code>)</li>
+</ol>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">df_l &lt;-<span class="st"> </span><span class="kw">get_eurostat</span>(<span class="st">&quot;namq_10_gdp&quot;</span>, <span class="dt">filters =</span> filtros, <span class="dt">type =</span> <span class="st">&quot;label&quot;</span>, <span class="dt">stringsAsFactors =</span> F,   <span class="dt">select_time =</span> <span class="st">&#39;Q&#39;</span>)   <span class="co">#- data with labels</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">df &lt;-<span class="st"> </span><span class="kw">get_eurostat</span>(<span class="st">&quot;namq_10_gdp&quot;</span>, <span class="dt">filters =</span> filtros, <span class="dt">type =</span> <span class="st">&quot;code&quot;</span>, <span class="dt">stringsAsFactors =</span> F,   <span class="dt">select_time =</span> <span class="st">&#39;Q&#39;</span>)   <span class="co">#-  data with codes</span></a></code></pre></div>
+<p><br></p>
+<ol start="3" style="list-style-type: decimal">
+<li>“Cleaning” the data for the country chosen</li>
+</ol>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co">#- the data are in long format: converting to the wide (more traditional) format</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">df_la &lt;-<span class="st"> </span>df_l <span class="op">%&gt;%</span><span class="st"> </span>tidyr<span class="op">::</span><span class="kw">spread</span>(unit, values)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">dfa   &lt;-<span class="st"> </span>df   <span class="op">%&gt;%</span><span class="st"> </span>tidyr<span class="op">::</span><span class="kw">spread</span>(unit, values)</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#- Getting the range of available data (non-NA observations)</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">first &lt;-<span class="st"> </span><span class="kw">min</span>(<span class="kw">which</span>(<span class="op">!</span><span class="kw">is.na</span>(dfa[,<span class="dv">5</span>])))  <span class="co">#- first non-NA observation</span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">last &lt;-<span class="st"> </span><span class="kw">max</span>(<span class="kw">which</span>(<span class="op">!</span><span class="kw">is.na</span>(dfa[,<span class="dv">5</span>])))   <span class="co">#- last non-NA observation</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">data_c &lt;-<span class="st"> </span>dfa[first<span class="op">:</span>last,<span class="dv">4</span><span class="op">:</span><span class="dv">7</span>]  <span class="co">#- getting only the valid observations of the last 3 columns (4:6)</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#- Renaming &amp; transforming the series</span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11">data_c &lt;-<span class="st"> </span>data_c <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">GDP =</span> CP_MEUR, <span class="dt">Def =</span> PD05_EUR, <span class="dt">Vol =</span> CLV_I10)   <span class="co">#- renaming our data</span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12">data_c &lt;-<span class="st"> </span>data_c <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">GDPr =</span> GDP<span class="op">/</span>Def<span class="op">*</span><span class="dv">100</span>)              <span class="co">#- real GDP</span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13">data_c &lt;-<span class="st"> </span>data_c</a></code></pre></div>
+<p><br></p>
+<p>let’s see what we have in the data.frame <code>data_c</code></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">data_c <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(data_c)) <span class="op">%&gt;%</span><span class="st"> </span>gt<span class="op">::</span><span class="kw">gt</span>()</a></code></pre></div>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#mqofjzdzaw .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  /* table.margin.left */
+  margin-right: auto;
+  /* table.margin.right */
+  color: #333333;
+  font-size: 16px;
+  /* table.font.size */
+  background-color: #FFFFFF;
+  /* table.background.color */
+  width: auto;
+  /* table.width */
+  border-top-style: solid;
+  /* table.border.top.style */
+  border-top-width: 2px;
+  /* table.border.top.width */
+  border-top-color: #A8A8A8;
+  /* table.border.top.color */
+  border-bottom-style: solid;
+  /* table.border.bottom.style */
+  border-bottom-width: 2px;
+  /* table.border.bottom.width */
+  border-bottom-color: #A8A8A8;
+  /* table.border.bottom.color */
+}
+
+#mqofjzdzaw .gt_heading {
+  background-color: #FFFFFF;
+  /* heading.background.color */
+  border-bottom-color: #FFFFFF;
+  /* table.background.color */
+  border-left-style: hidden;
+  /* heading.border.lr.style */
+  border-left-width: 1px;
+  /* heading.border.lr.width */
+  border-left-color: #D3D3D3;
+  /* heading.border.lr.color */
+  border-right-style: hidden;
+  /* heading.border.lr.style */
+  border-right-width: 1px;
+  /* heading.border.lr.width */
+  border-right-color: #D3D3D3;
+  /* heading.border.lr.color */
+}
+
+#mqofjzdzaw .gt_title {
+  color: #333333;
+  font-size: 125%;
+  /* heading.title.font.size */
+  font-weight: initial;
+  /* heading.title.font.weight */
+  padding-top: 4px;
+  /* heading.top.padding - not yet used */
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  /* table.background.color */
+  border-bottom-width: 0;
+}
+
+#mqofjzdzaw .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  /* heading.subtitle.font.size */
+  font-weight: initial;
+  /* heading.subtitle.font.weight */
+  padding-top: 0;
+  padding-bottom: 4px;
+  /* heading.bottom.padding - not yet used */
+  border-top-color: #FFFFFF;
+  /* table.background.color */
+  border-top-width: 0;
+}
+
+#mqofjzdzaw .gt_bottom_border {
+  border-bottom-style: solid;
+  /* heading.border.bottom.style */
+  border-bottom-width: 2px;
+  /* heading.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* heading.border.bottom.color */
+}
+
+#mqofjzdzaw .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#mqofjzdzaw .gt_col_headings {
+  border-top-style: solid;
+  /* column_labels.border.top.style */
+  border-top-width: 2px;
+  /* column_labels.border.top.width */
+  border-top-color: #D3D3D3;
+  /* column_labels.border.top.color */
+  border-bottom-style: solid;
+  /* column_labels.border.bottom.style */
+  border-bottom-width: 2px;
+  /* column_labels.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* column_labels.border.bottom.color */
+  border-left-style: none;
+  /* column_labels.border.lr.style */
+  border-left-width: 1px;
+  /* column_labels.border.lr.width */
+  border-left-color: #D3D3D3;
+  /* column_labels.border.lr.color */
+  border-right-style: none;
+  /* column_labels.border.lr.style */
+  border-right-width: 1px;
+  /* column_labels.border.lr.width */
+  border-right-color: #D3D3D3;
+  /* column_labels.border.lr.color */
+}
+
+#mqofjzdzaw .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* column_labels.background.color */
+  font-size: 100%;
+  /* column_labels.font.size */
+  font-weight: normal;
+  /* column_labels.font.weight */
+  text-transform: inherit;
+  /* column_labels.text_transform */
+  vertical-align: middle;
+  padding: 5px;
+  margin: 10px;
+  overflow-x: hidden;
+}
+
+#mqofjzdzaw .gt_sep_right {
+  border-right: 5px solid #FFFFFF;
+}
+
+#mqofjzdzaw .gt_group_heading {
+  padding: 8px;
+  /* row_group.padding */
+  color: #333333;
+  background-color: #FFFFFF;
+  /* row_group.background.color */
+  font-size: 100%;
+  /* row_group.font.size */
+  font-weight: initial;
+  /* row_group.font.weight */
+  text-transform: inherit;
+  /* row_group.text_transform */
+  border-top-style: solid;
+  /* row_group.border.top.style */
+  border-top-width: 2px;
+  /* row_group.border.top.width */
+  border-top-color: #D3D3D3;
+  /* row_group.border.top.color */
+  border-bottom-style: solid;
+  /* row_group.border.bottom.style */
+  border-bottom-width: 2px;
+  /* row_group.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* row_group.border.bottom.color */
+  border-left-style: none;
+  /* row_group.border.left.style */
+  border-left-width: 1px;
+  /* row_group.border.left.width */
+  border-left-color: #D3D3D3;
+  /* row_group.border.left.color */
+  border-right-style: none;
+  /* row_group.border.right.style */
+  border-right-width: 1px;
+  /* row_group.border.right.width */
+  border-right-color: #D3D3D3;
+  /* row_group.border.right.color */
+  vertical-align: middle;
+}
+
+#mqofjzdzaw .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  /* row_group.background.color */
+  font-size: 100%;
+  /* row_group.font.size */
+  font-weight: initial;
+  /* row_group.font.weight */
+  border-top-style: solid;
+  /* row_group.border.top.style */
+  border-top-width: 2px;
+  /* row_group.border.top.width */
+  border-top-color: #D3D3D3;
+  /* row_group.border.top.color */
+  border-bottom-style: solid;
+  /* row_group.border.bottom.style */
+  border-bottom-width: 2px;
+  /* row_group.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* row_group.border.bottom.color */
+  vertical-align: middle;
+}
+
+#mqofjzdzaw .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+  /* row.striping.background_color */
+}
+
+#mqofjzdzaw .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#mqofjzdzaw .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#mqofjzdzaw .gt_row {
+  padding-top: 8px;
+  /* data_row.padding */
+  padding-bottom: 8px;
+  /* data_row.padding */
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  /* table_body.hlines.style */
+  border-top-width: 1px;
+  /* table_body.hlines.width */
+  border-top-color: #D3D3D3;
+  /* table_body.hlines.color */
+  border-left-style: none;
+  /* table_body.vlines.style */
+  border-left-width: 1px;
+  /* table_body.vlines.width */
+  border-left-color: #D3D3D3;
+  /* table_body.vlines.color */
+  border-right-style: none;
+  /* table_body.vlines.style */
+  border-right-width: 1px;
+  /* table_body.vlines.width */
+  border-right-color: #D3D3D3;
+  /* table_body.vlines.color */
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#mqofjzdzaw .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* stub.background.color */
+  font-weight: initial;
+  /* stub.font.weight */
+  text-transform: inherit;
+  /* stub.text_transform */
+  border-right-style: solid;
+  /* stub.border.style */
+  border-right-width: 2px;
+  /* stub.border.width */
+  border-right-color: #D3D3D3;
+  /* stub.border.color */
+  padding-left: 12px;
+}
+
+#mqofjzdzaw .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* summary_row.background.color */
+  text-transform: inherit;
+  /* summary_row.text_transform */
+  padding-top: 8px;
+  /* summary_row.padding */
+  padding-bottom: 8px;
+  /* summary_row.padding */
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mqofjzdzaw .gt_first_summary_row {
+  padding-top: 8px;
+  /* summary_row.padding */
+  padding-bottom: 8px;
+  /* summary_row.padding */
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  /* summary_row.border.style */
+  border-top-width: 2px;
+  /* summary_row.border.width */
+  border-top-color: #D3D3D3;
+  /* summary_row.border.color */
+}
+
+#mqofjzdzaw .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* grand_summary_row.background.color */
+  text-transform: inherit;
+  /* grand_summary_row.text_transform */
+  padding-top: 8px;
+  /* grand_summary_row.padding */
+  padding-bottom: 8px;
+  /* grand_summary_row.padding */
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mqofjzdzaw .gt_first_grand_summary_row {
+  padding-top: 8px;
+  /* grand_summary_row.padding */
+  padding-bottom: 8px;
+  /* grand_summary_row.padding */
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  /* grand_summary_row.border.style */
+  border-top-width: 6px;
+  /* grand_summary_row.border.width */
+  border-top-color: #D3D3D3;
+  /* grand_summary_row.border.color */
+}
+
+#mqofjzdzaw .gt_table_body {
+  border-top-style: solid;
+  /* table_body.border.top.style */
+  border-top-width: 2px;
+  /* table_body.border.top.width */
+  border-top-color: #D3D3D3;
+  /* table_body.border.top.color */
+  border-bottom-style: solid;
+  /* table_body.border.bottom.style */
+  border-bottom-width: 2px;
+  /* table_body.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* table_body.border.bottom.color */
+}
+
+#mqofjzdzaw .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* footnotes.background.color */
+  border-bottom-style: none;
+  /* footnotes.border.bottom.style */
+  border-bottom-width: 2px;
+  /* footnotes.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* footnotes.border.bottom.color */
+  border-left-style: none;
+  /* footnotes.border.lr.color */
+  border-left-width: 2px;
+  /* footnotes.border.lr.color */
+  border-left-color: #D3D3D3;
+  /* footnotes.border.lr.color */
+  border-right-style: none;
+  /* footnotes.border.lr.color */
+  border-right-width: 2px;
+  /* footnotes.border.lr.color */
+  border-right-color: #D3D3D3;
+  /* footnotes.border.lr.color */
+}
+
+#mqofjzdzaw .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  /* footnotes.font.size */
+  padding: 4px;
+  /* footnotes.padding */
+}
+
+#mqofjzdzaw .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* source_notes.background.color */
+  border-bottom-style: none;
+  /* source_notes.border.bottom.style */
+  border-bottom-width: 2px;
+  /* source_notes.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* source_notes.border.bottom.color */
+  border-left-style: none;
+  /* source_notes.border.lr.style */
+  border-left-width: 2px;
+  /* source_notes.border.lr.style */
+  border-left-color: #D3D3D3;
+  /* source_notes.border.lr.style */
+  border-right-style: none;
+  /* source_notes.border.lr.style */
+  border-right-width: 2px;
+  /* source_notes.border.lr.style */
+  border-right-color: #D3D3D3;
+  /* source_notes.border.lr.style */
+}
+
+#mqofjzdzaw .gt_sourcenote {
+  font-size: 90%;
+  /* source_notes.font.size */
+  padding: 4px;
+  /* source_notes.padding */
+}
+
+#mqofjzdzaw .gt_left {
+  text-align: left;
+}
+
+#mqofjzdzaw .gt_center {
+  text-align: center;
+}
+
+#mqofjzdzaw .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#mqofjzdzaw .gt_font_normal {
+  font-weight: normal;
+}
+
+#mqofjzdzaw .gt_font_bold {
+  font-weight: bold;
+}
+
+#mqofjzdzaw .gt_font_italic {
+  font-style: italic;
+}
+
+#mqofjzdzaw .gt_super {
+  font-size: 65%;
+}
+
+#mqofjzdzaw .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="mqofjzdzaw" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">time</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Vol</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">GDP</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Def</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">GDPr</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_left">1995-01-01</td>
+      <td class="gt_row gt_right">65.8</td>
+      <td class="gt_row gt_right">112945.8</td>
+      <td class="gt_row gt_right">70.583</td>
+      <td class="gt_row gt_right">160018.4</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left gt_striped">2019-10-01</td>
+      <td class="gt_row gt_right gt_striped">111.2</td>
+      <td class="gt_row gt_right gt_striped">315710.0</td>
+      <td class="gt_row gt_right gt_striped">116.780</td>
+      <td class="gt_row gt_right gt_striped">270345.9</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+<p><br></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Dowloading data for the EU15</li>
+</ol>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">geo_f   &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;EU15&quot;</span>)      <span class="co">#- countries: EU15</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">filtros &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">geo =</span> geo_f, <span class="dt">na_item =</span> na_item_f , <span class="dt">unit =</span> unit_f, <span class="dt">s_adj =</span> s_adj_f)</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">df_l &lt;-<span class="st"> </span><span class="kw">get_eurostat</span>(<span class="st">&quot;namq_10_gdp&quot;</span>, <span class="dt">filters =</span> filtros, <span class="dt">type =</span> <span class="st">&quot;label&quot;</span>, <span class="dt">stringsAsFactors =</span> F,   <span class="dt">select_time =</span> <span class="st">&#39;Q&#39;</span>)   <span class="co">#- data with labels</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">df &lt;-<span class="st"> </span><span class="kw">get_eurostat</span>(<span class="st">&quot;namq_10_gdp&quot;</span>, <span class="dt">filters =</span> filtros, <span class="dt">type =</span> <span class="st">&quot;code&quot;</span>, <span class="dt">stringsAsFactors =</span> F,   <span class="dt">select_time =</span> <span class="st">&#39;Q&#39;</span>)   <span class="co">#-  data with codes</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">df_l &lt;-<span class="st"> </span>df_l <span class="op">%&gt;%</span><span class="st"> </span>tidyr<span class="op">::</span><span class="kw">spread</span>(unit, values)</a>
+<a class="sourceLine" id="cb8-6" data-line-number="6">df   &lt;-<span class="st"> </span>df   <span class="op">%&gt;%</span><span class="st"> </span>tidyr<span class="op">::</span><span class="kw">spread</span>(unit, values)</a>
+<a class="sourceLine" id="cb8-7" data-line-number="7">data_<span class="dv">15</span> &lt;-<span class="st"> </span>df[first<span class="op">:</span>last,<span class="dv">4</span><span class="op">:</span><span class="dv">7</span>]  <span class="co">#- getting only the valid observations of the last 3 columns (4:6)</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8">data_<span class="dv">15</span> &lt;-<span class="st"> </span>data_<span class="dv">15</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">GDP_15 =</span> CP_MEUR, <span class="dt">Def_15 =</span> PD05_EUR, <span class="dt">Vol_15 =</span> CLV_I10)   <span class="co">#- renaming our data</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9">data_<span class="dv">15</span> &lt;-<span class="st"> </span>data_<span class="dv">15</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">GDPr_15 =</span> GDP_<span class="dv">15</span><span class="op">/</span>Def_<span class="dv">15</span><span class="op">*</span><span class="dv">100</span>)              <span class="co">#- real GDP</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#data_15 &lt;-  data_15[,-1]  #- removing first column</span></a></code></pre></div>
+<p><br></p>
+<p>let’s see what we have in the data.frame <code>data_15</code></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">data_<span class="dv">15</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(data_c)) <span class="op">%&gt;%</span><span class="st"> </span>gt<span class="op">::</span><span class="kw">gt</span>()</a></code></pre></div>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#stbpbiyoku .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  /* table.margin.left */
+  margin-right: auto;
+  /* table.margin.right */
+  color: #333333;
+  font-size: 16px;
+  /* table.font.size */
+  background-color: #FFFFFF;
+  /* table.background.color */
+  width: auto;
+  /* table.width */
+  border-top-style: solid;
+  /* table.border.top.style */
+  border-top-width: 2px;
+  /* table.border.top.width */
+  border-top-color: #A8A8A8;
+  /* table.border.top.color */
+  border-bottom-style: solid;
+  /* table.border.bottom.style */
+  border-bottom-width: 2px;
+  /* table.border.bottom.width */
+  border-bottom-color: #A8A8A8;
+  /* table.border.bottom.color */
+}
+
+#stbpbiyoku .gt_heading {
+  background-color: #FFFFFF;
+  /* heading.background.color */
+  border-bottom-color: #FFFFFF;
+  /* table.background.color */
+  border-left-style: hidden;
+  /* heading.border.lr.style */
+  border-left-width: 1px;
+  /* heading.border.lr.width */
+  border-left-color: #D3D3D3;
+  /* heading.border.lr.color */
+  border-right-style: hidden;
+  /* heading.border.lr.style */
+  border-right-width: 1px;
+  /* heading.border.lr.width */
+  border-right-color: #D3D3D3;
+  /* heading.border.lr.color */
+}
+
+#stbpbiyoku .gt_title {
+  color: #333333;
+  font-size: 125%;
+  /* heading.title.font.size */
+  font-weight: initial;
+  /* heading.title.font.weight */
+  padding-top: 4px;
+  /* heading.top.padding - not yet used */
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  /* table.background.color */
+  border-bottom-width: 0;
+}
+
+#stbpbiyoku .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  /* heading.subtitle.font.size */
+  font-weight: initial;
+  /* heading.subtitle.font.weight */
+  padding-top: 0;
+  padding-bottom: 4px;
+  /* heading.bottom.padding - not yet used */
+  border-top-color: #FFFFFF;
+  /* table.background.color */
+  border-top-width: 0;
+}
+
+#stbpbiyoku .gt_bottom_border {
+  border-bottom-style: solid;
+  /* heading.border.bottom.style */
+  border-bottom-width: 2px;
+  /* heading.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* heading.border.bottom.color */
+}
+
+#stbpbiyoku .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#stbpbiyoku .gt_col_headings {
+  border-top-style: solid;
+  /* column_labels.border.top.style */
+  border-top-width: 2px;
+  /* column_labels.border.top.width */
+  border-top-color: #D3D3D3;
+  /* column_labels.border.top.color */
+  border-bottom-style: solid;
+  /* column_labels.border.bottom.style */
+  border-bottom-width: 2px;
+  /* column_labels.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* column_labels.border.bottom.color */
+  border-left-style: none;
+  /* column_labels.border.lr.style */
+  border-left-width: 1px;
+  /* column_labels.border.lr.width */
+  border-left-color: #D3D3D3;
+  /* column_labels.border.lr.color */
+  border-right-style: none;
+  /* column_labels.border.lr.style */
+  border-right-width: 1px;
+  /* column_labels.border.lr.width */
+  border-right-color: #D3D3D3;
+  /* column_labels.border.lr.color */
+}
+
+#stbpbiyoku .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* column_labels.background.color */
+  font-size: 100%;
+  /* column_labels.font.size */
+  font-weight: normal;
+  /* column_labels.font.weight */
+  text-transform: inherit;
+  /* column_labels.text_transform */
+  vertical-align: middle;
+  padding: 5px;
+  margin: 10px;
+  overflow-x: hidden;
+}
+
+#stbpbiyoku .gt_sep_right {
+  border-right: 5px solid #FFFFFF;
+}
+
+#stbpbiyoku .gt_group_heading {
+  padding: 8px;
+  /* row_group.padding */
+  color: #333333;
+  background-color: #FFFFFF;
+  /* row_group.background.color */
+  font-size: 100%;
+  /* row_group.font.size */
+  font-weight: initial;
+  /* row_group.font.weight */
+  text-transform: inherit;
+  /* row_group.text_transform */
+  border-top-style: solid;
+  /* row_group.border.top.style */
+  border-top-width: 2px;
+  /* row_group.border.top.width */
+  border-top-color: #D3D3D3;
+  /* row_group.border.top.color */
+  border-bottom-style: solid;
+  /* row_group.border.bottom.style */
+  border-bottom-width: 2px;
+  /* row_group.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* row_group.border.bottom.color */
+  border-left-style: none;
+  /* row_group.border.left.style */
+  border-left-width: 1px;
+  /* row_group.border.left.width */
+  border-left-color: #D3D3D3;
+  /* row_group.border.left.color */
+  border-right-style: none;
+  /* row_group.border.right.style */
+  border-right-width: 1px;
+  /* row_group.border.right.width */
+  border-right-color: #D3D3D3;
+  /* row_group.border.right.color */
+  vertical-align: middle;
+}
+
+#stbpbiyoku .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  /* row_group.background.color */
+  font-size: 100%;
+  /* row_group.font.size */
+  font-weight: initial;
+  /* row_group.font.weight */
+  border-top-style: solid;
+  /* row_group.border.top.style */
+  border-top-width: 2px;
+  /* row_group.border.top.width */
+  border-top-color: #D3D3D3;
+  /* row_group.border.top.color */
+  border-bottom-style: solid;
+  /* row_group.border.bottom.style */
+  border-bottom-width: 2px;
+  /* row_group.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* row_group.border.bottom.color */
+  vertical-align: middle;
+}
+
+#stbpbiyoku .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+  /* row.striping.background_color */
+}
+
+#stbpbiyoku .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#stbpbiyoku .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#stbpbiyoku .gt_row {
+  padding-top: 8px;
+  /* data_row.padding */
+  padding-bottom: 8px;
+  /* data_row.padding */
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  /* table_body.hlines.style */
+  border-top-width: 1px;
+  /* table_body.hlines.width */
+  border-top-color: #D3D3D3;
+  /* table_body.hlines.color */
+  border-left-style: none;
+  /* table_body.vlines.style */
+  border-left-width: 1px;
+  /* table_body.vlines.width */
+  border-left-color: #D3D3D3;
+  /* table_body.vlines.color */
+  border-right-style: none;
+  /* table_body.vlines.style */
+  border-right-width: 1px;
+  /* table_body.vlines.width */
+  border-right-color: #D3D3D3;
+  /* table_body.vlines.color */
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#stbpbiyoku .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* stub.background.color */
+  font-weight: initial;
+  /* stub.font.weight */
+  text-transform: inherit;
+  /* stub.text_transform */
+  border-right-style: solid;
+  /* stub.border.style */
+  border-right-width: 2px;
+  /* stub.border.width */
+  border-right-color: #D3D3D3;
+  /* stub.border.color */
+  padding-left: 12px;
+}
+
+#stbpbiyoku .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* summary_row.background.color */
+  text-transform: inherit;
+  /* summary_row.text_transform */
+  padding-top: 8px;
+  /* summary_row.padding */
+  padding-bottom: 8px;
+  /* summary_row.padding */
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#stbpbiyoku .gt_first_summary_row {
+  padding-top: 8px;
+  /* summary_row.padding */
+  padding-bottom: 8px;
+  /* summary_row.padding */
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  /* summary_row.border.style */
+  border-top-width: 2px;
+  /* summary_row.border.width */
+  border-top-color: #D3D3D3;
+  /* summary_row.border.color */
+}
+
+#stbpbiyoku .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* grand_summary_row.background.color */
+  text-transform: inherit;
+  /* grand_summary_row.text_transform */
+  padding-top: 8px;
+  /* grand_summary_row.padding */
+  padding-bottom: 8px;
+  /* grand_summary_row.padding */
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#stbpbiyoku .gt_first_grand_summary_row {
+  padding-top: 8px;
+  /* grand_summary_row.padding */
+  padding-bottom: 8px;
+  /* grand_summary_row.padding */
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  /* grand_summary_row.border.style */
+  border-top-width: 6px;
+  /* grand_summary_row.border.width */
+  border-top-color: #D3D3D3;
+  /* grand_summary_row.border.color */
+}
+
+#stbpbiyoku .gt_table_body {
+  border-top-style: solid;
+  /* table_body.border.top.style */
+  border-top-width: 2px;
+  /* table_body.border.top.width */
+  border-top-color: #D3D3D3;
+  /* table_body.border.top.color */
+  border-bottom-style: solid;
+  /* table_body.border.bottom.style */
+  border-bottom-width: 2px;
+  /* table_body.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* table_body.border.bottom.color */
+}
+
+#stbpbiyoku .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* footnotes.background.color */
+  border-bottom-style: none;
+  /* footnotes.border.bottom.style */
+  border-bottom-width: 2px;
+  /* footnotes.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* footnotes.border.bottom.color */
+  border-left-style: none;
+  /* footnotes.border.lr.color */
+  border-left-width: 2px;
+  /* footnotes.border.lr.color */
+  border-left-color: #D3D3D3;
+  /* footnotes.border.lr.color */
+  border-right-style: none;
+  /* footnotes.border.lr.color */
+  border-right-width: 2px;
+  /* footnotes.border.lr.color */
+  border-right-color: #D3D3D3;
+  /* footnotes.border.lr.color */
+}
+
+#stbpbiyoku .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  /* footnotes.font.size */
+  padding: 4px;
+  /* footnotes.padding */
+}
+
+#stbpbiyoku .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* source_notes.background.color */
+  border-bottom-style: none;
+  /* source_notes.border.bottom.style */
+  border-bottom-width: 2px;
+  /* source_notes.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* source_notes.border.bottom.color */
+  border-left-style: none;
+  /* source_notes.border.lr.style */
+  border-left-width: 2px;
+  /* source_notes.border.lr.style */
+  border-left-color: #D3D3D3;
+  /* source_notes.border.lr.style */
+  border-right-style: none;
+  /* source_notes.border.lr.style */
+  border-right-width: 2px;
+  /* source_notes.border.lr.style */
+  border-right-color: #D3D3D3;
+  /* source_notes.border.lr.style */
+}
+
+#stbpbiyoku .gt_sourcenote {
+  font-size: 90%;
+  /* source_notes.font.size */
+  padding: 4px;
+  /* source_notes.padding */
+}
+
+#stbpbiyoku .gt_left {
+  text-align: left;
+}
+
+#stbpbiyoku .gt_center {
+  text-align: center;
+}
+
+#stbpbiyoku .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#stbpbiyoku .gt_font_normal {
+  font-weight: normal;
+}
+
+#stbpbiyoku .gt_font_bold {
+  font-weight: bold;
+}
+
+#stbpbiyoku .gt_font_italic {
+  font-style: italic;
+}
+
+#stbpbiyoku .gt_super {
+  font-size: 65%;
+}
+
+#stbpbiyoku .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="stbpbiyoku" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">time</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Vol_15</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">GDP_15</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Def_15</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">GDPr_15</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_left">1995-01-01</td>
+      <td class="gt_row gt_right">76.1</td>
+      <td class="gt_row gt_right">1738253</td>
+      <td class="gt_row gt_right">80.958</td>
+      <td class="gt_row gt_right">2147105</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left gt_striped">2019-10-01</td>
+      <td class="gt_row gt_right gt_striped">113.7</td>
+      <td class="gt_row gt_right gt_striped">3779162</td>
+      <td class="gt_row gt_right gt_striped">117.774</td>
+      <td class="gt_row gt_right gt_striped">3208825</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+<p><br></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Dowloading data for the US</li>
+</ol>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">geo_f   &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>)      <span class="co">#- countries: US</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">na_item_f &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;B1GQ&quot;</span>, <span class="st">&quot;PD05_NAC&quot;</span>)    <span class="co">#- economic series. B1GQ: Gross domestic product at market prices</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">filtros &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">geo =</span> geo_f, <span class="dt">na_item =</span> na_item_f ,  <span class="dt">s_adj =</span> s_adj_f)</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">df_l &lt;-<span class="st"> </span><span class="kw">get_eurostat</span>(<span class="st">&quot;naidq_10_gdp&quot;</span>, <span class="dt">filters =</span> filtros, <span class="dt">type =</span> <span class="st">&quot;label&quot;</span>, <span class="dt">stringsAsFactors =</span> F,   <span class="dt">select_time =</span> <span class="st">&#39;Q&#39;</span>)   <span class="co">#- data with labels</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">df &lt;-<span class="st"> </span><span class="kw">get_eurostat</span>(<span class="st">&quot;naidq_10_gdp&quot;</span>, <span class="dt">filters =</span> filtros, <span class="dt">type =</span> <span class="st">&quot;code&quot;</span>, <span class="dt">stringsAsFactors =</span> F,   <span class="dt">select_time =</span> <span class="st">&#39;Q&#39;</span>)   <span class="co">#-  data with codes</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">df_l &lt;-<span class="st"> </span>df_l <span class="op">%&gt;%</span><span class="st"> </span>tidyr<span class="op">::</span><span class="kw">spread</span>(unit, values)</a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">df   &lt;-<span class="st"> </span>df   <span class="op">%&gt;%</span><span class="st"> </span>tidyr<span class="op">::</span><span class="kw">spread</span>(unit, values)</a>
+<a class="sourceLine" id="cb10-8" data-line-number="8">data_us &lt;-<span class="st"> </span>df[first<span class="op">:</span>last,<span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">9</span>,<span class="dv">10</span>)]  <span class="co">#- getting the data we need</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9">data_us &lt;-<span class="st"> </span>data_us <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">GDP_us =</span> CP_MNAC, <span class="dt">GDP_us_e =</span> CP_MEUR, <span class="dt">Vol_us =</span> CLV_I10)   <span class="co">#- renaming our data</span></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10">data_us &lt;-<span class="st"> </span>data_us <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">tc_e_d =</span> GDP_us<span class="op">/</span>GDP_us_e)              <span class="co">#- exchange rate</span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#data_us &lt;-  data_us[,-1]  #- removing first column</span></a></code></pre></div>
+<p><br></p>
+<p>let’s see what we have in the data.frame <code>data_us</code></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">data_us <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(data_c)) <span class="op">%&gt;%</span><span class="st"> </span>gt<span class="op">::</span><span class="kw">gt</span>()</a></code></pre></div>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#qswflnywvy .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  /* table.margin.left */
+  margin-right: auto;
+  /* table.margin.right */
+  color: #333333;
+  font-size: 16px;
+  /* table.font.size */
+  background-color: #FFFFFF;
+  /* table.background.color */
+  width: auto;
+  /* table.width */
+  border-top-style: solid;
+  /* table.border.top.style */
+  border-top-width: 2px;
+  /* table.border.top.width */
+  border-top-color: #A8A8A8;
+  /* table.border.top.color */
+  border-bottom-style: solid;
+  /* table.border.bottom.style */
+  border-bottom-width: 2px;
+  /* table.border.bottom.width */
+  border-bottom-color: #A8A8A8;
+  /* table.border.bottom.color */
+}
+
+#qswflnywvy .gt_heading {
+  background-color: #FFFFFF;
+  /* heading.background.color */
+  border-bottom-color: #FFFFFF;
+  /* table.background.color */
+  border-left-style: hidden;
+  /* heading.border.lr.style */
+  border-left-width: 1px;
+  /* heading.border.lr.width */
+  border-left-color: #D3D3D3;
+  /* heading.border.lr.color */
+  border-right-style: hidden;
+  /* heading.border.lr.style */
+  border-right-width: 1px;
+  /* heading.border.lr.width */
+  border-right-color: #D3D3D3;
+  /* heading.border.lr.color */
+}
+
+#qswflnywvy .gt_title {
+  color: #333333;
+  font-size: 125%;
+  /* heading.title.font.size */
+  font-weight: initial;
+  /* heading.title.font.weight */
+  padding-top: 4px;
+  /* heading.top.padding - not yet used */
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  /* table.background.color */
+  border-bottom-width: 0;
+}
+
+#qswflnywvy .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  /* heading.subtitle.font.size */
+  font-weight: initial;
+  /* heading.subtitle.font.weight */
+  padding-top: 0;
+  padding-bottom: 4px;
+  /* heading.bottom.padding - not yet used */
+  border-top-color: #FFFFFF;
+  /* table.background.color */
+  border-top-width: 0;
+}
+
+#qswflnywvy .gt_bottom_border {
+  border-bottom-style: solid;
+  /* heading.border.bottom.style */
+  border-bottom-width: 2px;
+  /* heading.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* heading.border.bottom.color */
+}
+
+#qswflnywvy .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#qswflnywvy .gt_col_headings {
+  border-top-style: solid;
+  /* column_labels.border.top.style */
+  border-top-width: 2px;
+  /* column_labels.border.top.width */
+  border-top-color: #D3D3D3;
+  /* column_labels.border.top.color */
+  border-bottom-style: solid;
+  /* column_labels.border.bottom.style */
+  border-bottom-width: 2px;
+  /* column_labels.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* column_labels.border.bottom.color */
+  border-left-style: none;
+  /* column_labels.border.lr.style */
+  border-left-width: 1px;
+  /* column_labels.border.lr.width */
+  border-left-color: #D3D3D3;
+  /* column_labels.border.lr.color */
+  border-right-style: none;
+  /* column_labels.border.lr.style */
+  border-right-width: 1px;
+  /* column_labels.border.lr.width */
+  border-right-color: #D3D3D3;
+  /* column_labels.border.lr.color */
+}
+
+#qswflnywvy .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* column_labels.background.color */
+  font-size: 100%;
+  /* column_labels.font.size */
+  font-weight: normal;
+  /* column_labels.font.weight */
+  text-transform: inherit;
+  /* column_labels.text_transform */
+  vertical-align: middle;
+  padding: 5px;
+  margin: 10px;
+  overflow-x: hidden;
+}
+
+#qswflnywvy .gt_sep_right {
+  border-right: 5px solid #FFFFFF;
+}
+
+#qswflnywvy .gt_group_heading {
+  padding: 8px;
+  /* row_group.padding */
+  color: #333333;
+  background-color: #FFFFFF;
+  /* row_group.background.color */
+  font-size: 100%;
+  /* row_group.font.size */
+  font-weight: initial;
+  /* row_group.font.weight */
+  text-transform: inherit;
+  /* row_group.text_transform */
+  border-top-style: solid;
+  /* row_group.border.top.style */
+  border-top-width: 2px;
+  /* row_group.border.top.width */
+  border-top-color: #D3D3D3;
+  /* row_group.border.top.color */
+  border-bottom-style: solid;
+  /* row_group.border.bottom.style */
+  border-bottom-width: 2px;
+  /* row_group.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* row_group.border.bottom.color */
+  border-left-style: none;
+  /* row_group.border.left.style */
+  border-left-width: 1px;
+  /* row_group.border.left.width */
+  border-left-color: #D3D3D3;
+  /* row_group.border.left.color */
+  border-right-style: none;
+  /* row_group.border.right.style */
+  border-right-width: 1px;
+  /* row_group.border.right.width */
+  border-right-color: #D3D3D3;
+  /* row_group.border.right.color */
+  vertical-align: middle;
+}
+
+#qswflnywvy .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  /* row_group.background.color */
+  font-size: 100%;
+  /* row_group.font.size */
+  font-weight: initial;
+  /* row_group.font.weight */
+  border-top-style: solid;
+  /* row_group.border.top.style */
+  border-top-width: 2px;
+  /* row_group.border.top.width */
+  border-top-color: #D3D3D3;
+  /* row_group.border.top.color */
+  border-bottom-style: solid;
+  /* row_group.border.bottom.style */
+  border-bottom-width: 2px;
+  /* row_group.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* row_group.border.bottom.color */
+  vertical-align: middle;
+}
+
+#qswflnywvy .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+  /* row.striping.background_color */
+}
+
+#qswflnywvy .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#qswflnywvy .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#qswflnywvy .gt_row {
+  padding-top: 8px;
+  /* data_row.padding */
+  padding-bottom: 8px;
+  /* data_row.padding */
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  /* table_body.hlines.style */
+  border-top-width: 1px;
+  /* table_body.hlines.width */
+  border-top-color: #D3D3D3;
+  /* table_body.hlines.color */
+  border-left-style: none;
+  /* table_body.vlines.style */
+  border-left-width: 1px;
+  /* table_body.vlines.width */
+  border-left-color: #D3D3D3;
+  /* table_body.vlines.color */
+  border-right-style: none;
+  /* table_body.vlines.style */
+  border-right-width: 1px;
+  /* table_body.vlines.width */
+  border-right-color: #D3D3D3;
+  /* table_body.vlines.color */
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#qswflnywvy .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* stub.background.color */
+  font-weight: initial;
+  /* stub.font.weight */
+  text-transform: inherit;
+  /* stub.text_transform */
+  border-right-style: solid;
+  /* stub.border.style */
+  border-right-width: 2px;
+  /* stub.border.width */
+  border-right-color: #D3D3D3;
+  /* stub.border.color */
+  padding-left: 12px;
+}
+
+#qswflnywvy .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* summary_row.background.color */
+  text-transform: inherit;
+  /* summary_row.text_transform */
+  padding-top: 8px;
+  /* summary_row.padding */
+  padding-bottom: 8px;
+  /* summary_row.padding */
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qswflnywvy .gt_first_summary_row {
+  padding-top: 8px;
+  /* summary_row.padding */
+  padding-bottom: 8px;
+  /* summary_row.padding */
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  /* summary_row.border.style */
+  border-top-width: 2px;
+  /* summary_row.border.width */
+  border-top-color: #D3D3D3;
+  /* summary_row.border.color */
+}
+
+#qswflnywvy .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* grand_summary_row.background.color */
+  text-transform: inherit;
+  /* grand_summary_row.text_transform */
+  padding-top: 8px;
+  /* grand_summary_row.padding */
+  padding-bottom: 8px;
+  /* grand_summary_row.padding */
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qswflnywvy .gt_first_grand_summary_row {
+  padding-top: 8px;
+  /* grand_summary_row.padding */
+  padding-bottom: 8px;
+  /* grand_summary_row.padding */
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  /* grand_summary_row.border.style */
+  border-top-width: 6px;
+  /* grand_summary_row.border.width */
+  border-top-color: #D3D3D3;
+  /* grand_summary_row.border.color */
+}
+
+#qswflnywvy .gt_table_body {
+  border-top-style: solid;
+  /* table_body.border.top.style */
+  border-top-width: 2px;
+  /* table_body.border.top.width */
+  border-top-color: #D3D3D3;
+  /* table_body.border.top.color */
+  border-bottom-style: solid;
+  /* table_body.border.bottom.style */
+  border-bottom-width: 2px;
+  /* table_body.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* table_body.border.bottom.color */
+}
+
+#qswflnywvy .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* footnotes.background.color */
+  border-bottom-style: none;
+  /* footnotes.border.bottom.style */
+  border-bottom-width: 2px;
+  /* footnotes.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* footnotes.border.bottom.color */
+  border-left-style: none;
+  /* footnotes.border.lr.color */
+  border-left-width: 2px;
+  /* footnotes.border.lr.color */
+  border-left-color: #D3D3D3;
+  /* footnotes.border.lr.color */
+  border-right-style: none;
+  /* footnotes.border.lr.color */
+  border-right-width: 2px;
+  /* footnotes.border.lr.color */
+  border-right-color: #D3D3D3;
+  /* footnotes.border.lr.color */
+}
+
+#qswflnywvy .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  /* footnotes.font.size */
+  padding: 4px;
+  /* footnotes.padding */
+}
+
+#qswflnywvy .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  /* source_notes.background.color */
+  border-bottom-style: none;
+  /* source_notes.border.bottom.style */
+  border-bottom-width: 2px;
+  /* source_notes.border.bottom.width */
+  border-bottom-color: #D3D3D3;
+  /* source_notes.border.bottom.color */
+  border-left-style: none;
+  /* source_notes.border.lr.style */
+  border-left-width: 2px;
+  /* source_notes.border.lr.style */
+  border-left-color: #D3D3D3;
+  /* source_notes.border.lr.style */
+  border-right-style: none;
+  /* source_notes.border.lr.style */
+  border-right-width: 2px;
+  /* source_notes.border.lr.style */
+  border-right-color: #D3D3D3;
+  /* source_notes.border.lr.style */
+}
+
+#qswflnywvy .gt_sourcenote {
+  font-size: 90%;
+  /* source_notes.font.size */
+  padding: 4px;
+  /* source_notes.padding */
+}
+
+#qswflnywvy .gt_left {
+  text-align: left;
+}
+
+#qswflnywvy .gt_center {
+  text-align: center;
+}
+
+#qswflnywvy .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#qswflnywvy .gt_font_normal {
+  font-weight: normal;
+}
+
+#qswflnywvy .gt_font_bold {
+  font-weight: bold;
+}
+
+#qswflnywvy .gt_font_italic {
+  font-style: italic;
+}
+
+#qswflnywvy .gt_super {
+  font-size: 65%;
+}
+
+#qswflnywvy .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="qswflnywvy" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">time</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Vol_us</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">GDP_us_e</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">GDP_us</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">tc_e_d</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_left">1995-01-01</td>
+      <td class="gt_row gt_right">67.6</td>
+      <td class="gt_row gt_right">1476928</td>
+      <td class="gt_row gt_right">1880572</td>
+      <td class="gt_row gt_right">1.2733</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left gt_striped">2019-10-01</td>
+      <td class="gt_row gt_right gt_striped">123.2</td>
+      <td class="gt_row gt_right gt_striped">4906766</td>
+      <td class="gt_row gt_right gt_striped">5432281</td>
+      <td class="gt_row gt_right gt_striped">1.1071</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+<p><br></p>
+<hr />
+<p><br></p>
+</div>
+<div id="merging-the-data" class="section level1">
+<h1>3. Merging the data</h1>
+<p>We have downloades data for the country you have chosen, for E15, and for the US. We have to join the data in a unique data.frame. But they have to share the same sample.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw">full_join</span>(data_c, data_<span class="dv">15</span>, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;time&quot;</span> =<span class="st"> &quot;time&quot;</span>)) <span class="co">#- merging df_c with df_15</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">df &lt;-<span class="st"> </span><span class="kw">full_join</span>(df, data_us, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;time&quot;</span> =<span class="st"> &quot;time&quot;</span>))</a></code></pre></div>
+<p>Good, we already have all teh data we need in one data.frame. We have to save it because you will do your asignment with this data</p>
+<p><br></p>
+<hr />
+<p><br></p>
+</div>
+<div id="saving-the-data-in-a-file" class="section level1">
+<h1>4. Saving the data in a file</h1>
+<p>For example we can tsave the data in .csv format:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co">#- exporting df as a .csv file. The follwing 2 lines of code make the same</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co"># write_csv(df, &quot;my_data_ES.csv&quot;)                         #- saving df as csv</span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co"># write_csv(df, paste0(&quot;my_data_&quot;, my_country, &quot;.csv&quot;))   #- saving df as csv</span></a></code></pre></div>
+<p><br></p>
+<p>Or in .rds format</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co">#- saving df as a .rds file</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#write_csv(df, paste0(&quot;my_data_&quot;, my_country, &quot;.rds&quot;))  #- saving df as rds</span></a></code></pre></div>
+<p>Please <strong>uncoment the two previous chunks</strong> to efectively save your data because you are going to need it for your asignment</p>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRG93bmxvYWRpbmcgbXlfZGF0YSBmb3IgdGhlIGFzaWdubWVudCIKYXV0aG9yOiAiWW91IgpkYXRlOiAiMjAyMCwgQXByaWwiCm91dHB1dDogCiAgaHRtbF9kb2N1bWVudDoKICAgIHRoZW1lOiBzaW1wbGV4CiAgICBoaWdobGlnaHQ6IHB5Z21lbnRzIAogICAgbnVtYmVyX3NlY3Rpb25zOiBubwogICAgdG9jOiB0cnVlCiAgICB0b2NfZmxvYXQ6IHRydWUKICAgICNjb2RlX2ZvbGRpbmc6IHNob3cKICAgIHNlbGZfY29udGFpbmVkOiBUUlVFCiAgICBjb2RlX2Rvd25sb2FkOiB0cnVlCi0tLQoKCmBgYHtyLCBpbmNsdWRlID0gRkFMU0V9CiMtIGRlZmluaWVuZG8gb3BjaW9uZXMgZ2xvYmFsZXMgcGFyYSBsb3MgY2h1bmtzIGRlIGPDs2RpZ28gUgprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUsIGV2YWwgPSBUUlVFLCBtZXNzYWdlID0gRkFMU0UsIHdhcm5pbmcgPSBGQUxTRSwgCiAgICAgICAgICAgICAgICAgICAgICBjYWNoZSA9IEZBTFNFLCBjYWNoZS5wYXRoID0gIi9jYWNoZXMvIiwgY29tbWVudCA9ICIjPiIsCiAgICAgICAgICAgICAgICAgICAgICAjZmlnLndpZHRoID0gNywgZmlnLmhlaWdodD0gNywgICAKICAgICAgICAgICAgICAgICAgICAgICNvdXQud2lkdGggPSA3LCBvdXQuaGVpZ2h0ID0gNywKICAgICAgICAgICAgICAgICAgICAgIGNvbGxhcHNlID0gVFJVRSwgIGZpZy5zaG93ID0gImhvbGQiLAogICAgICAgICAgICAgICAgICAgICAgZmlnLmFzcCA9IDcvOSwgb3V0LndpZHRoID0gIjYwJSIsIGZpZy5hbGlnbiA9ICJjZW50ZXIiKQpgYGAKCgpgYGB7ciwgZWNobyA9IEZBTFNFfQpvcHRpb25zKHNjaXBlbiA9IDk5OSkgIy0gcGFyYSBxdWl0YXIgbGEgbm90YWNpb24gY2llbnRpZmljYQpgYGAKCjxicj4KCiMgMS4gSW50cm8KClRoZSBvYmplY3RpdmUgb2YgdGhpcyBgLlJtZGAgZmlsZSBpcyB0byBkb3dubG9hZCBkYXRhIGZyb20gRXVyb3N0YXQgdG8gYmUgdXNlZCBmb3IgdGhlIHN0dWRlbnRzIGluIHRoZWlyIGFzaWdubWVudHMKCldlIGFyZSBnb2luZyB0byBuZWVkIHR3byBwYWNrYWdlcywgdGhlbiB3ZSBhcmUgZ29pbmcgdG8gbG9hZCB0aGVtOgoKCmBgYHtyLCBlY2hvID0gRkFMU0V9CmxpYnJhcnkodGlkeXZlcnNlKSAgICAgIy0gaW5zdGFsbC5wYWNrYWdlcygidGlkeXZlcnNlIikKbGlicmFyeShldXJvc3RhdCkgICAgICAjLSBpbnN0YWxsLnBhY2thZ2VzKCJldXJvc3RhdCIpCmxpYnJhcnkoZ3QpICAgICAgICAgICAgIy0gaW5zdGFsbC5wYWNrYWdlcygiZ3QiKQpsaWJyYXJ5KERUKSAgICAgICAgICAgICMtIGluc3RhbGwucGFja2FnZXMoIkRUIikKYGBgCiAgCgo8YnI+CgojIDIuIENvdW50cmllcyBhdmFpbGFibGVzIGZyb20gRXVyb3N0YXQKCgpGaXJzdCwgd2Ugd2lsbCBzZWUgdGhlIGxpc3Qgb2YgYXZhaWxhYmxlIGNvdW50cmllcyBpbiB0aGUgRXVyb3N0YXQgZGF0YWJhc2UuIFRoZXkgYXJlIGluIHRoZSBkYXRhLmZyYW1lIGNhbGxlZCBgZXVfY291bnRyaWVzYAoKYGBge3J9CmNvdW50cnlfY29kZXMgPC0gZXVfY291bnRyaWVzICAgICAgICMtIGF2YWxhaWxhYmxlIGNvdW50cmllcyBpbiBFdXJvc3RhdCBkYXRhCmBgYAoKTGV0J3Mgc2VlIHRoZSBjb3VudHJpZXMgbGlzdCBhcyBhIHRhYmxlCgoKYGBge3J9CiNndDo6Z3QoY291bnRyeV9jb2RlcykKRFQ6OmRhdGF0YWJsZShjb3VudHJ5X2NvZGVzKQpgYGAKCgo8YnI+CgojIyAzLiBZb3UgaGF2ZSB0byBjaG9zZSB5b3VyIGNvdW50cnkKCkV2ZXJ5IG9uZSBvZiB5b3Ugc2hvdWxkIGNob29zZSBvbmUgZGlmZmVyZW50IGNvdW50cnkuIAoKRHVyaW5nIHRoZSBsZXNzb25zL2UtbWVldGluZ3Mgd2Ugd2lsbCB1c2UgZGF0YSBmb3IgU2FwaW4sIHRoZW4gaGVyZSBJIGNob29zZSAqKlNwYWluKioKCgpgYGB7cn0KbXlfY291bnRyeSA8LSAiRVMiICAgIy0gIENIT09TRSBZT1VSIENPVU5UUlkgLSAgQ0hPT1NFIFlPVVIgQ09VTlRSWQpgYGAKCldlIGNhbiBub3cgc3RhcnQgdG8gZG93bmxvYWQgdGhlIGRhdGEuIEkgcmVwZWF0LCBpbiB0aGUgbGVzc29ucyBJIHdpbGwgdXNlIGRhdGEgZm9yIFNwYWluICwgQlVUIGZvciB5b3VyIGFzaWdubWVudCB5b3Ugc2hvdWxkIHVzZSBvdGhlciBjb3VudHJ5LiBFYWNoIG9mIHlvdSBhIGRpZmZlcmVudCBjb3VudHJ5Cgo8YnI+CgotLS0tLS0tLS0tLS0tLS0tLS0KCgo8YnI+CgojIDQuIERvd2xvYWRpbmcgdGhlIGRhdGEgZgoKT2suIFRoZSBjb2RlIGJlbG93IHdpbGwgZG93bG9hZCBzb21lIGRhdGEgKipmb3IgdGhlIGNvdW50cnkgeW91IGhhdmUgY2hvc2VuKioKCjxicj4KCjEuIEZpcnN0LCB3ZSBoYXZlIHRvIHNldCBzb21lIHBhcmFtZXRlcnMgdG8gc2F5IHRvIHRoZSBgZXVyb3N0YXRgIHBhY2thZ2UgQVBJIHdjaGljaCBzZXJpZXMgd2Ugd2FudCB0byBkb3dsb2FkCgpgYGB7cn0KZ2VvX2YgPC0gbXlfY291bnRyeQpzX2Fkal9mIDwtIGMoIlNDQSIpICAgICAjLSBTZWFzb25hbGx5IGFuZCBjYWxlbmRhciBhZGp1c3RlZCBkYXRhCnVuaXRfZiAgPC0gYyggIkNQX01FVVIiICwgIlBEMDVfRVVSIiwgIkNMVl9JMTAiICkgICAgICMtIHVuaXRzOiBDUF9NRVVSW0N1cnJlbnQgcHJpY2VzLCBtaWxsaW9uIGV1cm9dLCBQRDA1X0VVUltQcmljZSBpbmRleCAoaW1wbGljaXQgZGVmbGF0b3IpLCAyMDA1PTEwMCwgZXVyb10sIENMVl9JMTBbQ2hhaW4gbGlua2VkIHZvbHVtZXMsIGluZGV4IDIwMTA9MTAwXQpuYV9pdGVtX2YgPC1jKCJCMUdRIikgICAgIy0gZWNvbm9taWMgc2VyaWVzLiBCMUdROiBHcm9zcyBkb21lc3RpYyBwcm9kdWN0IGF0IG1hcmtldCBwcmljZXMKZmlsdHJvcyA8LSBsaXN0KGdlbyA9IGdlb19mLCBuYV9pdGVtID0gbmFfaXRlbV9mICwgdW5pdCA9IHVuaXRfZiwgc19hZGogPSBzX2Fkal9mKQpgYGAKCjxicj4KCgoyLiBBbHJlYWR5IGRvd25sb2FkaW5nIHRoZSBkYXRhIGZvciB0aGUgY291bnRyeSB5b3UgaGF2ZSBjaG9zZW4gKGBteV9jb3VudHJ5YCkKCmBgYHtyfQpkZl9sIDwtIGdldF9ldXJvc3RhdCgibmFtcV8xMF9nZHAiLCBmaWx0ZXJzID0gZmlsdHJvcywgdHlwZSA9ICJsYWJlbCIsIHN0cmluZ3NBc0ZhY3RvcnMgPSBGLCAgIHNlbGVjdF90aW1lID0gJ1EnKSAgICMtIGRhdGEgd2l0aCBsYWJlbHMKZGYgPC0gZ2V0X2V1cm9zdGF0KCJuYW1xXzEwX2dkcCIsIGZpbHRlcnMgPSBmaWx0cm9zLCB0eXBlID0gImNvZGUiLCBzdHJpbmdzQXNGYWN0b3JzID0gRiwgICBzZWxlY3RfdGltZSA9ICdRJykgICAjLSAgZGF0YSB3aXRoIGNvZGVzCmBgYAoKPGJyPgoKCjMuICJDbGVhbmluZyIgdGhlIGRhdGEgZm9yIHRoZSBjb3VudHJ5IGNob3NlbgoKYGBge3J9CiMtIHRoZSBkYXRhIGFyZSBpbiBsb25nIGZvcm1hdDogY29udmVydGluZyB0byB0aGUgd2lkZSAobW9yZSB0cmFkaXRpb25hbCkgZm9ybWF0CmRmX2xhIDwtIGRmX2wgJT4lIHRpZHlyOjpzcHJlYWQodW5pdCwgdmFsdWVzKQpkZmEgICA8LSBkZiAgICU+JSB0aWR5cjo6c3ByZWFkKHVuaXQsIHZhbHVlcykKCiMtIEdldHRpbmcgdGhlIHJhbmdlIG9mIGF2YWlsYWJsZSBkYXRhIChub24tTkEgb2JzZXJ2YXRpb25zKQpmaXJzdCA8LSBtaW4od2hpY2goIWlzLm5hKGRmYVssNV0pKSkgICMtIGZpcnN0IG5vbi1OQSBvYnNlcnZhdGlvbgpsYXN0IDwtIG1heCh3aGljaCghaXMubmEoZGZhWyw1XSkpKSAgICMtIGxhc3Qgbm9uLU5BIG9ic2VydmF0aW9uCmRhdGFfYyA8LSBkZmFbZmlyc3Q6bGFzdCw0OjddICAjLSBnZXR0aW5nIG9ubHkgdGhlIHZhbGlkIG9ic2VydmF0aW9ucyBvZiB0aGUgbGFzdCAzIGNvbHVtbnMgKDQ6NikKCiMtIFJlbmFtaW5nICYgdHJhbnNmb3JtaW5nIHRoZSBzZXJpZXMKZGF0YV9jIDwtIGRhdGFfYyAlPiUgcmVuYW1lKEdEUCA9IENQX01FVVIsIERlZiA9IFBEMDVfRVVSLCBWb2wgPSBDTFZfSTEwKSAgICMtIHJlbmFtaW5nIG91ciBkYXRhCmRhdGFfYyA8LSBkYXRhX2MgJT4lIG11dGF0ZShHRFByID0gR0RQL0RlZioxMDApICAgICAgICAgICAgICAjLSByZWFsIEdEUApkYXRhX2MgPC0gZGF0YV9jCmBgYAoKPGJyPgoKCmxldCdzIHNlZSB3aGF0IHdlIGhhdmUgaW4gdGhlIGRhdGEuZnJhbWUgYGRhdGFfY2AKCmBgYHtyfQpkYXRhX2MgJT4lICBzbGljZSgxLCBucm93KGRhdGFfYykpICU+JSBndDo6Z3QoKQpgYGAKCjxicj4KCgo0LiBEb3dsb2FkaW5nIGRhdGEgZm9yIHRoZSBFVTE1CgoKYGBge3J9Cmdlb19mICAgPC0gYygiRVUxNSIpICAgICAgIy0gY291bnRyaWVzOiBFVTE1CmZpbHRyb3MgPC0gbGlzdChnZW8gPSBnZW9fZiwgbmFfaXRlbSA9IG5hX2l0ZW1fZiAsIHVuaXQgPSB1bml0X2YsIHNfYWRqID0gc19hZGpfZikKZGZfbCA8LSBnZXRfZXVyb3N0YXQoIm5hbXFfMTBfZ2RwIiwgZmlsdGVycyA9IGZpbHRyb3MsIHR5cGUgPSAibGFiZWwiLCBzdHJpbmdzQXNGYWN0b3JzID0gRiwgICBzZWxlY3RfdGltZSA9ICdRJykgICAjLSBkYXRhIHdpdGggbGFiZWxzCmRmIDwtIGdldF9ldXJvc3RhdCgibmFtcV8xMF9nZHAiLCBmaWx0ZXJzID0gZmlsdHJvcywgdHlwZSA9ICJjb2RlIiwgc3RyaW5nc0FzRmFjdG9ycyA9IEYsICAgc2VsZWN0X3RpbWUgPSAnUScpICAgIy0gIGRhdGEgd2l0aCBjb2RlcwpkZl9sIDwtIGRmX2wgJT4lIHRpZHlyOjpzcHJlYWQodW5pdCwgdmFsdWVzKQpkZiAgIDwtIGRmICAgJT4lIHRpZHlyOjpzcHJlYWQodW5pdCwgdmFsdWVzKQpkYXRhXzE1IDwtIGRmW2ZpcnN0Omxhc3QsNDo3XSAgIy0gZ2V0dGluZyBvbmx5IHRoZSB2YWxpZCBvYnNlcnZhdGlvbnMgb2YgdGhlIGxhc3QgMyBjb2x1bW5zICg0OjYpCmRhdGFfMTUgPC0gZGF0YV8xNSAlPiUgcmVuYW1lKEdEUF8xNSA9IENQX01FVVIsIERlZl8xNSA9IFBEMDVfRVVSLCBWb2xfMTUgPSBDTFZfSTEwKSAgICMtIHJlbmFtaW5nIG91ciBkYXRhCmRhdGFfMTUgPC0gZGF0YV8xNSAlPiUgbXV0YXRlKEdEUHJfMTUgPSBHRFBfMTUvRGVmXzE1KjEwMCkgICAgICAgICAgICAgICMtIHJlYWwgR0RQCiNkYXRhXzE1IDwtICBkYXRhXzE1WywtMV0gICMtIHJlbW92aW5nIGZpcnN0IGNvbHVtbgpgYGAKCjxicj4KCmxldCdzIHNlZSB3aGF0IHdlIGhhdmUgaW4gdGhlIGRhdGEuZnJhbWUgYGRhdGFfMTVgCgpgYGB7cn0KZGF0YV8xNSAlPiUgc2xpY2UoMSwgbnJvdyhkYXRhX2MpKSAlPiUgZ3Q6Omd0KCkKYGBgCgo8YnI+Cgo0LiBEb3dsb2FkaW5nIGRhdGEgZm9yIHRoZSBVUwoKYGBge3J9Cmdlb19mICAgPC0gYygiVVMiKSAgICAgICMtIGNvdW50cmllczogVVMKbmFfaXRlbV9mIDwtIGMoIkIxR1EiLCAiUEQwNV9OQUMiKSAgICAjLSBlY29ub21pYyBzZXJpZXMuIEIxR1E6IEdyb3NzIGRvbWVzdGljIHByb2R1Y3QgYXQgbWFya2V0IHByaWNlcwpmaWx0cm9zIDwtIGxpc3QoZ2VvID0gZ2VvX2YsIG5hX2l0ZW0gPSBuYV9pdGVtX2YgLCAgc19hZGogPSBzX2Fkal9mKQpkZl9sIDwtIGdldF9ldXJvc3RhdCgibmFpZHFfMTBfZ2RwIiwgZmlsdGVycyA9IGZpbHRyb3MsIHR5cGUgPSAibGFiZWwiLCBzdHJpbmdzQXNGYWN0b3JzID0gRiwgICBzZWxlY3RfdGltZSA9ICdRJykgICAjLSBkYXRhIHdpdGggbGFiZWxzCmRmIDwtIGdldF9ldXJvc3RhdCgibmFpZHFfMTBfZ2RwIiwgZmlsdGVycyA9IGZpbHRyb3MsIHR5cGUgPSAiY29kZSIsIHN0cmluZ3NBc0ZhY3RvcnMgPSBGLCAgIHNlbGVjdF90aW1lID0gJ1EnKSAgICMtICBkYXRhIHdpdGggY29kZXMKZGZfbCA8LSBkZl9sICU+JSB0aWR5cjo6c3ByZWFkKHVuaXQsIHZhbHVlcykKZGYgICA8LSBkZiAgICU+JSB0aWR5cjo6c3ByZWFkKHVuaXQsIHZhbHVlcykKZGF0YV91cyA8LSBkZltmaXJzdDpsYXN0LGMoNCw1LDksMTApXSAgIy0gZ2V0dGluZyB0aGUgZGF0YSB3ZSBuZWVkCmRhdGFfdXMgPC0gZGF0YV91cyAlPiUgcmVuYW1lKEdEUF91cyA9IENQX01OQUMsIEdEUF91c19lID0gQ1BfTUVVUiwgVm9sX3VzID0gQ0xWX0kxMCkgICAjLSByZW5hbWluZyBvdXIgZGF0YQpkYXRhX3VzIDwtIGRhdGFfdXMgJT4lIG11dGF0ZSh0Y19lX2QgPSBHRFBfdXMvR0RQX3VzX2UpICAgICAgICAgICAgICAjLSBleGNoYW5nZSByYXRlCiNkYXRhX3VzIDwtICBkYXRhX3VzWywtMV0gICMtIHJlbW92aW5nIGZpcnN0IGNvbHVtbgpgYGAKCjxicj4KCmxldCdzIHNlZSB3aGF0IHdlIGhhdmUgaW4gdGhlIGRhdGEuZnJhbWUgYGRhdGFfdXNgCgpgYGB7cn0KZGF0YV91cyAlPiUgc2xpY2UoMSwgbnJvdyhkYXRhX2MpKSAlPiUgZ3Q6Omd0KCkKYGBgCgo8YnI+CgotLS0tLS0tLS0tLS0tLS0tLS0KCjxicj4KCiMgMy4gTWVyZ2luZyB0aGUgZGF0YQoKV2UgaGF2ZSBkb3dubG9hZGVzIGRhdGEgZm9yIHRoZSBjb3VudHJ5IHlvdSBoYXZlIGNob3NlbiwgZm9yIEUxNSwgYW5kIGZvciB0aGUgVVMuIFdlIGhhdmUgdG8gam9pbiB0aGUgZGF0YSBpbiBhIHVuaXF1ZSBkYXRhLmZyYW1lLiBCdXQgdGhleSBoYXZlIHRvIHNoYXJlIHRoZSBzYW1lIHNhbXBsZS4KCgoKYGBge3J9CmRmIDwtIGZ1bGxfam9pbihkYXRhX2MsIGRhdGFfMTUsIGJ5ID0gYygidGltZSIgPSAidGltZSIpKSAjLSBtZXJnaW5nIGRmX2Mgd2l0aCBkZl8xNQpkZiA8LSBmdWxsX2pvaW4oZGYsIGRhdGFfdXMsIGJ5ID0gYygidGltZSIgPSAidGltZSIpKQpgYGAKCgpHb29kLCB3ZSBhbHJlYWR5IGhhdmUgYWxsIHRlaCBkYXRhIHdlIG5lZWQgaW4gb25lIGRhdGEuZnJhbWUuIFdlIGhhdmUgdG8gc2F2ZSBpdCBiZWNhdXNlIHlvdSB3aWxsIGRvIHlvdXIgYXNpZ25tZW50IHdpdGggdGhpcyBkYXRhCgo8YnI+CgotLS0tLS0tLS0tLS0tLS0KCjxicj4KCgojIDQuIFNhdmluZyB0aGUgZGF0YSBpbiBhIGZpbGUKCkZvciBleGFtcGxlIHdlIGNhbiB0c2F2ZSB0aGUgZGF0YSBpbiAuY3N2IGZvcm1hdDoKCgpgYGB7cn0KIy0gZXhwb3J0aW5nIGRmIGFzIGEgLmNzdiBmaWxlLiBUaGUgZm9sbHdpbmcgMiBsaW5lcyBvZiBjb2RlIG1ha2UgdGhlIHNhbWUKIyB3cml0ZV9jc3YoZGYsICJteV9kYXRhX0VTLmNzdiIpICAgICAgICAgICAgICAgICAgICAgICAgICMtIHNhdmluZyBkZiBhcyBjc3YKIyB3cml0ZV9jc3YoZGYsIHBhc3RlMCgibXlfZGF0YV8iLCBteV9jb3VudHJ5LCAiLmNzdiIpKSAgICMtIHNhdmluZyBkZiBhcyBjc3YKYGBgCgo8YnI+CgoKT3IgaW4gLnJkcyBmb3JtYXQKCgoKYGBge3J9CiMtIHNhdmluZyBkZiBhcyBhIC5yZHMgZmlsZQojd3JpdGVfY3N2KGRmLCBwYXN0ZTAoIm15X2RhdGFfIiwgbXlfY291bnRyeSwgIi5yZHMiKSkgICMtIHNhdmluZyBkZiBhcyByZHMKYGBgCgoKUGxlYXNlICoqdW5jb21lbnQgdGhlIHR3byBwcmV2aW91cyBjaHVua3MqKiB0byBlZmVjdGl2ZWx5IHNhdmUgeW91ciBkYXRhIGJlY2F1c2UgeW91IGFyZSBnb2luZyB0byBuZWVkIGl0IGZvciB5b3VyIGFzaWdubWVudAoKCgo=</div>
+
+
+
+
+<footer class="footer">
+  <div class="text-muted">-----</div>
+  <div class="text-muted"><strong> Web</strong> creada por Pedro J. Pérez, profesor de la Universitat de València. &copy;  2020. If you find any bugs please report them to <a href="mailto:pedro.j.perez@uv.es"> pedro.j.perez@uv.es</a>.</div>
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("to-download-your-data.Rmd");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

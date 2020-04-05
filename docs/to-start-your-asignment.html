@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Your name" />
+
+
+<title>My VAR model: SPAIN</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/simplex.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<script src="site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="site_libs/dygraphs-1.1.1/dygraph.css" rel="stylesheet" />
+<script src="site_libs/dygraphs-1.1.1/dygraph-combined.js"></script>
+<script src="site_libs/dygraphs-1.1.1/shapes.js"></script>
+<script src="site_libs/moment-2.8.4/moment.js"></script>
+<script src="site_libs/moment-timezone-0.2.5/moment-timezone-with-data.js"></script>
+<script src="site_libs/moment-fquarter-1.0.0/moment-fquarter.min.js"></script>
+<script src="site_libs/dygraphs-binding-1.1.1.6/dygraphs.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 41px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 46px;
+  margin-top: -46px;
+}
+.section h2 {
+  padding-top: 46px;
+  margin-top: -46px;
+}
+.section h3 {
+  padding-top: 46px;
+  margin-top: -46px;
+}
+.section h4 {
+  padding-top: 46px;
+  margin-top: -46px;
+}
+.section h5 {
+  padding-top: 46px;
+  margin-top: -46px;
+}
+.section h6 {
+  padding-top: 46px;
+  margin-top: -46px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">VAR models</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="01-Course-plan.html">
+    <span class="fa fa-graduation-cap"></span>
+     
+    Course "plan"
+  </a>
+</li>
+<li>
+  <a href="02-Logistics.html">
+    <span class="fa fa-laptop"></span>
+     
+    Logistics
+  </a>
+</li>
+<li>
+  <a href="03-Slides.html">
+    <span class="fa fa-book"></span>
+     
+    Slides
+  </a>
+</li>
+<li>
+  <a href="04-Lab-Gali.html">
+    <span class="fa fa-code"></span>
+     
+    Lab
+  </a>
+</li>
+<li>
+  <a href="05-Schedule.html">
+    <span class="fa fa-calendar-alt"></span>
+     
+    Schedule
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-download"></span>
+     
+    MáS
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">In Spanish</li>
+    <li>
+      <a href="tt_01_primeros-pasos-con-R.html">Primeros pasos con R</a>
+    </li>
+    <li>
+      <a href="tt_02_Rmarkdown.html">Rmarkdown</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Help for your asignment</li>
+    <li>
+      <a href="to-download-your-data.html">To download your data</a>
+    </li>
+    <li>
+      <a href="to-start-your-asignment.html">To start your asignment</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">My VAR model: SPAIN</h1>
+<h4 class="author">Your name</h4>
+<h4 class="date">05 abril, 2020</h4>
+
+</div>
+
+
+<p><br><br></p>
+<div id="intro" class="section level1">
+<h1>1. Intro</h1>
+<p>As the 20% of my mark for Macroeconomtrics depends on the VAR asignment and my participation in the e-meetings, I’m going to start doning my asignment.</p>
+<p>For my asignmente I’m going to estimate a VAR model with Eurostat data. I downloaded the data using the <code>to-download-my_data.Rmd</code> file the <code>xx/04/2020</code>. Big thanks to the the <code>eurostat</code> package.</p>
+<p>And remenber, as the lecturer said repeatedly during the e-meetings, that there are some rules to deliver the asignment to him:</p>
+<ul>
+<li><p>you have to deliver the asignment by mail to <code>pedro.j.perez@uv.es</code> <strong>BEFORE the 15/05/2020</strong>.</p></li>
+<li><p>you should attach in you mail a <strong>single .zip file</strong>.</p></li>
+<li><p>this single .zip file has to contain your <strong>asignment as an Rproject</strong>.</p></li>
+<li><p>Remenber that you have to name the folder of you Rproject like: <VAR_country_1st-surname_name>. That is, if for instance, in your asignment you have used data from <code>Spain</code> and your name would be “Pedro Pérez Vázquez”, then, the folder of your Rproject should be named: <code>VAR_perez_pedro_spain</code>. Please, all in lower case, except VAR, and <strong>no spaces, no punctuation marks</strong> in the name of the folder.</p></li>
+<li><p>Then, if the name of the folder of your Rproject is <code>VAR_perez_pedro_spain</code> then the .zip file you have to send me by e-mail should be named: <code>VAR_perez_pedro_spain.zip</code>.</p></li>
+</ul>
+<p><br></p>
+<hr />
+<p><br></p>
+</div>
+<div id="data-preparation" class="section level1">
+<h1>2. Data preparation</h1>
+<p>As we are going to use the <code>vars</code> package to estimate and analyse a structural VAR model, I need to transform my data to a format suitable for the <code>vars</code> package.</p>
+<p><br></p>
+<div id="loading-my-data" class="section level2">
+<h2>Loading my data</h2>
+<p>Obviously, first I have to load my data. As I have saved the file with my data in a the folder called <code>datos</code> inside the main folder of the Rproject, THEN, to load my data I have to do:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co">#- remenber that you should change the name of the path to the file</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;./datos/my_data_ES.csv&quot;</span>) </a></code></pre></div>
+<p>Other way to load the data is:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;datos&quot;</span>, <span class="st">&quot;my_data_ES.csv&quot;</span>)) </a></code></pre></div>
+<p>This second way to load teh data is preferable</p>
+<p><br></p>
+</div>
+<div id="creating-the-ts-objects" class="section level2">
+<h2>Creating the <code>ts</code> objects</h2>
+<p>As the <code>vars</code> package need that the data are in a special format (<code>ts</code>), then, I have to convert my data to the <code>ts</code> format</p>
+<p>To do that, first we have to look at the common sample of our 3 series:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(time, Vol_us, Vol_<span class="dv">15</span>, Vol)</a></code></pre></div>
+<p>Droping rows with NAs to obtain the The common sample for my data.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">drop_na</span>()</a></code></pre></div>
+<p>calculating the start and end of the common sample of my data:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">data_tt &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">time =</span> <span class="kw">as.character</span>(time)) <span class="op">%&gt;%</span><span class="st"> </span>tidyr<span class="op">::</span><span class="kw">separate</span>(time, <span class="kw">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;quarter&quot;</span>, <span class="st">&quot;day&quot;</span>),<span class="st">&quot;-&quot;</span>)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">data_tt &lt;-<span class="st"> </span>data_tt <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">as.numeric</span>(year)) </a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">data_tt &lt;-<span class="st"> </span>data_tt <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">quarter=</span> <span class="kw">case_when</span>(</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">                                        quarter  <span class="op">==</span><span class="st"> &quot;01&quot;</span>  <span class="op">~</span><span class="st"> </span><span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">                                        quarter  <span class="op">==</span><span class="st"> &quot;04&quot;</span>  <span class="op">~</span><span class="st"> </span><span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">                                        quarter  <span class="op">==</span><span class="st"> &quot;07&quot;</span>  <span class="op">~</span><span class="st"> </span><span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">                                        quarter  <span class="op">==</span><span class="st"> &quot;10&quot;</span>  <span class="op">~</span><span class="st"> </span><span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">start_year    &lt;-<span class="st"> </span>data_tt<span class="op">$</span>year[<span class="dv">1</span>] </a>
+<a class="sourceLine" id="cb5-9" data-line-number="9">start_quarter &lt;-<span class="st"> </span>data_tt<span class="op">$</span>quarter[<span class="dv">1</span>] </a>
+<a class="sourceLine" id="cb5-10" data-line-number="10">end_year      &lt;-<span class="st"> </span>data_tt<span class="op">$</span>year[<span class="kw">nrow</span>(data_tt)] </a>
+<a class="sourceLine" id="cb5-11" data-line-number="11">end_quarter   &lt;-<span class="st"> </span>data_tt<span class="op">$</span>quarter[<span class="kw">nrow</span>(data_tt)] </a></code></pre></div>
+<p>OK, now we can create the <code>ts</code> object needed to work with the <code>vars</code> package.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co">#- Creating time series: `ts` object</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">ser &lt;-<span class="st"> </span><span class="kw">list</span>(data<span class="op">$</span>Vol, data<span class="op">$</span>Vol_<span class="dv">15</span>, data<span class="op">$</span>Vol_us)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">series &lt;-<span class="st"> </span><span class="kw">lapply</span>(ser, ts, <span class="dt">start =</span> <span class="kw">c</span>(start_year ,start_quarter) , <span class="dt">end =</span> <span class="kw">c</span>(end_year, end_quarter) , <span class="dt">frequency =</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="kw">names</span>(series) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Vol&quot;</span>,<span class="st">&quot;Vol_15&quot;</span>,<span class="st">&quot;Vol_us&quot;</span>)</a></code></pre></div>
+<p><br></p>
+<p>Creating logs and first log-differences of the time series</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">series.l  &lt;-<span class="st"> </span><span class="kw">lapply</span>(series, log)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">series.dl &lt;-<span class="st"> </span><span class="kw">lapply</span>(series.l, diff)</a></code></pre></div>
+<p><br></p>
+<p>Selecting, binding and naming the 3 series we are going to use:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">PIBs &lt;-<span class="st"> </span><span class="kw">cbind</span>(series[[<span class="dv">1</span>]], series[[<span class="dv">2</span>]], series[[<span class="dv">3</span>]])</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">colnames</span>(PIBs) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Vol&quot;</span>,<span class="st">&quot;Vol_15&quot;</span>,<span class="st">&quot;Vol_us&quot;</span>)</a></code></pre></div>
+<p><br></p>
+<p>A dynamic graph (with the <code>dygraph</code> package):</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">dygraph</span>(PIBs, <span class="dt">main =</span> <span class="st">&quot;Evolution of GDP levels&quot;</span>)  <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">dyRangeSelector</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">dyOptions</span>(<span class="dt">colors =</span> RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dv">3</span>, <span class="st">&quot;Set2&quot;</span>)) </a></code></pre></div>
+<div id="htmlwidget-5ad365afb06f9e2268c9" style="width:60%;height:522.666666666667px;" class="dygraphs html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5ad365afb06f9e2268c9">{"x":{"attrs":{"title":"Evolution of GDP levels","labels":["quarter","Vol","Vol_15","Vol_us"],"legend":"auto","retainDateWindow":false,"axes":{"x":{"pixelsPerLabel":60,"drawAxis":true},"y":{"drawAxis":true}},"showRangeSelector":true,"rangeSelectorHeight":40,"rangeSelectorPlotFillColor":" #A7B1C4","rangeSelectorPlotStrokeColor":"#808FAB","interactionModel":"Dygraph.Interaction.defaultModel","stackedGraph":false,"fillGraph":false,"fillAlpha":0.15,"stepPlot":false,"drawPoints":false,"pointSize":1,"drawGapEdgePoints":false,"connectSeparatedPoints":false,"strokeWidth":1,"strokeBorderColor":"white","colors":["#66C2A5","#FC8D62","#8DA0CB"],"colorValue":0.5,"colorSaturation":1,"includeZero":false,"drawAxesAtZero":false,"logscale":false,"axisTickSize":3,"axisLineColor":"black","axisLineWidth":0.3,"axisLabelColor":"black","axisLabelFontSize":14,"axisLabelWidth":60,"drawGrid":true,"gridLineWidth":0.3,"rightGap":5,"digitsAfterDecimal":2,"labelsKMB":false,"labelsKMG2":false,"labelsUTC":false,"maxNumberWidth":6,"animatedZooms":false,"mobileDisableYTouch":true,"disableZoom":false},"scale":"quarterly","annotations":[],"shadings":[],"events":[],"format":"date","data":[["1995-01-01T00:00:00.000Z","1995-04-01T00:00:00.000Z","1995-07-01T00:00:00.000Z","1995-10-01T00:00:00.000Z","1996-01-01T00:00:00.000Z","1996-04-01T00:00:00.000Z","1996-07-01T00:00:00.000Z","1996-10-01T00:00:00.000Z","1997-01-01T00:00:00.000Z","1997-04-01T00:00:00.000Z","1997-07-01T00:00:00.000Z","1997-10-01T00:00:00.000Z","1998-01-01T00:00:00.000Z","1998-04-01T00:00:00.000Z","1998-07-01T00:00:00.000Z","1998-10-01T00:00:00.000Z","1999-01-01T00:00:00.000Z","1999-04-01T00:00:00.000Z","1999-07-01T00:00:00.000Z","1999-10-01T00:00:00.000Z","2000-01-01T00:00:00.000Z","2000-04-01T00:00:00.000Z","2000-07-01T00:00:00.000Z","2000-10-01T00:00:00.000Z","2001-01-01T00:00:00.000Z","2001-04-01T00:00:00.000Z","2001-07-01T00:00:00.000Z","2001-10-01T00:00:00.000Z","2002-01-01T00:00:00.000Z","2002-04-01T00:00:00.000Z","2002-07-01T00:00:00.000Z","2002-10-01T00:00:00.000Z","2003-01-01T00:00:00.000Z","2003-04-01T00:00:00.000Z","2003-07-01T00:00:00.000Z","2003-10-01T00:00:00.000Z","2004-01-01T00:00:00.000Z","2004-04-01T00:00:00.000Z","2004-07-01T00:00:00.000Z","2004-10-01T00:00:00.000Z","2005-01-01T00:00:00.000Z","2005-04-01T00:00:00.000Z","2005-07-01T00:00:00.000Z","2005-10-01T00:00:00.000Z","2006-01-01T00:00:00.000Z","2006-04-01T00:00:00.000Z","2006-07-01T00:00:00.000Z","2006-10-01T00:00:00.000Z","2007-01-01T00:00:00.000Z","2007-04-01T00:00:00.000Z","2007-07-01T00:00:00.000Z","2007-10-01T00:00:00.000Z","2008-01-01T00:00:00.000Z","2008-04-01T00:00:00.000Z","2008-07-01T00:00:00.000Z","2008-10-01T00:00:00.000Z","2009-01-01T00:00:00.000Z","2009-04-01T00:00:00.000Z","2009-07-01T00:00:00.000Z","2009-10-01T00:00:00.000Z","2010-01-01T00:00:00.000Z","2010-04-01T00:00:00.000Z","2010-07-01T00:00:00.000Z","2010-10-01T00:00:00.000Z","2011-01-01T00:00:00.000Z","2011-04-01T00:00:00.000Z","2011-07-01T00:00:00.000Z","2011-10-01T00:00:00.000Z","2012-01-01T00:00:00.000Z","2012-04-01T00:00:00.000Z","2012-07-01T00:00:00.000Z","2012-10-01T00:00:00.000Z","2013-01-01T00:00:00.000Z","2013-04-01T00:00:00.000Z","2013-07-01T00:00:00.000Z","2013-10-01T00:00:00.000Z","2014-01-01T00:00:00.000Z","2014-04-01T00:00:00.000Z","2014-07-01T00:00:00.000Z","2014-10-01T00:00:00.000Z","2015-01-01T00:00:00.000Z","2015-04-01T00:00:00.000Z","2015-07-01T00:00:00.000Z","2015-10-01T00:00:00.000Z","2016-01-01T00:00:00.000Z","2016-04-01T00:00:00.000Z","2016-07-01T00:00:00.000Z","2016-10-01T00:00:00.000Z","2017-01-01T00:00:00.000Z","2017-04-01T00:00:00.000Z","2017-07-01T00:00:00.000Z","2017-10-01T00:00:00.000Z","2018-01-01T00:00:00.000Z","2018-04-01T00:00:00.000Z","2018-07-01T00:00:00.000Z","2018-10-01T00:00:00.000Z","2019-01-01T00:00:00.000Z","2019-04-01T00:00:00.000Z","2019-07-01T00:00:00.000Z","2019-10-01T00:00:00.000Z"],[65.8,66.2,66.5,67,67.4,67.9,68.5,68.8,69.5,70.2,71,72,72.6,73.4,74.1,74.9,75.7,76.6,77.6,78.5,79.7,80.7,81.6,82.4,83.3,83.9,84.7,85.3,85.7,86.4,86.9,87.5,88.4,88.8,89.4,90.2,90.7,91.6,92.5,93.1,94,94.8,95.8,96.7,97.8,98.8,99.7,100.7,101.6,102.5,103.3,103.9,104.2,104.3,104.1,102.4,99.7,99.7,99.9,99.9,99.9,100,100,100.1,99.9,99.6,98.9,98.3,97.4,96.4,96,95.2,94.9,94.8,94.8,94.9,95.3,95.7,96.4,97.3,98.4,99.4,100.3,101.3,102,102.4,103.3,103.8,104.6,105.7,106.2,107,107.5,108.1,108.6,109.2,109.9,110.3,110.7,111.2],[76.1,76.5,76.7,77,77.2,77.7,78.2,78.5,78.9,79.9,80.4,81.3,81.9,82.3,82.9,83.1,83.9,84.3,85.4,86.5,87.4,88.2,88.7,89.1,90,90.2,90.5,90.7,90.8,91.3,91.7,92,91.9,92,92.7,93.4,93.9,94.4,94.6,95,95.3,96,96.7,97.5,98.3,99.2,99.7,100.7,101.4,102,102.5,103.1,103.5,103.1,102.4,100.5,97.7,97.6,97.9,98.4,98.9,99.9,100.4,100.9,101.7,101.7,101.9,101.6,101.5,101.2,101.3,100.9,100.8,101.3,101.8,102.1,102.6,102.9,103.4,103.9,104.6,105.1,105.6,106.1,106.7,107,107.5,108.3,109,109.7,110.4,111.2,111.5,111.9,112.1,112.6,113.1,113.2,113.6,113.7],[67.6,67.8,68.4,68.8,69.4,70.5,71.1,71.9,72.3,73.5,74.5,75.1,75.9,76.6,77.5,78.8,79.5,80.1,81.2,82.6,82.9,84.4,84.5,85,84.8,85.3,84.9,85.1,85.9,86.4,86.8,86.9,87.4,88.2,89.7,90.7,91.2,91.9,92.7,93.7,94.7,95.1,96,96.6,97.9,98.1,98.3,99.1,99.3,99.9,100.4,101,100.5,101,100.4,98.3,97.2,97,97.4,98.4,98.8,99.7,100.5,101,100.7,101.5,101.4,102.6,103.4,103.8,104,104.1,105,105.2,106,106.8,106.5,108,109.3,109.9,110.8,111.6,112,112,112.6,113.1,113.7,114.3,114.9,115.5,116.4,117.5,118.2,119.2,120.1,120.4,121.3,121.9,122.6,123.2]],"fixedtz":false,"tzone":""},"evals":["attrs.interactionModel"],"jsHooks":[]}</script>
+<p><br><br><br></p>
+<p>Making a graph for the series in log-first-differences: (1-L)logGDP</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">d.PIBs &lt;-<span class="st"> </span><span class="kw">cbind</span>(series.dl[[<span class="dv">1</span>]], series.dl[[<span class="dv">2</span>]], series.dl[[<span class="dv">3</span>]])</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw">colnames</span>(d.PIBs) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Vol&quot;</span>,<span class="st">&quot;Vol_15&quot;</span>,<span class="st">&quot;Vol_us&quot;</span>)</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw">dygraph</span>(d.PIBs, <span class="dt">main =</span> <span class="st">&quot;Evolution of (1-L) log GDP&quot;</span>)  <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">dyRangeSelector</span>() </a></code></pre></div>
+<div id="htmlwidget-53a36ec38bb7780a10f2" style="width:60%;height:522.666666666667px;" class="dygraphs html-widget"></div>
+<script type="application/json" data-for="htmlwidget-53a36ec38bb7780a10f2">{"x":{"attrs":{"title":"Evolution of (1-L) log GDP","labels":["quarter","Vol","Vol_15","Vol_us"],"legend":"auto","retainDateWindow":false,"axes":{"x":{"pixelsPerLabel":60}},"showRangeSelector":true,"rangeSelectorHeight":40,"rangeSelectorPlotFillColor":" #A7B1C4","rangeSelectorPlotStrokeColor":"#808FAB","interactionModel":"Dygraph.Interaction.defaultModel"},"scale":"quarterly","annotations":[],"shadings":[],"events":[],"format":"date","data":[["1995-04-01T00:00:00.000Z","1995-07-01T00:00:00.000Z","1995-10-01T00:00:00.000Z","1996-01-01T00:00:00.000Z","1996-04-01T00:00:00.000Z","1996-07-01T00:00:00.000Z","1996-10-01T00:00:00.000Z","1997-01-01T00:00:00.000Z","1997-04-01T00:00:00.000Z","1997-07-01T00:00:00.000Z","1997-10-01T00:00:00.000Z","1998-01-01T00:00:00.000Z","1998-04-01T00:00:00.000Z","1998-07-01T00:00:00.000Z","1998-10-01T00:00:00.000Z","1999-01-01T00:00:00.000Z","1999-04-01T00:00:00.000Z","1999-07-01T00:00:00.000Z","1999-10-01T00:00:00.000Z","2000-01-01T00:00:00.000Z","2000-04-01T00:00:00.000Z","2000-07-01T00:00:00.000Z","2000-10-01T00:00:00.000Z","2001-01-01T00:00:00.000Z","2001-04-01T00:00:00.000Z","2001-07-01T00:00:00.000Z","2001-10-01T00:00:00.000Z","2002-01-01T00:00:00.000Z","2002-04-01T00:00:00.000Z","2002-07-01T00:00:00.000Z","2002-10-01T00:00:00.000Z","2003-01-01T00:00:00.000Z","2003-04-01T00:00:00.000Z","2003-07-01T00:00:00.000Z","2003-10-01T00:00:00.000Z","2004-01-01T00:00:00.000Z","2004-04-01T00:00:00.000Z","2004-07-01T00:00:00.000Z","2004-10-01T00:00:00.000Z","2005-01-01T00:00:00.000Z","2005-04-01T00:00:00.000Z","2005-07-01T00:00:00.000Z","2005-10-01T00:00:00.000Z","2006-01-01T00:00:00.000Z","2006-04-01T00:00:00.000Z","2006-07-01T00:00:00.000Z","2006-10-01T00:00:00.000Z","2007-01-01T00:00:00.000Z","2007-04-01T00:00:00.000Z","2007-07-01T00:00:00.000Z","2007-10-01T00:00:00.000Z","2008-01-01T00:00:00.000Z","2008-04-01T00:00:00.000Z","2008-07-01T00:00:00.000Z","2008-10-01T00:00:00.000Z","2009-01-01T00:00:00.000Z","2009-04-01T00:00:00.000Z","2009-07-01T00:00:00.000Z","2009-10-01T00:00:00.000Z","2010-01-01T00:00:00.000Z","2010-04-01T00:00:00.000Z","2010-07-01T00:00:00.000Z","2010-10-01T00:00:00.000Z","2011-01-01T00:00:00.000Z","2011-04-01T00:00:00.000Z","2011-07-01T00:00:00.000Z","2011-10-01T00:00:00.000Z","2012-01-01T00:00:00.000Z","2012-04-01T00:00:00.000Z","2012-07-01T00:00:00.000Z","2012-10-01T00:00:00.000Z","2013-01-01T00:00:00.000Z","2013-04-01T00:00:00.000Z","2013-07-01T00:00:00.000Z","2013-10-01T00:00:00.000Z","2014-01-01T00:00:00.000Z","2014-04-01T00:00:00.000Z","2014-07-01T00:00:00.000Z","2014-10-01T00:00:00.000Z","2015-01-01T00:00:00.000Z","2015-04-01T00:00:00.000Z","2015-07-01T00:00:00.000Z","2015-10-01T00:00:00.000Z","2016-01-01T00:00:00.000Z","2016-04-01T00:00:00.000Z","2016-07-01T00:00:00.000Z","2016-10-01T00:00:00.000Z","2017-01-01T00:00:00.000Z","2017-04-01T00:00:00.000Z","2017-07-01T00:00:00.000Z","2017-10-01T00:00:00.000Z","2018-01-01T00:00:00.000Z","2018-04-01T00:00:00.000Z","2018-07-01T00:00:00.000Z","2018-10-01T00:00:00.000Z","2019-01-01T00:00:00.000Z","2019-04-01T00:00:00.000Z","2019-07-01T00:00:00.000Z","2019-10-01T00:00:00.000Z"],[0.00606062461169099,0.00452148471884595,0.00749067172915741,0.00595239852729534,0.0073910166463893,0.0087977107035293,0.00436999967111795,0.0101230076314485,0.0100215584610197,0.0113315660095497,0.0139862419747399,0.00829880281469464,0.0109590137897202,0.0094915966815714,0.0107383582211327,0.0106242699202292,0.0118189163031417,0.012970350442628,0.0115311975991901,0.0151709610078061,0.0124689894797338,0.0110906866941578,0.00975617494536518,0.010863112257371,0.00717706430036369,0.00948998818484803,0.00705885283962449,0.0046783711061007,0.00813485020627613,0.00577035646133606,0.0068807610922228,0.0102331762800292,0.00451468035452596,0.0067340321813445,0.00890874488910942,0.00552793005251306,0.00987391455899367,0.00977737283829505,0.00646553976464137,0.00962059798698256,0.00847462699097257,0.010493275715838,0.00935071748243388,0.0113111745815235,0.0101730277130505,0.00906807221396999,0.00998012275672444,0.00889773541986472,0.00881926343408157,0.00777457754712962,0.00579152197958877,0.00288323121408496,0.000959232687460343,-0.00191938638580336,-0.0164652630155162,-0.0267210356376149,0,0.00200400868671569,0,0,0.00100050033358379,0,0.000999500333082715,-0.0020000006666665,-0.00300752106395574,-0.00705292596188567,-0.00608521147554608,-0.00919781650463136,-0.0103200090319895,-0.00415801014866357,-0.00836824967051619,-0.00315623618143768,-0.00105429635490584,0,0.00105429635490584,0.00420610504427454,0.00418848779875169,0.0072879031575912,0.00929278757545937,0.0112418148662483,0.0101113096043211,0.00901358130536156,0.0099207162867474,0.00688640202963331,0.0039138993211365,0.0087506635201855,0.00482859460619522,0.00767758089903481,0.0104613412453691,0.00471921593164648,0.00750472565406746,0.00466201310581127,0.00556587707744516,0.00461468285467248,0.00550965581096996,0.00638979809877149,0.0036330648498808,0.00361991345513424,0.00450654210189061],[0.00524247596484972,0.00261096754072021,0.00390371348047402,0.00259403517704637,0.00645580034287097,0.00641439017766388,0.00382897723709785,0.00508260306346564,0.0125946249203999,0.00623832341269193,0.0111318403688445,0.00735297430525872,0.00487211682400002,0.00726395445822536,0.0024096397201534,0.00958091161175822,0.00475625153464865,0.0129642357867148,0.0127983131433096,0.0103508687236555,0.00911168035125609,0.00565292630278869,0.00449944516122969,0.0100503358535011,0.00221975673831309,0.00332042363730256,0.0022075064152105,0.00110192848615664,0.00549150199367521,0.00437159166149659,0.00326619778662085,-0.0010875476873986,0.0010875476873986,0.00757989552276861,0.0075228726629879,0.00533904097942006,0.00531068693723835,0.00211640290637671,0.00421941554270866,0.00315291905961601,0.00731838080767933,0.0072652109914122,0.00823897554455311,0.00817164914931912,0.00911398713770684,0.00502766267696497,0.00998012275672444,0.00692729143256621,0.0058997221271877,0.00488998529419238,0.00583659244445123,0.00387222168250911,-0.00387222168250911,-0.0068126784175071,-0.0187289851062769,-0.028256168450393,-0.00102406562969026,0.00306905611741737,0.00509425452174295,0.00506843457045925,0.0100604470258414,0.00499252160312125,0.00496772010193425,0.00789737569495053,0,0.00196463717416506,-0.00294840508429761,-0.000984736662539731,-0.00296004162847652,0.000987654401272131,-0.00395648389507386,-0.000991571722295248,0.00494805561736911,0.00492369286178462,0.0029426210541974,0.00488520756604949,0.00291971010333469,0.00484731923432502,0.00482393603085285,0.00671465352564127,0.0047687262520828,0.00474609338925536,0.0047236743477761,0.00563911268777062,0.00280767615419819,0.00466201310581127,0.00741430643922758,0.00644272822219882,0.00640148505204152,0.00636076656181039,0.00722024797348642,0.00269420908369167,0.00358102441770658,0.00178571476023404,0.00445038562747602,0.0044306674164849,0.000883782647007614,0.00352734051796855,0.000879894469439257],[0.00295421189743106,0.00881062968215574,0.00583092031079246,0.00868312257346116,0.0157258423054643,0.00847462699097168,0.0111889279178063,0.00554786443771782,0.0164612770540717,0.0135137191667232,0.00802143338457562,0.010596125631495,0.00918039234496071,0.0116808596127562,0.016635060504532,0.00884402479645274,0.00751883241402762,0.0136393930933183,0.0170944333593006,0.00362538161431658,0.0179323394606623,0.00118413276121654,0.00589972212718859,-0.00235571369245946,0.00587891169977617,-0.00470036118033157,0.00235294226202676,0.00935679341088136,0.00580384681980028,0.00461894585629441,0.00115141060504165,0.00573725039014317,0.00911168035125609,0.0168638060520045,0.0110865880563411,0.00549753995919477,0.00764613228135591,0.00866744321016721,0.0107297166725671,0.0106158109476562,0.00421496935931209,0.00941922191649169,0.00623054975063653,0.0133678083179918,0.00204081703485315,0.00203666058180296,0.00810541418282185,0.00201612971518461,0.00602411460338104,0.00499252160312125,0.00595830958363042,-0.00496278934212935,0.00496278934212935,-0.00595830958363042,-0.0211381801045087,-0.0112533156867274,-0.00205973296301032,0.00411523214510634,0.0102145934097182,0.00405680069561498,0.00906807221396999,0.007992050531338,0.00496278934212935,-0.00297471711674291,0.00791299875732498,-0.000985707324758778,0.0117648415795859,0.00776702933765971,0.00386100865745931,0.00192492840958458,0.000961076479550904,0.00860837453659968,0.00190295014608655,0.0075757938084573,0.00751883241402762,-0.00281294137661448,0.0139862419747399,0.0119651680582731,0.00547446622708314,0.00815591290360729,0.00719427563402686,0.00357782134788387,0,0.00534284441049593,0.0044306674164849,0.00529101763441542,0.0052631700442749,0.00523561405394446,0.00520834510713808,0.00776200533548987,0.00940579828687582,0.00593977138778445,0.00842464965925149,0.00752197445468816,0.00249480378878264,0.00744728307528408,0.00493422053722181,0.00572598701488491,0.00488202759730871]]},"evals":["attrs.interactionModel"],"jsHooks":[]}</script>
+<p><br></p>
+<hr />
+<p><br><br></p>
+</div>
+</div>
+<div id="estimation-of-the-var-model" class="section level1">
+<h1>3. Estimation of the VAR model</h1>
+<p>OK, I have to estimate the VAR, let’s load the vars package …..</p>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTXkgVkFSIG1vZGVsOiBTUEFJTiIKYXV0aG9yOiAiWW91ciBuYW1lIgpkYXRlOiAiYHIgZm9ybWF0KFN5cy50aW1lKCksICclZCAlQiwgJVknKWAiIApvdXRwdXQ6IAogIGh0bWxfZG9jdW1lbnQ6CiAgICB0aGVtZTogc2ltcGxleAogICAgaGlnaGxpZ2h0OiBweWdtZW50cyAKICAgIG51bWJlcl9zZWN0aW9uczogbm8KICAgIHRvYzogdHJ1ZQogICAgdG9jX2Zsb2F0OiB0cnVlCiAgICAjY29kZV9mb2xkaW5nOiBzaG93CiAgICBzZWxmX2NvbnRhaW5lZDogVFJVRQogICAgY29kZV9kb3dubG9hZDogdHJ1ZQotLS0KCgpgYGB7ciwgaW5jbHVkZSA9IEZBTFNFfQojLSBkZWZpbmllbmRvIG9wY2lvbmVzIGdsb2JhbGVzIHBhcmEgbG9zIGNodW5rcyBkZSBjw7NkaWdvIFIKa25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFLCBldmFsID0gVFJVRSwgbWVzc2FnZSA9IEZBTFNFLCB3YXJuaW5nID0gRkFMU0UsIAogICAgICAgICAgICAgICAgICAgICAgY2FjaGUgPSBGQUxTRSwgY2FjaGUucGF0aCA9ICIvY2FjaGVzLyIsIGNvbW1lbnQgPSAiIz4iLAogICAgICAgICAgICAgICAgICAgICAgI2ZpZy53aWR0aCA9IDcsIGZpZy5oZWlnaHQ9IDcsICAgCiAgICAgICAgICAgICAgICAgICAgICAjb3V0LndpZHRoID0gNywgb3V0LmhlaWdodCA9IDcsCiAgICAgICAgICAgICAgICAgICAgICBjb2xsYXBzZSA9IFRSVUUsICBmaWcuc2hvdyA9ICJob2xkIiwKICAgICAgICAgICAgICAgICAgICAgIGZpZy5hc3AgPSA3LzksIG91dC53aWR0aCA9ICI2MCUiLCBmaWcuYWxpZ24gPSAiY2VudGVyIikKYGBgCgoKYGBge3IsIGVjaG8gPSBGQUxTRX0Kb3B0aW9ucyhzY2lwZW4gPSA5OTkpICMtIHBhcmEgcXVpdGFyIGxhIG5vdGFjaW9uIGNpZW50aWZpY2EKYGBgCgoKYGBge3IsIGVjaG8gPSBGQUxTRX0KIy0gbG9hZGluZyB0aGUgcGFja2FnZXMgd2UgYXJlIGdvaW5nIHRvIHVzZQpsaWJyYXJ5KHRpZHl2ZXJzZSkgICAgICMtIGluc3RhbGwucGFja2FnZXMoInRpZHl2ZXJzZSIpCmxpYnJhcnkoZHlncmFwaHMpICAgICAgIy0gaW5zdGFsbC5wYWNrYWdlcygiZHlncmFwaHMiKQpsaWJyYXJ5KERUKSAgICAgICAgICAgICMtIGluc3RhbGwucGFja2FnZXMoIkRUIikKI1BBQ0tBR0VTIDwtIGMoImRldnRvb2xzIiwiZ2dwbG90MiIsICJ0aWR5ciIsICJkcGx5ciIsImtuaXRyIiwgImN1cmwiLCAidmFycyIsICJmb3JlY2FzdCIsICJkeWdyYXBocyIsICJldXJvc3RhdCIsICJybWRmb3JtYXRzIiwgIkRpYWdyYW1tZVIiLCAicmlvIiwgInRpZHl2ZXJzZSIpICAjLSBwYWNrYWdlcyB0byBsb2FkCgpgYGAKCgo8YnI+PGJyPgoKIyAxLiBJbnRybwoKQXMgdGhlIDIwJSBvZiBteSBtYXJrIGZvciBNYWNyb2Vjb25vbXRyaWNzIGRlcGVuZHMgb24gdGhlIFZBUiBhc2lnbm1lbnQgYW5kIG15IHBhcnRpY2lwYXRpb24gaW4gdGhlIGUtbWVldGluZ3MsIEknbSBnb2luZyB0byBzdGFydCBkb25pbmcgbXkgYXNpZ25tZW50LiAKCkZvciBteSBhc2lnbm1lbnRlIEknbSBnb2luZyB0byBlc3RpbWF0ZSBhIFZBUiBtb2RlbCB3aXRoIEV1cm9zdGF0IGRhdGEuIEkgZG93bmxvYWRlZCB0aGUgZGF0YSB1c2luZyB0aGUgYHRvLWRvd25sb2FkLW15X2RhdGEuUm1kYCBmaWxlICAgdGhlIGB4eC8wNC8yMDIwYC4gQmlnIHRoYW5rcyB0byB0aGUgdGhlIGBldXJvc3RhdGAgcGFja2FnZS4KCkFuZCByZW1lbmJlciwgYXMgdGhlIGxlY3R1cmVyIHNhaWQgcmVwZWF0ZWRseSBkdXJpbmcgdGhlIGUtbWVldGluZ3MsIHRoYXQgdGhlcmUgYXJlIHNvbWUgcnVsZXMgdG8gZGVsaXZlciB0aGUgYXNpZ25tZW50IHRvIGhpbToKCi0geW91IGhhdmUgdG8gZGVsaXZlciB0aGUgYXNpZ25tZW50IGJ5IG1haWwgdG8gYHBlZHJvLmoucGVyZXpAdXYuZXNgICoqQkVGT1JFIHRoZSAxNS8wNS8yMDIwKiouICAgCiAKLSB5b3Ugc2hvdWxkIGF0dGFjaCBpbiB5b3UgbWFpbCBhICoqc2luZ2xlIC56aXAgZmlsZSoqLiAgIAoKLSB0aGlzIHNpbmdsZSAuemlwIGZpbGUgaGFzIHRvIGNvbnRhaW4geW91ciAqKmFzaWdubWVudCBhcyBhbiBScHJvamVjdCoqLiAgIAoKLSBSZW1lbmJlciB0aGF0IHlvdSBoYXZlIHRvIG5hbWUgdGhlIGZvbGRlciBvZiB5b3UgUnByb2plY3QgbGlrZTogPFZBUl9jb3VudHJ5XzFzdC1zdXJuYW1lX25hbWU+LiBUaGF0IGlzLCBpZiBmb3IgaW5zdGFuY2UsIGluIHlvdXIgYXNpZ25tZW50IHlvdSBoYXZlIHVzZWQgZGF0YSBmcm9tIGBTcGFpbmAgYW5kIHlvdXIgbmFtZSB3b3VsZCBiZSAiUGVkcm8gUMOpcmV6IFbDoXpxdWV6IiwgdGhlbiwgdGhlIGZvbGRlciBvZiB5b3VyIFJwcm9qZWN0IHNob3VsZCBiZSBuYW1lZDogYFZBUl9wZXJlel9wZWRyb19zcGFpbmAuIFBsZWFzZSwgYWxsIGluIGxvd2VyIGNhc2UsIGV4Y2VwdCBWQVIsIGFuZCAqKm5vIHNwYWNlcywgbm8gcHVuY3R1YXRpb24gbWFya3MqKiBpbiB0aGUgbmFtZSBvZiB0aGUgZm9sZGVyLiAgIAoKLSBUaGVuLCBpZiB0aGUgbmFtZSBvZiB0aGUgZm9sZGVyIG9mIHlvdXIgUnByb2plY3QgaXMgYFZBUl9wZXJlel9wZWRyb19zcGFpbmAgdGhlbiB0aGUgLnppcCBmaWxlIHlvdSBoYXZlIHRvIHNlbmQgbWUgYnkgZS1tYWlsIHNob3VsZCBiZSBuYW1lZDogYFZBUl9wZXJlel9wZWRyb19zcGFpbi56aXBgLiAgIAoKPGJyPgoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgo8YnI+CgojIDIuIERhdGEgcHJlcGFyYXRpb24KCkFzIHdlIGFyZSBnb2luZyB0byB1c2UgdGhlIGB2YXJzYCBwYWNrYWdlIHRvIGVzdGltYXRlIGFuZCBhbmFseXNlIGEgc3RydWN0dXJhbCBWQVIgbW9kZWwsIEkgbmVlZCB0byB0cmFuc2Zvcm0gbXkgZGF0YSB0byBhIGZvcm1hdCBzdWl0YWJsZSBmb3IgdGhlIGB2YXJzYCBwYWNrYWdlLiAKCjxicj4KCiMjIExvYWRpbmcgbXkgZGF0YQoKT2J2aW91c2x5LCBmaXJzdCBJIGhhdmUgdG8gbG9hZCBteSBkYXRhLiBBcyBJIGhhdmUgc2F2ZWQgdGhlIGZpbGUgd2l0aCBteSBkYXRhIGluIGEgdGhlIGZvbGRlciBjYWxsZWQgYGRhdG9zYCBpbnNpZGUgdGhlIG1haW4gZm9sZGVyIG9mIHRoZSBScHJvamVjdCwgVEhFTiwgdG8gbG9hZCBteSBkYXRhIEkgaGF2ZSB0byBkbzoKCgpgYGB7ciwgZXZhbCA9IEZBTFNFfQojLSByZW1lbmJlciB0aGF0IHlvdSBzaG91bGQgY2hhbmdlIHRoZSBuYW1lIG9mIHRoZSBwYXRoIHRvIHRoZSBmaWxlCmRhdGEgPC0gcmVhZF9jc3YoIi4vZGF0b3MvbXlfZGF0YV9FUy5jc3YiKSAKYGBgCgpPdGhlciB3YXkgdG8gbG9hZCB0aGUgZGF0YSBpczogCgoKYGBge3J9CmRhdGEgPC0gcmVhZF9jc3YoaGVyZTo6aGVyZSgiZGF0b3MiLCAibXlfZGF0YV9FUy5jc3YiKSkgCmBgYAoKVGhpcyBzZWNvbmQgd2F5IHRvIGxvYWQgdGVoIGRhdGEgaXMgcHJlZmVyYWJsZQoKCjxicj4KCiMjIENyZWF0aW5nIHRoZSBgdHNgIG9iamVjdHMKCkFzIHRoZSBgdmFyc2AgcGFja2FnZSBuZWVkIHRoYXQgdGhlIGRhdGEgYXJlIGluIGEgc3BlY2lhbCBmb3JtYXQgKGB0c2ApLCB0aGVuLCBJIGhhdmUgdG8gY29udmVydCBteSBkYXRhIHRvIHRoZSBgdHNgIGZvcm1hdAoKVG8gZG8gdGhhdCwgZmlyc3Qgd2UgaGF2ZSB0byBsb29rIGF0IHRoZSBjb21tb24gc2FtcGxlIG9mIG91ciAzIHNlcmllczoKCgpgYGB7cn0KZGF0YSA8LSBkYXRhICU+JSBzZWxlY3QodGltZSwgVm9sX3VzLCBWb2xfMTUsIFZvbCkKYGBgCgpEcm9waW5nIHJvd3Mgd2l0aCBOQXMgdG8gb2J0YWluIHRoZSBUaGUgY29tbW9uIHNhbXBsZSBmb3IgbXkgZGF0YS4KCmBgYHtyfQpkYXRhIDwtIGRhdGEgJT4lIGRyb3BfbmEoKQpgYGAKCmNhbGN1bGF0aW5nIHRoZSBzdGFydCBhbmQgZW5kIG9mIHRoZSBjb21tb24gc2FtcGxlIG9mIG15IGRhdGE6CiAgCmBgYHtyfQpkYXRhX3R0IDwtIGRhdGEgJT4lIG11dGF0ZSh0aW1lID0gYXMuY2hhcmFjdGVyKHRpbWUpKSAlPiUgdGlkeXI6OnNlcGFyYXRlKHRpbWUsIGMoInllYXIiLCAicXVhcnRlciIsICJkYXkiKSwiLSIpCmRhdGFfdHQgPC0gZGF0YV90dCAlPiUgbXV0YXRlKHllYXIgPSBhcy5udW1lcmljKHllYXIpKSAKZGF0YV90dCA8LSBkYXRhX3R0ICU+JSBtdXRhdGUocXVhcnRlcj0gY2FzZV93aGVuKAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcXVhcnRlciAgPT0gIjAxIiAgfiAxLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcXVhcnRlciAgPT0gIjA0IiAgfiAyLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcXVhcnRlciAgPT0gIjA3IiAgfiAzLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcXVhcnRlciAgPT0gIjEwIiAgfiA0KSkKc3RhcnRfeWVhciAgICA8LSBkYXRhX3R0JHllYXJbMV0gCnN0YXJ0X3F1YXJ0ZXIgPC0gZGF0YV90dCRxdWFydGVyWzFdIAplbmRfeWVhciAgICAgIDwtIGRhdGFfdHQkeWVhcltucm93KGRhdGFfdHQpXSAKZW5kX3F1YXJ0ZXIgICA8LSBkYXRhX3R0JHF1YXJ0ZXJbbnJvdyhkYXRhX3R0KV0gCmBgYAoKCk9LLCBub3cgd2UgY2FuIGNyZWF0ZSB0aGUgYHRzYCBvYmplY3QgbmVlZGVkIHRvIHdvcmsgd2l0aCB0aGUgYHZhcnNgIHBhY2thZ2UuCgpgYGB7cn0KIy0gQ3JlYXRpbmcgdGltZSBzZXJpZXM6IGB0c2Agb2JqZWN0CnNlciA8LSBsaXN0KGRhdGEkVm9sLCBkYXRhJFZvbF8xNSwgZGF0YSRWb2xfdXMpCnNlcmllcyA8LSBsYXBwbHkoc2VyLCB0cywgc3RhcnQgPSBjKHN0YXJ0X3llYXIgLHN0YXJ0X3F1YXJ0ZXIpICwgZW5kID0gYyhlbmRfeWVhciwgZW5kX3F1YXJ0ZXIpICwgZnJlcXVlbmN5ID0gNCkKbmFtZXMoc2VyaWVzKSA8LSBjKCJWb2wiLCJWb2xfMTUiLCJWb2xfdXMiKQpgYGAKCjxicj4KCkNyZWF0aW5nIGxvZ3MgYW5kIGZpcnN0IGxvZy1kaWZmZXJlbmNlcyBvZiB0aGUgdGltZSBzZXJpZXMKCmBgYHtyfQpzZXJpZXMubCAgPC0gbGFwcGx5KHNlcmllcywgbG9nKQpzZXJpZXMuZGwgPC0gbGFwcGx5KHNlcmllcy5sLCBkaWZmKQpgYGAKCjxicj4KClNlbGVjdGluZywgYmluZGluZyBhbmQgbmFtaW5nIHRoZSAzIHNlcmllcyB3ZSBhcmUgZ29pbmcgdG8gdXNlOgoKYGBge3J9ClBJQnMgPC0gY2JpbmQoc2VyaWVzW1sxXV0sIHNlcmllc1tbMl1dLCBzZXJpZXNbWzNdXSkKY29sbmFtZXMoUElCcykgPC0gYygiVm9sIiwiVm9sXzE1IiwiVm9sX3VzIikKYGBgCgo8YnI+CgpBIGR5bmFtaWMgZ3JhcGggKHdpdGggdGhlIGBkeWdyYXBoYCBwYWNrYWdlKToKCmBgYHtyfQpkeWdyYXBoKFBJQnMsIG1haW4gPSAiRXZvbHV0aW9uIG9mIEdEUCBsZXZlbHMiKSAgJT4lICBkeVJhbmdlU2VsZWN0b3IoKSAlPiUKZHlPcHRpb25zKGNvbG9ycyA9IFJDb2xvckJyZXdlcjo6YnJld2VyLnBhbCgzLCAiU2V0MiIpKSAKYGBgCgo8YnI+PGJyPjxicj4KCk1ha2luZyBhIGdyYXBoIGZvciB0aGUgc2VyaWVzIGluIGxvZy1maXJzdC1kaWZmZXJlbmNlczogKDEtTClsb2dHRFAKCmBgYHtyfQpkLlBJQnMgPC0gY2JpbmQoc2VyaWVzLmRsW1sxXV0sIHNlcmllcy5kbFtbMl1dLCBzZXJpZXMuZGxbWzNdXSkKY29sbmFtZXMoZC5QSUJzKSA8LSBjKCJWb2wiLCJWb2xfMTUiLCJWb2xfdXMiKQpkeWdyYXBoKGQuUElCcywgbWFpbiA9ICJFdm9sdXRpb24gb2YgKDEtTCkgbG9nIEdEUCIpICAlPiUgIGR5UmFuZ2VTZWxlY3RvcigpIApgYGAKCgo8YnI+CgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgo8YnI+PGJyPgoKCiAKIyAzLiBFc3RpbWF0aW9uIG9mIHRoZSBWQVIgbW9kZWwKCk9LLCBJIGhhdmUgdG8gZXN0aW1hdGUgdGhlIFZBUiwgbGV0J3MgbG9hZCB0aGUgdmFycyBwYWNrYWdlIC4uLi4uCgoKCg==</div>
+
+
+
+
+<footer class="footer">
+  <div class="text-muted">-----</div>
+  <div class="text-muted"><strong> Web</strong> creada por Pedro J. Pérez, profesor de la Universitat de València. &copy;  2020. If you find any bugs please report them to <a href="mailto:pedro.j.perez@uv.es"> pedro.j.perez@uv.es</a>.</div>
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("to-start-your-asignment.Rmd");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

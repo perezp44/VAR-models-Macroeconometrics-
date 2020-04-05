@@ -1,0 +1,192 @@
+---
+title: "My VAR model: SPAIN"
+author: "Your name"
+date: "`r format(Sys.time(), '%d %B, %Y')`" 
+output: 
+  html_document:
+    theme: simplex
+    highlight: pygments 
+    number_sections: no
+    toc: true
+    toc_float: true
+    #code_folding: show
+    self_contained: TRUE
+    code_download: true
+---
+
+
+```{r, include = FALSE}
+#- definiendo opciones globales para los chunks de código R
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE, message = FALSE, warning = FALSE, 
+                      cache = FALSE, cache.path = "/caches/", comment = "#>",
+                      #fig.width = 7, fig.height= 7,   
+                      #out.width = 7, out.height = 7,
+                      collapse = TRUE,  fig.show = "hold",
+                      fig.asp = 7/9, out.width = "60%", fig.align = "center")
+```
+
+
+```{r, echo = FALSE}
+options(scipen = 999) #- para quitar la notacion cientifica
+```
+
+
+```{r, echo = FALSE}
+#- loading the packages we are going to use
+library(tidyverse)     #- install.packages("tidyverse")
+library(dygraphs)      #- install.packages("dygraphs")
+library(DT)            #- install.packages("DT")
+#PACKAGES <- c("devtools","ggplot2", "tidyr", "dplyr","knitr", "curl", "vars", "forecast", "dygraphs", "eurostat", "rmdformats", "DiagrammeR", "rio", "tidyverse")  #- packages to load
+
+```
+
+
+<br><br>
+
+# 1. Intro
+
+As the 20% of my mark for Macroeconomtrics depends on the VAR asignment and my participation in the e-meetings, I'm going to start doning my asignment. 
+
+For my asignmente I'm going to estimate a VAR model with Eurostat data. I downloaded the data using the `to-download-my_data.Rmd` file   the `xx/04/2020`. Big thanks to the the `eurostat` package.
+
+And remenber, as the lecturer said repeatedly during the e-meetings, that there are some rules to deliver the asignment to him:
+
+- you have to deliver the asignment by mail to `pedro.j.perez@uv.es` **BEFORE the 15/05/2020**.   
+ 
+- you should attach in you mail a **single .zip file**.   
+
+- this single .zip file has to contain your **asignment as an Rproject**.   
+
+- Remenber that you have to name the folder of you Rproject like: <VAR_country_1st-surname_name>. That is, if for instance, in your asignment you have used data from `Spain` and your name would be "Pedro Pérez Vázquez", then, the folder of your Rproject should be named: `VAR_perez_pedro_spain`. Please, all in lower case, except VAR, and **no spaces, no punctuation marks** in the name of the folder.   
+
+- Then, if the name of the folder of your Rproject is `VAR_perez_pedro_spain` then the .zip file you have to send me by e-mail should be named: `VAR_perez_pedro_spain.zip`.   
+
+<br>
+
+---------------------------------------
+
+<br>
+
+# 2. Data preparation
+
+As we are going to use the `vars` package to estimate and analyse a structural VAR model, I need to transform my data to a format suitable for the `vars` package. 
+
+<br>
+
+## Loading my data
+
+Obviously, first I have to load my data. As I have saved the file with my data in a the folder called `datos` inside the main folder of the Rproject, THEN, to load my data I have to do:
+
+
+```{r, eval = FALSE}
+#- remenber that you should change the name of the path to the file
+data <- read_csv("./datos/my_data_ES.csv") 
+```
+
+Other way to load the data is: 
+
+
+```{r}
+data <- read_csv(here::here("datos", "my_data_ES.csv")) 
+```
+
+This second way to load teh data is preferable
+
+
+<br>
+
+## Creating the `ts` objects
+
+As the `vars` package need that the data are in a special format (`ts`), then, I have to convert my data to the `ts` format
+
+To do that, first we have to look at the common sample of our 3 series:
+
+
+```{r}
+data <- data %>% select(time, Vol_us, Vol_15, Vol)
+```
+
+Droping rows with NAs to obtain the The common sample for my data.
+
+```{r}
+data <- data %>% drop_na()
+```
+
+calculating the start and end of the common sample of my data:
+  
+```{r}
+data_tt <- data %>% mutate(time = as.character(time)) %>% tidyr::separate(time, c("year", "quarter", "day"),"-")
+data_tt <- data_tt %>% mutate(year = as.numeric(year)) 
+data_tt <- data_tt %>% mutate(quarter= case_when(
+                                        quarter  == "01"  ~ 1,
+                                        quarter  == "04"  ~ 2,
+                                        quarter  == "07"  ~ 3,
+                                        quarter  == "10"  ~ 4))
+start_year    <- data_tt$year[1] 
+start_quarter <- data_tt$quarter[1] 
+end_year      <- data_tt$year[nrow(data_tt)] 
+end_quarter   <- data_tt$quarter[nrow(data_tt)] 
+```
+
+
+OK, now we can create the `ts` object needed to work with the `vars` package.
+
+```{r}
+#- Creating time series: `ts` object
+ser <- list(data$Vol, data$Vol_15, data$Vol_us)
+series <- lapply(ser, ts, start = c(start_year ,start_quarter) , end = c(end_year, end_quarter) , frequency = 4)
+names(series) <- c("Vol","Vol_15","Vol_us")
+```
+
+<br>
+
+Creating logs and first log-differences of the time series
+
+```{r}
+series.l  <- lapply(series, log)
+series.dl <- lapply(series.l, diff)
+```
+
+<br>
+
+Selecting, binding and naming the 3 series we are going to use:
+
+```{r}
+PIBs <- cbind(series[[1]], series[[2]], series[[3]])
+colnames(PIBs) <- c("Vol","Vol_15","Vol_us")
+```
+
+<br>
+
+A dynamic graph (with the `dygraph` package):
+
+```{r}
+dygraph(PIBs, main = "Evolution of GDP levels")  %>%  dyRangeSelector() %>%
+dyOptions(colors = RColorBrewer::brewer.pal(3, "Set2")) 
+```
+
+<br><br><br>
+
+Making a graph for the series in log-first-differences: (1-L)logGDP
+
+```{r}
+d.PIBs <- cbind(series.dl[[1]], series.dl[[2]], series.dl[[3]])
+colnames(d.PIBs) <- c("Vol","Vol_15","Vol_us")
+dygraph(d.PIBs, main = "Evolution of (1-L) log GDP")  %>%  dyRangeSelector() 
+```
+
+
+<br>
+
+-------------------------------------------------------
+
+<br><br>
+
+
+ 
+# 3. Estimation of the VAR model
+
+OK, I have to estimate the VAR, let's load the vars package .....
+
+
+

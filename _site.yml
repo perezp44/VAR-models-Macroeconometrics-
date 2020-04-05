@@ -7,6 +7,7 @@ navbar:
       href: index.html
   right:
     - text: "Course \"plan\""
+      icon: fa-graduation-cap
       href: 01-Course-plan.html  
     - text: "Logistics"
       icon: fa-laptop
@@ -15,20 +16,25 @@ navbar:
       icon: fa-book
       href: 03-Slides.html      
     - text: "Lab"
-      icon: fa-keyboard
+      icon: fa-code
       href: 04-Lab-Gali.html
     - text: "Schedule"
       icon: fa-calendar-alt
       href: 05-Schedule.html      
     - text: "MáS"
-      icon: fa-gear      
-      menu:
+      icon: fa-download      
+      menu: 
         - text: "In Spanish"
         - text: "Primeros pasos con R"
           href: tt_01_primeros-pasos-con-R.html
         - text: "Rmarkdown"
           href: tt_02_Rmarkdown.html
-     
+        - text: "---------"
+        - text: "Help for your asignment"
+        - text: "To download your data"
+          href: to-download-your-data.html
+        - text: "To start your asignment"
+          href: to-start-your-asignment.html     
    
       
 output_dir: "docs"    

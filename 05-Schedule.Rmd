@@ -17,9 +17,9 @@ output:
 
 ------------------------------
 
-VAR models, the 4th topic of Macroeconometrics, was planned to be delibered in 5 classes: 16th, 20th, 23th, 27th and 30th of April, from 8:30 to 10:30 (spanish time, UTC + 2 hours)
+VAR models, the 4th topic of Macroeconometrics, was planned to be delivered in 5 classes: 16th, 20th, 23th, 27th and 30th of April, from 8:30 to 10:30 (Spanish time, UTC + 2 hours)
 
-I think it is better to keep the official schedule, then, if nothing happens, we are going to have 5 on-line meetings using Black Board Collaborate. You can access the meetings throught [Aula Virtual](https://aulavirtual.uv.es/course/view.php?id=9759).
+I think it is better to keep the official schedule, then, if nothing happens, we are going to have 5 on-line meetings using Black Board Collaborate. You can access the meetings through [Aula Virtual](https://aulavirtual.uv.es/course/view.php?id=9759).
 
 ------------------------------
 
@@ -41,7 +41,7 @@ I think it is better to keep the official schedule, then, if nothing happens, we
 
   - explain how to deliver the VAR assignment.  
 
-  - explain a litle bite of R, Rprojects & Rmarkdown (because you will have to deliver your assignment using Rmarkdown).  
+  - explain a little bite of R, Rprojects & Rmarkdown (because you will have to deliver your assignment using Rmarkdown).  
 
   - Start to learn about VAR models & methodology: Introduction to VAR models.  
 
@@ -51,7 +51,7 @@ I think it is better to keep the official schedule, then, if nothing happens, we
 
     - read the [`Course "plan"`](https://perezp44.github.io/VAR-models-web/01-Course-plan.html) section of the website.  
     
-    - read the sections 1, 2.1 & 2.2 of the [Slides](https://perezp44.github.io/VAR-models-web/03-Slides.html)
+    - read the sections 1 & 2.1 of the [Slides](https://perezp44.github.io/VAR-models-web/03-Slides.html)
     
     - read section 3 of [this tutorial](https://perezp44.github.io/VAR-models-web/tt_01_primeros-pasos-con-R.html). If you have problems because it is written in Spanish, you could read something similar [here](https://rstats.wtf/project-oriented-workflow.html){target="_blank"}.
 
@@ -67,7 +67,7 @@ I think it is better to keep the official schedule, then, if nothing happens, we
 
    - To write down the equation(s) of a VAR model. 
    
-   - What is it and what are the benefits of using **Rprojects**.
+   - What is it an Rproject? what are the benefits of using **Rprojects**?
    
    - What is and what is the utility of **Rmarkdown**.
   
@@ -97,6 +97,9 @@ Too much  for the first class? I don't think so, but we will see ...
 `**Date/time**`: Tuesday 20th of April at **9:00** (time of Spain, UTC+2 hours).
 
 The second class ... we will see how first class works!!
+
+
+At least you should have downloaded the data to start your project/assignment (don't worry we will see it at class)
 
 <br>
 
