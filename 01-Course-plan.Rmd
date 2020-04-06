@@ -32,16 +32,16 @@ You have already used R and RStudio during the course with Mariam, but now we ar
 
 ## The "plan"
 
-The truth is that I would have preferred to delay the classes but finally we are going **to start the classes** as planned the **16th of April** at 9:00 (Spanish time, UTC + 2 hours), but on-line.
+The truth is that I would have preferred to delay the classes but finally we are going **to start the classes** as planned the **9th of April** at 9:00 (Spanish time, UTC + 2 hours), but on-line.
 
 I do not know if in your confinement site you have everything you need to follow the classes, but I hope so. Also, I have no experience teaching on-line, then **I will need your help to make the course work**.
 
-My topic (VAR models) was planned to be delivered in 5 sessions, starting the 16th of April. I think it is better to keep the official schedule, then, please see the [Schedule](https://perezp44.github.io/VAR-models-web/05-Schedule.html) section of the web.
+My topic (VAR models) was planned to be delivered in 5 sessions, starting the 9th of April. I think it is better to keep the official schedule, then, please see the [Schedule](https://perezp44.github.io/VAR-models-web/05-Schedule.html) section of the web.
 
 My plan/intention is to meet you 5 times, but instead to deliver a traditional class where the teacher talks about a subject, I think it would be better if you read the materials first and we dedicate the session to solve doubts and provide feedback. In fact my classes, even when I teach face to face, have always an important component of making and solving questions. We will see how it works on-line and in English.
 
 Then, before to attend the on-line meetings you will have some work home to do, usually reading a section of the [Slides](https://perezp44.github.io/VAR-models-web/03-Slides.html) or doing some task with R. Previous to each session, I will send you and email through Aula Virtual, that is, to your official UV e-mail, with the homework you have **to do before the e-meeting**. 
-
+  
 
 I repeat:
 
@@ -59,7 +59,7 @@ You should go to the on-line meetings **having done** the workhome I will send t
 <br>
 
 
-Remember, that our first on-line meeting will be the **Thursday 16th of April at 9:00** (time of Spain, UTC+2 hours). You could find the date, time and more details about the on-line meetings in the [Schedule](https://perezp44.github.io/VAR-models-web/05-Schedule.html) section of the website
+Remember, that our first on-line meeting will be the **Thursday 9th of April at 9:00** (time of Spain, UTC+2 hours). You could find the date, time and more details about the on-line meetings in the [Schedule](https://perezp44.github.io/VAR-models-web/05-Schedule.html) section of the website
 
 <br>
 

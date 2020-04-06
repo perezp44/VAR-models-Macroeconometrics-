@@ -17,7 +17,7 @@ output:
 
 ------------------------------
 
-VAR models, the 4th topic of Macroeconometrics, was planned to be delivered in 5 classes: 16th, 20th, 23th, 27th and 30th of April, from 8:30 to 10:30 (Spanish time, UTC + 2 hours)
+VAR models, the 4th topic of Macroeconometrics, was planned to be delivered in 5 classes: 9th, 23th, 27th and 30th of April & 4th of May, all classes from 8:30 to 10:30 (Spanish time, UTC + 2 hours)
 
 I think it is better to keep the official schedule, then, if nothing happens, we are going to have 5 on-line meetings using Black Board Collaborate. You can access the meetings through [Aula Virtual](https://aulavirtual.uv.es/course/view.php?id=9759).
 
@@ -33,7 +33,7 @@ I think it is better to keep the official schedule, then, if nothing happens, we
 
 ### 1st session
 
-- **`Date/time`:** Thursday 16th of April at **9:00** (time of Spain, UTC+2 hours).  
+- **`Date/time`:** Thursday 9th of April at **9:00** (time of Spain, UTC+2 hours). 
 
 - The first class should be devoted to:  
 
@@ -94,7 +94,7 @@ Too much  for the first class? I don't think so, but we will see ...
 
 ### 2nd session
 
-`**Date/time**`: Tuesday 20th of April at **9:00** (time of Spain, UTC+2 hours).
+**`Date/time`**: Thursday 23th of April at **9:00** (time of Spain, UTC+2 hours).
 
 The second class ... we will see how first class works!!
 
@@ -110,7 +110,7 @@ At least you should have downloaded the data to start your project/assignment (d
 
 ### 3rd session
 
-`**Date/time**`: Thursday 23th of April at **9:00** (time of Spain, UTC+2 hours).
+**`Date/time`**: Monday 27th of April at **9:00** (time of Spain, UTC+2 hours).
 
 <br>
 
@@ -121,7 +121,7 @@ At least you should have downloaded the data to start your project/assignment (d
 
 ### 4th session
 
-`**Date/time**`: Tuesday 27th of April at **9:00** (time of Spain, UTC+2 hours).
+**`Date/time`**: Thursday 30th of April at **9:00** (time of Spain, UTC+2 hours).  
 
 
 <br>
@@ -132,7 +132,7 @@ At least you should have downloaded the data to start your project/assignment (d
 
 ### 5th session
 
-`**Date/time**`: Thursday 30th of April at **9:00** (time of Spain, UTC+2 hours).
+**`Date/time`**: Monday 4th of May at **9:00** (time of Spain, UTC+2 hours). 
 
 
 <br><br><br><br>
