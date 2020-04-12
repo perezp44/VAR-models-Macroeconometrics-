@@ -139,7 +139,7 @@ Too much  for the first class? I don't think so, but we will see ...
     - To play a litle with Rmarkdown. For instance you could try to create an .Rmd file and to knit it to pdf. If this works and you can knit to pdf good, but if it didn't work  then you should run the following two instructions in RStudio and try again. Please run the following two lines **ONLY** if you cannot knit the .Rmd file to pdf.
     
       ```
-      install.packages('tinytex')
+      install.packages("tinytex")
       tinytex::install_tinytex()
       ```
 
