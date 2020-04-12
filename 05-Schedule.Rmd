@@ -167,7 +167,7 @@ Too much  for the second class? I don't think so, but we will see ...
 
 <br>
 
-**Challenge:** The second challenge is not so cryptic than the first. I think you could understand this second challenge by yourself, but if not, we will try at class. You have to (fully) understand the following two sentences. I think you will understand this second challenge by the end of the second class, but to understand the first challenge we need to be near the end of the course.
+**Challenge:** The second challenge is not so cryptic than the first. I think you could understand this second challenge by yourself, but if not, we will try at class. You have to (fully) understand the following two sentences. I think, in fact I'm pretty sure, that you will understand this second challenge by the end of the second class, but to (fully) understand the first challenge we will need to be near the end of the course.
 
 
 > Using terminology from the simultaneous equations literature, the VAR model [1] is in reduced form because all right-hand side variables are lagged or predetermined.  
@@ -190,7 +190,7 @@ In particular the second sentence is going to be latter really important during 
 **`Date/time`**: Monday 27th of April at **9:00** (time of Spain, UTC+2 hours).
 
 
-- The second class should be devoted to:  
+- The third session should be devoted to:  
 
   - Continuing our learning about VAR models & methodology
   
@@ -230,7 +230,7 @@ Too much  for the third class? I don't think so, but we will see ... In fact I h
 
 <br>
 
-**Challenge:** The third challenge is to try to (fully) understand the following 2 sentences. Usually you will understand the challenges after the class but you should try to understand it before class:
+**Challenge:** The third challenge is to try to (fully) understand the following 2 sentences. I Think this third challenge should be easy for some of you. Usually you will understand the challenges after the class but you should try to understand it before class:
 
 >  This dynamic effect could be easily obtained through the VMA representation [3] of the VAR, also called Wold VMA representation. In particular the response of the variable $y_{n}$ to an impulse of size one in $v_{m}$ $j$-periods ahead is given by the $(n,m)$*-th* element of $C_{j}$. That is, the $C_{i}$ matrices contain the responses of the variables to the innovations for different periods (or steps) ahead. As the $u_{i}$ are forecast error's, those effects are called forecast error impulse responses or in short impulse response functions (IRF's)  
 
