@@ -213,7 +213,7 @@ In particular the second sentence is going to be latter really important during 
 
 - After the third e-meeting you should know: 
 
-   - What it is and how to obtain the VMA representation of a VAR model: $ [4] y_{t}=C(L)v_{t}$
+   - What it is and how to obtain the VMA representation of a VAR model: $[4] y_{t}=C(L)v_{t}$
    
    - To understand why, but mainly which is the implication of the fact that in [4], $C_{0} =I_{K}$
    
