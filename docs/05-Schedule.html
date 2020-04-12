@@ -416,8 +416,6 @@ div.tocify {
 
 
 <p><br><br></p>
-<div id="schedule" class="section level2">
-<h2>Schedule</h2>
 <hr />
 <p>VAR models, the 4th topic of Macroeconometrics, was planned to be delivered in 5 classes: 9th, 23th, 27th and 30th of April &amp; 4th of May, all classes from 8:30 to 10:30 (Spanish time, UTC + 2 hours)</p>
 <p>I think it is better to keep the official schedule, then, if nothing happens, we are going to have 5 on-line meetings using Black Board Collaborate. You can access the meetings through <a href="https://aulavirtual.uv.es/course/view.php?id=9759">Aula Virtual</a>.</p>
@@ -473,8 +471,72 @@ div.tocify {
 <div id="nd-session" class="section level3">
 <h3>2nd session</h3>
 <p><strong><code>Date/time</code></strong>: Thursday 23th of April at <strong>9:00</strong> (time of Spain, UTC+2 hours).</p>
-<p>The second class … we will see how first class works!!</p>
-<p>At least you should have downloaded the data to start your project/assignment (don’t worry we will see it at class)</p>
+<ul>
+<li><p>The second class should be devoted to:</p>
+<ul>
+<li><p>Continue our learning about VAR models &amp; methodology</p></li>
+<li><p>Starting the Lab with data from Spain. We will at least:</p>
+<ul>
+<li><p>Specify the VAR model</p></li>
+<li><p>Estimate the VAR</p></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br></p>
+<ul>
+<li><p><strong><code>Homework</code></strong>: before the e-meeting, at least, you should,</p>
+<ul>
+<li><p>read the sections 1 &amp; 2 of the <a href="https://perezp44.github.io/VAR-models-web/03-Slides.html">Slides</a></p></li>
+<li><p>To have your Rproject ready to follow the Lab’s class. Thats is you have to create an Rproject (better if his name is VAR_lab_spain) and inside the Rproject you will have to have a subfolder called “datos” with the Spanish data for the Lab (be aware that we downloaded those data during the first class). You should have to install these packages, <strong>BUT</strong>, to avoid problemas with the instalation, install the packages from a clean R sessions; that is: close RStudio, yes, close RStudio, open it again and then (with a clean session) run the following instructions to install the packages. It will take around 5-10 minutes:</p>
+<pre><code>install.packages(&quot;tidyverse&quot;)
+install.packages(&quot;eurostat&quot;)
+install.packages(&quot;knitr&quot;)
+install.packages(&quot;here&quot;)
+install.packages(&quot;gt&quot;)
+install.packages(&quot;DT&quot;)
+install.packages(&quot;vars&quot;)
+install.packages(&quot;forecast&quot;)
+install.packages(&quot;dygraphs&quot;)
+install.packages(&quot;rio&quot;)</code></pre></li>
+</ul></li>
+</ul>
+<p><br></p>
+<ul>
+<li><p><strong><code>Homework</code></strong> (related to your own assignment):</p>
+<ul>
+<li><p>Create another Rproject for your asignment with the data for the country you have choosen inside the folder “datos”. Obviously you have to download the data by yourself. You could find help to download the data <a href="https://perezp44.github.io/VAR-models-web/to-download-your-data.html">here</a></p></li>
+<li><p>To play a litle with Rmarkdown. For instance you could try to create an .Rmd file and to knit it to pdf. If this works and you can knit to pdf good, but if it didn’t work then you should run the following two instructions in RStudio and try again. Please run the following two lines <strong>ONLY</strong> if you cannot knit the .Rmd file to pdf.</p>
+<pre><code>install.packages(&#39;tinytex&#39;)
+tinytex::install_tinytex()</code></pre></li>
+</ul></li>
+</ul>
+<p><br></p>
+<ul>
+<li><p>After the e-meeting you should know:</p>
+<ul>
+<li><p>What is exactly a <strong>VAR model</strong>? In particular you should understand this two equations:</p>
+<ul>
+<li>[2] <span class="math inline">\(y_{t}~=A_{1}y_{t-1}+A_{2}y_{t-2}+\ \ ...\ \ +A_{p}y_{t-p}+v_{t}\)</span><br />
+</li>
+<li>[3] <span class="math inline">\(A(L)y_{t}=v_{t}\)</span></li>
+</ul></li>
+<li><p>What does means and what implies that: <span class="math inline">\(\boldsymbol{v_{t}}\)</span> is a <span class="math inline">\((K\times 1)\)</span> vector of white noise (<span class="math inline">\(v_{t}\rightarrow (0,\Sigma _{v})\)</span>).</p></li>
+<li><p>When it would be justified to estimate a VAR by OLS?</p></li>
+<li><p>How do we select the order of a VAR model?</p></li>
+<li><p>To estimate a VAR model using R/RStudio</p></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p>Too much for the second class? I don’t think so, but we will see …</p>
+<p><br></p>
+<p><strong>Challenge:</strong> The second challenge is not so cryptic than the first. I think you could understand this second challenge by yourself, but if not, we will try at class. You have to (fully) understand the following two sentences. I think you will understand this second challenge by the end of the second class, but to understand the first challenge we need to be near the end of the course.</p>
+<blockquote>
+<p>Using terminology from the simultaneous equations literature, the VAR model [1] is in reduced form because all right-hand side variables are lagged or predetermined.</p>
+</blockquote>
+<blockquote>
+<p>Be aware that, for a VAR (in reduced form): The instantaneous relations between the variables are summarized in the residual covariance matrix</p>
+</blockquote>
+<p>In particular the second sentence is going to be latter really important during the mini-course.</p>
 <p><br></p>
 <hr />
 <p><br></p>
@@ -482,6 +544,47 @@ div.tocify {
 <div id="rd-session" class="section level3">
 <h3>3rd session</h3>
 <p><strong><code>Date/time</code></strong>: Monday 27th of April at <strong>9:00</strong> (time of Spain, UTC+2 hours).</p>
+<ul>
+<li><p>The second class should be devoted to:</p>
+<ul>
+<li><p>Continuing our learning about VAR models &amp; methodology</p></li>
+<li><p>Continuing the Lab with data from Spain.</p></li>
+</ul></li>
+</ul>
+<p><br></p>
+<ul>
+<li><p><strong><code>Homework</code></strong>: before the e-meeting, at least, you should,</p>
+<ul>
+<li>read the sections 1, 2 &amp; 3 of the <a href="https://perezp44.github.io/VAR-models-web/03-Slides.html">Slides</a></li>
+</ul></li>
+</ul>
+<p><br></p>
+<ul>
+<li><p><strong><code>Homework</code></strong> (related to your own assignment):</p>
+<ul>
+<li>You should try/replicate (with your own data) the same things we practise during the Lab’s second session at class. Remenber that at class we are going to use Spanish data.</li>
+</ul></li>
+</ul>
+<p><br></p>
+<ul>
+<li><p>After the third e-meeting you should know:</p>
+<ul>
+<li><p>What it is and how to obtain the VMA representation of a VAR model: $ [4] y_{t}=C(L)v_{t}$</p></li>
+<li><p>To understand why, but mainly which is the implication of the fact that in [4], <span class="math inline">\(C_{0} =I_{K}\)</span></p></li>
+<li><p>To understand that from the VMA representation we can obtain the IRF’s that the macro-economist want to know; that is, that the sequence of <span class="math inline">\(C_{i}\)</span> matrices are in fact the IRF’s we want to obtain. Yes <strong>BUT</strong> …. in fact these “IRF’s” are not useful.</p></li>
+<li><p>To understand that the “IRF’s” obtained from <span class="math inline">\([4] y_{t}=C(L)v_{t}\)</span> are in fact <strong>NOT USEFUL</strong> … because they are not structural. Then we would need to turn our efforts to <strong>structural VAR’s</strong>, not reduced form VAR’s.</p></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p>Too much for the third class? I don’t think so, but we will see … In fact I hope that by the end of the third class we would have advance a little bite more and have talk already about the first proposal (the Sims’s proposal, do you remember Sims’s (1980) paper?) for a structural VAR model.</p>
+<p><br></p>
+<p><strong>Challenge:</strong> The third challenge is to try to (fully) understand the following 2 sentences. Usually you will understand the challenges after the class but you should try to understand it before class:</p>
+<blockquote>
+<p>This dynamic effect could be easily obtained through the VMA representation [3] of the VAR, also called Wold VMA representation. In particular the response of the variable <span class="math inline">\(y_{n}\)</span> to an impulse of size one in <span class="math inline">\(v_{m}\)</span> <span class="math inline">\(j\)</span>-periods ahead is given by the <span class="math inline">\((n,m)\)</span><em>-th</em> element of <span class="math inline">\(C_{j}\)</span>. That is, the <span class="math inline">\(C_{i}\)</span> matrices contain the responses of the variables to the innovations for different periods (or steps) ahead. As the <span class="math inline">\(u_{i}\)</span> are forecast error’s, those effects are called forecast error impulse responses or in short impulse response functions (IRF’s)</p>
+</blockquote>
+<blockquote>
+<p>BUT, usually the VAR disturbances (or innovations), the <span class="math inline">\(u_{i}\)</span>, are correlated, so the interpretability of the impulse responses to those innovation becomes problematic: if the innovations are correlated (off diagonal elements of <span class="math inline">\(\Sigma_{v}\)</span> different from zero) then, an impulse in <span class="math inline">\(v_{m}\)</span> would be associated with impulses in innovations in the other equations of the VAR model. In other words, as the innovations are not likely to occur in isolation, then tracking the effect of an innovation in isolation does not reflect what actually happens in the system after an innovation hits the system.</p>
+</blockquote>
 <p><br></p>
 <hr />
 <p><br></p>
@@ -497,7 +600,6 @@ div.tocify {
 <h3>5th session</h3>
 <p><strong><code>Date/time</code></strong>: Monday 4th of May at <strong>9:00</strong> (time of Spain, UTC+2 hours).</p>
 <p><br><br><br><br></p>
-</div>
 </div>
 
 

@@ -4,7 +4,7 @@ author: "You"
 date: "2020, April"
 output: 
   html_document:
-    theme: simplex
+    theme: united
     highlight: pygments 
     number_sections: no
     toc: true
@@ -36,10 +36,10 @@ options(scipen = 999) #- para quitar la notacion cientifica
 
 The objective of this `.Rmd` file is to download data from Eurostat to be used for the students in their assignments
 
-We are going to need two packages, then we are going to load them:
+We are going to need some packages, then we are going to load them:
 
 
-```{r, echo = FALSE}
+```{r, echo = TRUE}
 library(tidyverse)     #- install.packages("tidyverse")
 library(eurostat)      #- install.packages("eurostat")
 library(gt)            #- install.packages("gt")
@@ -169,7 +169,7 @@ data_15 <- data_15 %>% mutate(GDPr_15 = GDP_15/Def_15*100)              #- real 
 let's see what we have in the data.frame `data_15`
 
 ```{r}
-data_15 %>% slice(1, nrow(data_c)) %>% gt::gt()
+data_15 %>% slice(1, nrow(data_15)) %>% gt::gt()
 ```
 
 <br>
@@ -195,7 +195,7 @@ data_us <- data_us %>% mutate(tc_e_d = GDP_us/GDP_us_e)              #- exchange
 let's see what we have in the data.frame `data_us`
 
 ```{r}
-data_us %>% slice(1, nrow(data_c)) %>% gt::gt()
+data_us %>% slice(1, nrow(data_us)) %>% gt::gt()
 ```
 
 <br>
@@ -232,7 +232,7 @@ For example we can save the data in .csv format:
 
 ```{r}
 #- exporting df as a .csv file. The follwing 2 lines of code make the same
-# write_csv(df, "my_data_ES.csv")                         #- saving df as csv
+# write_csv(df, "my_data_ES.csv")                         #- saving df as csv 
 # write_csv(df, paste0("my_data_", my_country, ".csv"))   #- saving df as csv
 ```
 
@@ -245,7 +245,7 @@ Or in .rds format
 
 ```{r}
 #- saving df as a .rds file
-#write_csv(df, paste0("my_data_", my_country, ".rds"))  #- saving df as rds
+# write_csv(df, paste0("my_data_", my_country, ".rds"))  #- saving df as rds
 ```
 
 

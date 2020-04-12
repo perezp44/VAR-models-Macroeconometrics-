@@ -20,13 +20,18 @@ During the mini-course we are going to use, aside from this website, the followi
 
 ### Resources:
 
-- [**`Aula Virtual site for Macroeconometrics`**](https://aulavirtual.uv.es/course/view.php?id=9759): from here we will use Black Board Collaborate to make on-line meetings
+- [**`Aula Virtual site for Macroeconometrics`**](https://aulavirtual.uv.es/course/view.php?id=9759): from here we will use Black Board Collaborate to make on-line meetings. 
+
+
+- [**`Jitsi link to make e-meetings`**](https://meet.jit.si/VAR-models). If for some reason the Black Board application fails, then we will make the e-meetings using Jitsi. Be aware that to join the Jitsi-room you will need a password. If finally we have to use Jitsi I will send you the password through your UV e-mail.
+
 
 - [**`Etherpad`**](https://etherpad.wikimedia.org/p/var_18): during the course we are going to make some work with R, we will use an etherpad to collaborate with the code.
 
-<br>
+- [**`RStudio Project in the cloud`**](https://rstudio.cloud/project/1142842): only to be used for the students that could have some problems with his own computer because they could not install the packages properly. That's it, 99,999% that we are not going to use this Rproject in the cloud!!
 
-------------------
+
+----------------------
 
 ### Materials:
 
@@ -36,7 +41,7 @@ During the mini-course we are going to use, aside from this website, the followi
 
 <br>
 
-------------------------------
+----------------------
 
 ### More resources:
 
@@ -50,7 +55,7 @@ The assignment of the course should be delivered as an `Rproject` and written in
 
 <br>
 
----------------------------------
+----------------------
 
 
 <br>
