@@ -61,6 +61,31 @@ You should go to the on-line meetings **having done** the workhome I will send t
 
 Remember, that our first on-line meeting will be the **Thursday 9th of April at 9:00** (time of Spain, UTC+2 hours). You could find the date, time and more details about the on-line meetings in the [Schedule](https://perezp44.github.io/VAR-models-web/05-Schedule.html) section of the website
 
+
+<br>
+
+------------------
+
+<br>
+
+## The "new plan"
+
+> Everyone has a plan until they get punched in the mouth --- Mike Tyson
+
+For several reasons, the most important is that the course was planed to be face-to-face and 5 sessions, but now we are on-line and there are 3 sessions left and the course has just started, then I have to change "the plan" for a "new plan".
+
+Now, instead of deliver a mini coourse about VAR modeling, we are not going to deliver a **express**-mini-course on structural VAR models. Of course I need you help. You have to read completely the section [`"Express-course"`](https://perezp44.github.io/VAR-models-web/06-Express-course.html), a quick and **dirty** introduction to structural VAR models, and assits to the three on-line classes. 
+
+
+<style>
+div.steel { background-color:#dece3c; border-radius: 4px; padding: 13px;}
+</style>
+<div class = "blue">
+You should read the "Express-course" section of the web
+</div>
+
+
+
 <br>
 
 ------------------

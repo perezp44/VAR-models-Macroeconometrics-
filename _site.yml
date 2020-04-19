@@ -20,7 +20,10 @@ navbar:
       href: 04-Lab-Gali.html
     - text: "Schedule"
       icon: fa-calendar-alt
-      href: 05-Schedule.html      
+      href: 05-Schedule.html 
+    - text: "Express-course"
+      icon: fa-capsules 
+      href: 06-Express-course.html      
     - text: "MáS"
       icon: fa-download      
       menu: 

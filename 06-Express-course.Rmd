@@ -1,0 +1,675 @@
+---
+#title: "Express mini-course on Structural VAR models"
+output:
+  html_document:
+    theme: united
+    highlight: monochrome 
+    number_sections: no
+    toc: true
+    toc_float: true
+    code_download: true
+    #code_folding: show
+    #self_contained: TRUE
+---
+
+
+
+```{r chunk_setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE, message = FALSE, warning = FALSE, 
+                      cache = FALSE, cache.path = "/caches/", comment = "#>",
+                      #fig.width = 7, fig.height= 7,   
+                      #out.width = 7, out.height = 7,
+                      collapse = TRUE,  fig.show = "hold",
+                      fig.asp = 7/9, out.width = "60%", fig.align = "center")
+```
+
+
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 4px; padding: 13px;}
+div.steel { background-color:#dece3c; border-radius: 4px; padding: 13px;}
+2c67bf
+</style>
+
+
+
+```{r options_setup, echo = F}
+options(scipen = 999) #- para quitar la notacion cientifica
+```
+
+<br><br><br>
+
+As finally, instead of 5 session we are going to have almost 3 sessions, then instead of a mini-course we are going to have a express-mini-course: a quick and **dirty** introduction to the basics of structural VAR models.
+
+# 0. Intro. 
+
+Imagine you are a researcher, or better, imagine that you are the the Economy Minister of a European country, for instance Spain, and you need to know how your country is influenced by economic external forces. We are going to use an statistical approach to try to solve the problem.That is we are going to use a statistical model. But which one? VAR models of course, this is the subject of the mini-course. 
+
+OK, but the original question ("how your country is influenced by economic external forces?") is too wide to be tractable. Let's made the question more specific. We have heard that there exists an international cycle and an European cycle, then the question is how Spain reacts to the international and European cycle. What are their influence in the Spanish economy.
+
+Even more precisely, we are going to try to answer two questions:
+
+  1. What will happen to Spanish economy if something positive (a positive shock) happens in the international cycle or in the European business cycle. (IRF)
+
+  2. What is the importance of international and European cycle in the Spanish economic fluctuations? (FEVD)
+
+
+OK, we are going to use statistical models, then we will need data. But wait, we already have data, last class we have downloaded some variables. We have downloaded from Eurostat a bunch of series. In particular we are going to use 3 series of "GDP volume" for USA, E15 and our country, in that case Spain.
+
+<br>
+<div class = "blue">
+**To think:** we will use 3 variables. Are they enough to answer the question or we will need for variables/information?
+</div>
+<br>
+
+We are going to use a statistical approach and we have 3 variables. We can think that the 3 variables are a system that influence each other. Changes in US (as a proxy of the international cycle) will impact Spain and Europe. Changes in Europe will also impact on the international economy and of course in the Spanish economy. That is, I think we should treat the 3 variables as endogenous. 
+
+
+Then ... what type of statistical models we could use? For instance we could use "Simultaneous equations". But wait, those systems were criticised by Sims in 1980 because they use that he called  "incredible identification restrictions".
+
+OK, let's follow Sims's 1980 proposal and use VAR models. First, before to estimate the VAR model, we have to specify, to write it down.
+
+
+
+
+# 1. Specification & estimation
+
+Well, a VAR model is really "easy" to specify. You only need to select a bunch of variables to answer your questions. We have already done that. We have selected 3 variables, and, following Sims's proposal, we are going to:
+
+>  treat all variables as endogenous (and first estimate an unrestricted model in a reduced form). No prior knowledge is used except to decide which variables should enter the system.
+
+<br>
+<div class = "blue">
+**To think:** in the last sentence there is a tricky part "first estimate an unrestricted model in a reduced form". Try to understand it. What does mean? It's not easy if you don't have the right background. We will try at class.
+</div>
+<br>
+
+
+
+Our model is described by this set of equations: 
+
+
+
+$$\left\{ 
+\begin{array}{c}
+US_{t}= \beta US_{t-1} + \beta US_{t-2} +  \beta E15_{t-1} +  \beta E15_{t-2} +  \beta ES_{t-1} + \beta ES_{t-2} + v_{t}^{US}
+\\ 
+E15_{t}= \beta US_{t-1} + \beta US_{t-2} +  \beta E15_{t-1} +  \beta E15_{t-2} +  \beta ES_{t-1} + \beta ES_{t-2} + v_{t}^{E15}
+\\ 
+ES_{t}= \beta US_{t-1} + \beta US_{t-2} +  \beta E15_{t-1} +  \beta E15_{t-2} +  \beta ES_{t-1} + \beta ES_{t-2} + v_{t}^{ES}
+\end{array}%
+\right\} $$
+
+<br>
+
+But, it's better to write the model in a more compact form:
+
+$$y_{t}~=A_{1}y_{t-1}+A_{2}y_{t-2}+v_{t}$$ 
+
+The model has only two lags, but in general the VAR would be:
+
+
+$$y_{t}~=A_{1}y_{t-1}+A_{2}y_{t-2}+\ \ ...\ \
++A_{p}y_{t-p}+v_{t}\ \ \ \ \ \ \ \ \ \ [2]$$ 
+
+
+Model $[2]$ can be written using a polynomial in the lag operator as: 
+
+$$A(L)y_{t}=v_{t}\ \ \ \ \ \ \ \ \ \ [3]$$  
+
+with $A(L)=(I_{K}-A_{1}L^{1}-A_{2}L^{2}-...-A_{p}L^{p})$
+
+<br>
+
+OK, but there is something that we have to solve: we have to choose **how many lags** will have our model, 2, 3 , 4? OK,  but this will be in a moment, first we have to talk a little about the estimation method we are going to use to estimate our model.
+
+
+Well, you should know that, **if the system is stationary** then, as all the equations in the VAR share the same set of regressors and all of them are lagged variables, the VAR could be estimated efficiently by OLS for each equation separately. 
+
+BUT, be aware that, in order to estimate the system by OLS is crucial that the error terms ($v_{t}$) should **NOT to be autocorrelated**.
+
+Remember also that in the context of VAR methodology, usually the error terms ($v_{t}$) are called **innovations**.
+
+
+
+Besides that, if the innovations are normally distributed (Gaussian) then we could apply usual inference methods, like t-test.
+
+
+
+<br>
+<div class = "blue">
+**To think:** VAR models assume $v_{t}\rightarrow N(0,\Sigma _{v})$. Do you think there are contemporaneous correlation among the innovation? Do you think the innovations are autocorrelated? Be aware that they are completely different questions
+</div>
+<br>
+
+
+
+In plain English: before to use a VAR models we have to check if the system of variables is stationary, then, as all of the regressors are in the past $y_{t-k}$, they are "like-exogenous" variables and then we could estimate the parameters of the model by OLS, **BUT** remember that the $v_{t}$ should shown **no autocorrelation**; that is we should check, after estimation, that the model residuals $\widehat{v}_{t}$ shown NO-autocorrelation
+
+Besides that, if the innovations  $(v_{t})$  follow a Gaussian distribution then we could use the usual inference methods. Then, we should check also,the normality of the residuals $(\widehat{v}_{t})$.
+
+
+<br>
+
+OK. **Let's practise this in R**:
+
+- First we have to load the packages:
+
+
+```{r}
+library("tidyverse")
+library("forecast")
+#library("dygraphs")
+library("vars")         #- the package used to estimate VAR models
+```
+
+
+- Second, we have to load and clean the data
+
+```{r}
+# load the data for Spain ---------------------------------------------------
+df <- read_csv(here::here("datos", "my_data_ES.csv"))  #- You should load YOUR DATA
+
+#- we are going to use only 3/4 the variables: Vol, Vol_15, Vol_us & time
+data <- df %>% dplyr::select(time, Vol_us, Vol_15, Vol)
+```
+
+
+- "Cleaning" the data
+
+```{r}
+#- some data munging to obtaining the common sample of the 3 variables ----------------------------------
+#- first getting rip off the NAs
+data <- data %>% drop_na() 
+
+#- second, calculating the start and end of the common sample of my data:
+data_tt <- data %>% mutate(time = as.character(time)) %>% tidyr::separate(time, c("year", "quarter", "day"),"-")
+data_tt <- data_tt %>% mutate(year = as.numeric(year)) 
+data_tt <- data_tt %>% mutate(quarter= case_when(
+                                       quarter  == "01"  ~ 1,
+                                       quarter  == "04"  ~ 2,
+                                       quarter  == "07"  ~ 3,
+                                       quarter  == "10"  ~ 4))
+start_year    <- data_tt$year[1] 
+start_quarter <- data_tt$quarter[1] 
+end_year      <- data_tt$year[nrow(data_tt)] 
+end_quarter   <- data_tt$quarter[nrow(data_tt)] 
+  
+#- we don't need "data_tt" anymore
+rm(data_tt)
+```
+
+
+
+```{r}
+#  creating the time series with ts(): -------------------------------------------------------------
+Vol    <- ts(data$Vol,    start = c(start_year, start_quarter) , end = c(end_year, end_quarter) , frequency = 4)   
+Vol_15 <- ts(data$Vol_15, start = c(start_year, start_quarter) , end = c(end_year, end_quarter) , frequency = 4)   
+Vol_us <- ts(data$Vol_us, start = c(start_year, start_quarter) , end = c(end_year, end_quarter) , frequency = 4)   
+rm(start_year, start_quarter, end_year, end_quarter)
+
+# taking logs of the series ------------------------
+lVol    <- log(Vol)
+lVol_15 <- log(Vol_15)
+lVol_us <- log(Vol_us)
+
+# taking first log differences --------------------------
+dlVol     <- diff(lVol,      lag = 1, difference = 1)
+dlVol_15  <- diff(lVol_15,   lag = 1, difference = 1)
+dlVol_us  <- diff(lVol_us,   lag = 1, difference = 1)
+
+
+# putting our 3 variables in a vector
+variables <- cbind(dlVol_us, dlVol_15, dlVol)        #- Creating a matrix with the 3 series. The Ordering will be important
+```
+
+
+
+<br>
+
+
+- third, We start to specify/estimate our VAR
+
+```{r, eval = FALSE}
+# To estimate the VAR we are going to use the "vars" package
+
+# Internal help from the vars package
+help(package = vars)           #- calling to the pkg help
+ls("package:vars", all = TRUE) #- all the objects, usually functions & data in the "vars" package
+```
+
+
+### 1.a Checking the stationarity of the variables
+
+
+- Why we need to check the stationarity?
+
+```{r}
+library(forecast)
+ndiffs(dlVol, alpha = 0.05, test = c("kpss", "adf", "pp"), max.d = 2 )
+ndiffs(dlVol_15, alpha = 0.05, test = c("adf"), max.d = 2 )
+ndiffs(dlVol_us, alpha = 0.05, test = c("adf"), max.d = 2 )
+
+rm(list = ls()[!ls() %in% c("data", "variables")])   #- removing all except what we need ("data" and "variables")
+```
+
+
+Are the variables stationay? Well ....
+
+
+### 1.b How many lags?
+
+We have to decide how may lags will our VAR have. There are two strategies:   
+
+      - 1 Use information criteria methods      
+    
+      - 2 LR tests     
+  
+
+
+- 1. Using information criteria methods 
+
+```{r}
+# HOW MANY LAGS in the VAR? What about the deterministic components of the VAR? -------------------
+
+# 1. with model selection criteria (AIC)
+VARselect(variables, lag.max = 8, type = "const")
+```
+
+
+<br>
+<div class = "blue">
+**To think:** If we use the information criteria methods, How many lags we should use in our VAR?
+</div>
+<br>
+
+
+2. (Selecting the VAR order) With a sequence of LR test
+
+```{r, eval = FALSE}
+# 2. with LR test 
+var.m4 <- VAR(variables, p = 4, type = "const") 
+var.m3 <- VAR(variables, p = 3, type = "const")   
+lrtest(var.m3, var.m4)  #- why doesn't work this test? Why doesn't run this chunk
+```
+
+
+```{r}
+var.m5 <- VAR(variables, p = 5, type = "const") 
+variables2 <- variables[-1,]
+var.m4 <- VAR(variables2, p = 4, type = "const")   
+lrtest(var.m4, var.m5)   #- what we select 4 or 5 lags?
+
+rm(var.m4, var.m5, variables2) 
+```
+
+<br>
+<div class = "blue">
+**To think:** How many lags? five, four? 3?
+</div>
+<br>
+
+Well, finally we are going to use ....... **4** lags. Why? Don't think too much why. One part of the reason is because I like the 4's. I will explain at class
+
+<br>
+
+# 2. Estimation of the VAR
+
+We could estimate the equations of the model by OLS with the function `lm()`, but it's more convenient to use the function `VAR()` from the vars package
+
+```{r}
+# ESTIMATING the VAR.  Wchich estimation method? -------------------
+VAR(variables, p = 4, type = "const") 
+```
+
+<br>
+
+
+Let's estimate again, but instead of showing the results, we are going to assign them to the `our_var` object:
+
+```{r}
+our_var <- VAR(variables, p = 4, type = "const")   #- saving the estimation results in the object "our_var"
+```
+
+
+<br>
+<div class = "blue">
+**To DO:** please take a look at the "our_var" object. What it is? What it contains?
+</div>
+<br>
+
+
+
+In fact, now you can check if our estimated VAR model is stable:
+
+```{r}
+#------ Checking stability(eigenvalues of the companion coefficient matrix must have modulus less than 1)
+roots(our_var, modulus=TRUE) #- Returns a vector with the eigenvalues
+```
+
+
+
+Let's look at the estimation results in two different ways, using two functions of the `vars`package:
+
+
+```{r}
+# LOOKING at the results of the estimated VAR ----------------
+summary(our_var)
+```
+
+
+
+<br>
+<div class = "blue">
+**To DO:** Please take a look at the results.  Please have another more close look at the Covariance matrix of residuals. **The residuals are contemponaeously correlated?** They are autocorrelated?
+</div>
+<br>
+
+<br>
+
+Another look at the results of the VAR estimation, now using the `Acoef()`function of the `vars` package:
+
+```{r}
+#------ shows the A estimated matrices. Be aware that they are the same results
+Acoef(our_var)   
+```
+
+
+<br>
+<div class = "blue">
+**To Think:** What are this results? Are the same results previously seen or are other results? Why we need this matrices?. (the first two questions are obvious, but not the third)
+</div>
+<br>
+
+
+
+Before to use our estimated VAR we should check if the residuals are correlated (autocorrelation) 
+
+
+```{r}
+serial.test(our_var, lags.pt = 8 )  #-- 8 lags for autocorrelation portmanteau test
+```
+
+
+We have to check also for Normality of residuals.
+
+
+
+```{r}
+normality.test(our_var, multivariate.only=FALSE)   #-- Normality test
+```
+
+OK, more or less, our estimated VAR model is "valid", then we could now use our estimated VAR to perform some task,for instance to test for Granger causality or for forecasting:
+
+
+```{r, eval = FALSE}
+#------ We can test Granger causality
+causality(our_var, cause = c("dlVol"))      #- dlVol Granger-cause the other(s) variables?
+causality(our_var, cause = c("dlVol_15"))   #- dlVol_15 Granger-cause the other(s) variables?
+causality(our_var, cause = c("dlVol_us"))   #- dlVol_15 Granger-cause the other(s) variables?
+
+#------ We can use the VAR for forecasting
+predict(our_var, n.ahead = 3)  
+fanchart(predict(our_var))
+```
+
+But our objective is not to forecast, it's in some way related, but in reallity is a little bite different.
+
+
+# 3. Obtaining the VMA representation
+
+OK. We have estimated a VAR model .... BUT we have not answered the two questions we want to ask: 
+
+  1. What is the response of the Spanish economy to a shock in the international cycle or in the European business cycle. (IRF)
+
+  2. What is the importance of international and European cycle in the Spanish economic fluctuations? (FEVD)
+  
+<br>
+
+In order to answer those questions we need to work a little bite more. First we have to obtain the VMA representation of our VAR model. That is, we have to "invert" our model. How and why? The idea is the same that Mariam explained to you, something like:
+
+> every stationary AR process have a MA representation
+
+
+As we are now with VAR (vectorial-AR) we would obtain a vectorial-MA (VMA), but the idea is the same. Let's do it (by hand) for a VAR with only 1 lag:
+
+
+
+
+```{r, echo = FALSE, out.width = "80%"}
+knitr::include_graphics(here::here("imagenes", "01-horizontal-a.jpg") ) 
+```
+
+Finally we have that our vector of variables $y_{t}$ as a function of the innovations in $t$, in $t-1$, $t-2$ ....   This is the VMA representation. The variables in function of actual and past values of innovations ($v_{t}$).
+
+Usually we rename the matrices to call them $C_{i}$ and the VMA that you see in papers and books usually is written like:
+
+$$y_{t}~=C_{0}v_{t}+C_{1}v_{t-1}+C_{2}v_{t-2}+\ ...\  [3]$$
+
+
+
+being $C_{0}=I_{K}$, the rest of the $C_{i}$ are computed recursively from the VAR representation , that is they are function of the $A_{i}$ matrices.
+
+
+As with the VAR, model $[3]$ can be written using a polynomial in the lag operator as:
+ 
+
+$$y_{t}=C(L)v_{t}\ \ \ \ \ \ \ \ \ \ \ \ [4]$$
+
+being $C(L)=(I_{K}+C_{1}L^{1}+C_{2}L^{2}+\ \ ...)$.
+
+
+OK, but why we need this new representation of our system $y_{t}$. For different reason, but in the context of VAR models, because the VMA representation, that is, the sequence of $C_{i}$ matrices provide the IRF^[We will see in short that this is not really true because ....], that is, this sequence of $C_{i}$ provide the answer to our first question. 
+
+
+For instance, in our example, Imagine that:
+
+
+$$y_{t}=\left[ 
+\begin{array}{c}
+USA_{t} \\ 
+U15_{t} \\ 
+ESP_{t}%
+\end{array}%
+\right] \ \ \ \ v_{t}=\left[ 
+\begin{array}{c}
+v_{t}^{USA} \\ 
+v_{t}^{E15} \\ 
+v_{t}^{ESP}%
+\end{array}%
+\right] $$
+
+
+
+$$y_{t}~=C_{0}v_{t}+C_{1}v_{t-1}+C_{2}v_{t-2}+C_{3}v_{t-3}+C_{4}v_{t-4}+...$$
+
+$$y_{t}~=\left[ 
+\begin{array}{cc}
+1.0 & 0.0 & 0.0 \\
+0.0 & 1.0 & 0.0 \\
+0.0 & 0.0 & 1.0%
+\end{array}%
+\right] v_{t}+\left[
+\begin{array}{cc}
+1.1 & 1.2 & 1.3 \\ 
+1.4 & 1.5 & 1.6 \\
+1.7 & 1.8 & 1.9%
+\end{array}%
+\right] v_{t-1}+\left[
+\begin{array}{cc}
+2.1 & 2.2 & 2.3 \\ 
+2.4 & 2.5 & 2.6 \\
+2.7 & 2.8 & 2.9%
+\end{array}%
+\right] v_{t-2}+\left[
+\begin{array}{cc}
+3.1 & 3.2 & 3.3 \\ 
+3.4 & 3.5 & 3.6 \\
+3.7 & 3.8 & 3.9%
+\end{array}%
+\right] v_{t-3}+...$$
+
+
+
+
+
+<br>
+<div class = "blue">
+**TO DO:** Track what are going to be the effect in 2020, 2021, 2022 & 2023 in the US Vol_GDP if a innovation of size 1 in $v^{USA}$ happens today(2020). That is I'm asking you to calculate what will be the effect thought time (t, t+1, t+2 ...) on USA of an innovation of size 1 in his own equation, that is in $v_{t}^{USA}$ 
+</div>
+<br>
+
+The answer is: 1, 1.1, 2.1, 3.1 ....
+
+<br>
+<div class = "blue">
+**TO DO:** Track what are going to be the effect **on Spain** in 2020 2021, 2022 & 2023 if today (2020) there is an innovation of size 1 in  $v^{E15}$. That is I'm asking you to calculate what will be the effect thought time on Spain of an innovation of size 1 in $v^{E15}$. Please, make an effort, it is really important to notice and to understand this.
+</div>
+<br>
+
+
+Then, we have solved already our first question, that is, in order to to estimate what the effects of USA & E15 in the Spanish economy we have first to estimate a VAR and then, to invert the polynomial to obtain the sequence of $C$ matrices, that is the $C(L)$ polynomial. 
+
+And, that's all? Do you think things are so easy? Obviously No, it's only part of the process, we will continue explianing this latter.
+
+
+Now, let's obtain the VMA representation of our_var with R.
+
+```{r}
+#------ Obtaining the Wold VMA representation of our_var with the vars package
+Phi(our_var, nstep = 3)  #- shows the WOLD VMA  estimated matrices. (by inverting the A's matrices)
+```
+
+
+
+
+<br>
+<div class = "blue">
+**TO DO:** Track what are the **estimated** effect of an US "shock" in the Spanish economy.
+</div>
+<br>
+
+
+To finish the second class. In fact the first class of the express course we have to understand why the Wold VMA is **NOT USEFUL**.
+
+
+Why it's not useful the $y_{t}~= C(L)v_{t}= C_{0}v_{t}+C_{1}v_{t-1}+C_{2}v_{t-2}+C_{3}v_{t-3}+C_{4}v_{t-4}+...$?
+
+
+The why is in the variance-covariance matrix of the innovations $\Sigma _{v}$, this matrix it's usually not diagonal. That it's the innovations are contemporaneously correlated and we think, we believe, that a true structural shock should be "independent", orthogonal to other structural shocks.
+
+In a more formal way:
+
+> BUT, usually the VAR disturbances (or innovations) are correlated, so the interpretability of the impulse responses to innovation becomes problematic: if the innovations are correlated (off diagonal elements of $\Sigma _{v}$ different from zero) then, an impulse in for instance, $v_{USA}$ would be associated with impulses in innovations in the other equations of the VAR model. In other words, as the innovations are not likely to occur in isolation, then tracking the effect of an innovation in isolation does not reflect what actually happens in the system after an innovation hits the system.
+
+<br>
+
+# 4. Structural VARs
+
+OK, we can estimate a VAR an inverting it we can obtain something "close" to the IRF's we want but they are not really structural because the innovation are correlated, then they are not really structural shocks.
+
+To interpret the VAR in an economically meaningful way, one needs to "transform" the vector of innovations($v_{t}$) into "structural" shocks ($\varepsilon _{t}$), like monetary policy shocks, productivity shocks, ... and ideally the structural shocks should be:  1) orthogonal shocks  2) shocks with economic meaning. 
+
+That's now our objective to transform our system in a way that our variables, the $y_{t}$ instead of being function of the innovations ($v_{t}$), they were function of structural shocks ($\varepsilon_{t}$).
+
+
+Remember, that we can obtain easily the (Wold) VMA representation:  $y_{t} =  C(L)v_{t}$ where $\Sigma _{v}$   is not the identity, then the innovations are correlated. BUT we would like to obtain  something like $y_{t} = D(L)\varepsilon_{t}$ where  $\Sigma _{\varepsilon }=I$
+
+
+Transforming the system from one equation to the other is in fact a mathematical problem, an C. A. Sims is a mathematician. In fact their first proposal was: 
+
+
+>  The structural VAR methodology first estimate an unrestricted model in a reduced form. No prior knowledge is used except to decide which variables should enter the system.
+
+> Sims’s original idea to obtain IRF & FEVD was to assume recursive contemporaneous interactions among variables, i.e. by imposing a certain structural ordering of the variables. In terms of the moving average (MA) representation, the structural shocks do not affect preceding variables simultaneously. In fact he proposed to use the Cholesky decomposition.
+
+Let's try to explain this critic sentence. To obtain an structural VAR:
+
+- first a (reduced form) VAR model is estimated
+
+- we could invert the VAR to obtain the (Wold) VMA but it's not really useful. We can obtain (1), but we want a structural model (2)
+
+
+In a diagram: 
+
+
+```{r, echo = FALSE, out.width = "90%"}
+knitr::include_graphics(here::here("imagenes", "02-VMA.jpg") ) 
+```
+
+Sims(1980) propose to use the Cholesky decomposition to obtain (2) from (1). Let's develop it a little:
+
+- The Cholesky factor, $P$, of a positive definite matrix $M$ is defined as the unique lower triangular matrix such that $PP^{^{\prime }}=M$
+
+- As $\Sigma _{v}$ is a variance-covariance matrix it admit the Cholesky decomposition: $\Sigma _{v} = PP^{^{\prime }}$, where $P$ is a matrix called the Cholesky factor. This $P$ matrix has some properties: 1) $P$ is lower triangular, and 2)  $P^{-1}\Sigma _{v}P^{{-1}^{\prime}}= I$
+
+Then, Sims proposes to transform the VMA representation, like this:
+
+- $y_{t} =  C(L)v_{t}$
+
+
+- $y_{t}= C(L) PP^{-1}v_{t}$
+
+It seems stupid, but let's concentrate on a specific part of the last equation: $P^{-1}v_{t}$. 
+
+- In fact, $P^{-1}v_{t}$ is a transformation/rotation of the innovations. We are obtaining a new vector of "innovations". We can call those new innovation as we want, for instance $P^{-1}v_{t} = \varepsilon_{t}$
+
+
+Let's see what are the covariance matrix of these new "innovations" that we have called $\varepsilon_{t}$. Do you guess?
+
+
+```{r, echo = FALSE, out.width = "90%"}
+knitr::include_graphics(here::here("imagenes", "03-VMA.jpg") ) 
+```
+
+
+That is, the "transformed innovations" are orthogonal .... then Sims interpreted them as structural shocks. Good, BUT he received some critiques ... that we will see latter.
+
+By now let's return to: 
+
+- $y_{t}= C(L) PP^{-1}v_{t}$    as we have call $P^{-1}v_{t} = \varepsilon_{t}$, in fact we have:
+
+
+- $y_{t}= C(L) P\varepsilon_{t}$   
+
+
+
+<br>
+<div class = "blue">
+**TO THINK:** The last equation $y_{t}= C(L) P\varepsilon_{t}$   is a structural model?
+</div>
+<br>
+
+
+In fact we can call $C(L)P = D(L)$ and we will have $y_{t}= D(L) \varepsilon_{t}$, and the $D(L)$ will give us the response of the variables of our system ($y_{t}$) to a vector of shocks that are orthogonal ($\varepsilon_{t}$).
+
+
+<br>
+<div class = "blue">
+**TO THINK:** How we can calculate the D(L)
+</div>
+<br>
+
+
+Think that $C(L)P = D(L)$; that is, 
+
+$$(C_{0} + C_{1}L + C_{2}L^{2}) P = D_{0} + D_{1}L + D_{2}L^{2}$$
+
+Thats is : 
+
+- $C_{0} P = D_{0}$
+
+- $C_{1} P = D_{1}$
+
+
+
+
+
+
+
+<br>
+<div class = "steel">
+**ATTENTION:** **More material, not much more, to be added**
+</div>
+<br>
+
+

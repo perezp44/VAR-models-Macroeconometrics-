@@ -4,7 +4,7 @@ author: "Your name"
 date: "`r format(Sys.time(), '%d %B, %Y')`" 
 output: 
   html_document:
-    theme: simplex
+    theme: united
     highlight: pygments 
     number_sections: no
     toc: true
