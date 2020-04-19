@@ -57,11 +57,11 @@ OK, we are going to use statistical models, then we will need data. But wait, we
 
 <br>
 <div class = "blue">
-**To think:** we will use 3 variables. Are they enough to answer the question or we will need for variables/information?
+**To think:** we will use 3 variables. Are they enough to answer the two questions or we are going to need more  variables/information?
 </div>
 <br>
 
-We are going to use a statistical approach and we have 3 variables. We can think that the 3 variables are a system that influence each other. Changes in US (as a proxy of the international cycle) will impact Spain and Europe. Changes in Europe will also impact on the international economy and of course in the Spanish economy. That is, I think we should treat the 3 variables as endogenous. 
+We are going to use a statistical approach and we have 3 variables. We can think that the 3 variables are a system where each variable influence the others others, they are interdependent. For instance, changes in US (as a proxy of the international cycle) will impact Spain and Europe. Changes in Europe will also impact on the international economy and of course in the Spanish economy. That is, I think we should treat the 3 variables as endogenous. 
 
 
 Then ... what type of statistical models we could use? For instance we could use "Simultaneous equations". But wait, those systems were criticised by Sims in 1980 because they use that he called  "incredible identification restrictions".
