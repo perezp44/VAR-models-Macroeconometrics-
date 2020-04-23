@@ -74,7 +74,7 @@ Remember, that our first on-line meeting will be the **Thursday 9th of April at 
 
 For several reasons, the most important is that the course was planed to be face-to-face and 5 sessions, but now we are on-line and there are 3 sessions left and the course has just started, then I have to change "the plan" for a "new plan".
 
-Now, instead of deliver a mini coourse about VAR modeling, we are not going to deliver a **express**-mini-course on structural VAR models. Of course I need you help. You have to read completely the section [`"Express-course"`](https://perezp44.github.io/VAR-models-web/06-Express-course.html), a quick and **dirty** introduction to structural VAR models, and assits to the three on-line classes. 
+Now, instead of deliver a mini coourse about VAR modeling, we are not going to deliver a **express**-mini-course on structural VAR models. Of course, I need still, even more, you help for the course works to make the course work. In particular you have to read completely the section [`"Express-course"`](https://perezp44.github.io/VAR-models-web/06-Express-course.html), a quick and **dirty** introduction to structural VAR models, and assits to the three on-line classes. 
 
 
 <style>
