@@ -565,17 +565,17 @@ In a more formal way:
 
 # 4. Structural VARs
 
-OK, we can estimate a VAR an inverting it we can obtain something "close" to the IRF's we want but they are not really structural because the innovation are correlated, then they are not really structural shocks.
+OK, we can estimate a VAR and after estimation, we can an invert obtaining something "close", something that is similar to the IRF's we want to obtain. In fact they are not the true IRF's because they are not really structural. Due to the fact that innovations ($v_{t}$) are correlated, then they can't be interpreted as the IRF's we want, because we would like to have IRF's to structural shocks.
 
-To interpret the VAR in an economically meaningful way, one needs to "transform" the vector of innovations($v_{t}$) into "structural" shocks ($\varepsilon _{t}$), like monetary policy shocks, productivity shocks, ... and ideally the structural shocks should be:  1) orthogonal shocks  2) shocks with economic meaning. 
+To interpret the VAR in an economically meaningful way, we need to "transform" the vector of innovations($v_{t}$) into "structural" shocks ($\varepsilon _{t}$), like monetary policy shocks, productivity shocks, ... and ideally the structural shocks should be:  1) orthogonal shocks  2) shocks with economic meaning. 
 
-That's now our objective to transform our system in a way that our variables, the $y_{t}$ instead of being function of the innovations ($v_{t}$), they were function of structural shocks ($\varepsilon_{t}$).
-
-
-Remember, that we can obtain easily the (Wold) VMA representation:  $y_{t} =  C(L)v_{t}$ where $\Sigma _{v}$   is not the identity, then the innovations are correlated. BUT we would like to obtain  something like $y_{t} = D(L)\varepsilon_{t}$ where  $\Sigma _{\varepsilon }=I$
+That's now our objective to transform our system in a way that our variables, the $y_{t}$, instead of being function of the innovations ($v_{t}$), they were function of structural shocks ($\varepsilon_{t}$).
 
 
-Transforming the system from one equation to the other is in fact a mathematical problem, an C. A. Sims is a mathematician. In fact their first proposal was: 
+Remember, that inverting the VAR, we can obtain easily the (Wold) VMA representation:  $y_{t} =  C(L)v_{t}$ where $\Sigma _{v}$   is not the identity, then the innovations are correlated. BUT we would like to obtain  something like $y_{t} = D(L)\varepsilon_{t}$ where  $\Sigma _{\varepsilon }=I$
+
+
+Transforming the system from one equation to the other is in fact a mathematical problem, and Sims is a mathematician. In fact, their first proposal was: 
 
 
 >  The structural VAR methodology first estimate an unrestricted model in a reduced form. No prior knowledge is used except to decide which variables should enter the system.
@@ -604,7 +604,7 @@ knitr::include_graphics(here::here("imagenes", "02-VMA.jpg") )
 
 <br>
 
-Equation (2) will be the structural VAR, in fact is, more precisely the structural VMA representation for our our system of variables $y_{t}$ , that we want to obtain to answer our two questions.
+Equation (2) will be the structural VAR, in fact is, more precisely the structural VMA representation for our system of variables $y_{t}$ , and we want obtain this structural VAR in order to answer our two questions.
 
 <br>
 
@@ -614,9 +614,9 @@ The first proposal to "recover" the structural information from the reduced form
 
 In particular, Sims(1980) propose to use the [Cholesky decomposition](https://en.wikipedia.org/wiki/Cholesky_decomposition) to obtain (2) from (1). Let's develop it a little:
 
-- Cholesky found that every symmetric definite positive matrix, let's call it $M$ admits a **unique** factorisation like $M = PP^{^{\prime }}$. Where  $P$ is called the Cholesky factor and it is a  **lower triangular** matrix. 
+- Cholesky found that every symmetric definite positive matrix, let's call it $M$, admits a **unique** factorisation like $M = PP^{^{\prime }}$. Where  $P$ is called the Cholesky factor, being $P$ a  **lower triangular** matrix. 
 
-- Sims is a mathematician and he obviously knew the Cholesky decomposition, then he proposed in his 1980 paper to use this Theorem in order to transform our reduced form VAR to a "structural" one. Structural in the sense that the transformed "innovations" were orthogonal. Let's explain this a little bite more:
+- Sims is a mathematician and he obviously knew the Cholesky decomposition, then he proposed in his 1980 paper to use the Cholesky factorisation in order to transform our reduced form VAR to a "structural" one. Structural in the sense that the transformed "innovations" were orthogonal. Let's explain this a little bite more:
 
 - The variance-covariance matrix of our VAR, the $\Sigma _{v}$, as it is a variance-covariance matrix, it admit the Cholesky decomposition: $\Sigma _{v} = PP^{^{\prime }}$, where $P$ is the Cholesky factor; that is $P$ matrix has some properties:  
 
@@ -630,9 +630,9 @@ Then, Sims proposes to transform the reduced form VMA representation (1), like t
 
 - $y_{t}= C(L) PP^{-1}v_{t}$
 
-It seems stupid, because it seems that we are complicating things, but let's concentrate on a specific part of the last equation: $P^{-1}v_{t}$. 
+At first, this transformation seems stupid, because it seems that we are complicating things, but let's concentrate on a specific part of the last equation: $P^{-1}v_{t}$. 
 
-- In fact, $P^{-1}v_{t}$ is a transformation/rotation of the innovations. We are multiplying, we are transforming, the innovations, the $\v_{t}$, and then obtaining a new vector of "innovations". We can call those new innovations as we want, for instance $P^{-1}v_{t} = \varepsilon_{t}$
+- In fact, $P^{-1}v_{t}$ is a transformation/rotation of the innovations. We are multiplying, we are transforming, the innovations, the $v_{t}$, and then obtaining a new vector of "innovations". We can call those new innovations as we want, for instance, we can call them $\varepsilon_{t}$; that is,  $P^{-1}v_{t} = \varepsilon_{t}$.
 
 
 Let's see what are the covariance matrix of these new "innovations" that we have called $\varepsilon_{t}$. Do you guess?
@@ -644,7 +644,7 @@ knitr::include_graphics(here::here("imagenes", "03-VMA.jpg") )
 
 <br>
 
-That is, the "transformed innovations" are orthogonal .... then Sims interpreted them as **structural shocks**. Good, BUT his proposal received some critiques ... that we will see latter.
+That is, the "transformed innovations", the $\varepsilon_{t}$, are not correlated, they are orthogonal .... then Sims interpreted them as **structural shocks**. Good, BUT his proposal received some critiques as well, ... but we will see the critiques to Sims's proposal latter.
 
 <br> 
 
@@ -664,12 +664,12 @@ By now let's return to:
 <br>
 
 
-In fact we can call $C(L)P = D(L)$ and we will have $y_{t}= D(L) \varepsilon_{t}$, and the $D(L)$ will give us the response of the variables of our system ($y_{t}$) to a vector of shocks that are orthogonal ($\varepsilon_{t}$).
+In fact we can call $C(L)P = D(L)$, and then, we will have $y_{t}= D(L) \varepsilon_{t}$, and the $D(L)$ will give us the response of the variables of our system ($y_{t}$) to a vector of shocks that are orthogonal ($\varepsilon_{t}$).
 
 
 <br>
 <div class = "blue">
-**TO THINK:** How we can calculate the D(L)
+**TO THINK:** How we can calculate the D(L)?
 </div>
 <br>
 
@@ -698,7 +698,7 @@ To finally understand the sentence, we should return to the structural VAR repre
 
 $$y_{t}= C(L) P\varepsilon_{t} = D(L)\varepsilon_{t}$$
 
-and to remember that $D_{0} = P$ and that $P$ is lower triangular , then ..... when we transform the reduced VMA to obtain the structural VMA at the end we are doing, we are imposing that the matrix that gives the contemporaneous or instantaneous effect of the structural shocks $\varepsilon_{t}$ it's  in some sense recursive. We are imposing a recursive structural among our 3 equations.
+and to remember that $D_{0} = P$ and that $P$ is lower triangular , then ..... when we transform the reduced VMA to obtain the structural VMA at the end we are doing, we are imposing, that the matrix that gives the contemporaneous or instantaneous effect of the structural shocks $\varepsilon_{t}$ it's  in some sense recursive. We are imposing a recursive structural among our 3 equations.
 
 $$y_{t}~=D_{0}\varepsilon_{t}+D_{1}\varepsilon_{t-1}+D_{2}\varepsilon_{t-2}+D_{3}\varepsilon_{t-3}+\varepsilon_{4}v_{t-4}+...$$
 
@@ -715,7 +715,7 @@ The matrix $D_{0}$ contains the contemporaneous/instantaneous response of the va
 
 If $D_{0}$ is lower triangular, that means that an "innovation" (in fact now, a structural shock , $\varepsilon{t}$) in the first equation could **contemporaneously** affects to **ALL** the variables in the VAR, while the innovation in the second equation could contemporaneously affect all the variables in the VAR **except** the first one, … and finally, an innovation in the last equation could contemporaneously affects only the last variable in the VAR
 
-
+<br>
 
 ## 4.2 Critiques to Sims's proposal
 
@@ -731,17 +731,20 @@ The proposal of Sims's 1980 implies that the first variable in the system, in ou
 
 
 
-Of course the proposal of Sims received some critiques as well. In fact one of the claims of Sims in favour of using VAR is that their use avoid to makes unnecessary the use of what Sims called "incredible restrictions" that other approaches, like for instance simultaneous equations models,  used.
+Of course the proposal of Sims received some critiques as well. In fact one of the claims of Sims in favour of using VAR is that their use makes unnecessary the use of what Sims called "incredible restrictions" that other approaches, like for instance simultaneous equations models, used.
 
-The first proposal (Sims) to identify the structural form by means of the Cholesky decomposition. It's seems that he it's not impossing none restriction but ...
+The first proposal (Sims) to identify the structural form by means of the Cholesky decomposition seems that it's not imposing none restriction but ...
 
      
-* Using the Cholesky factorization to identify the structural VAR is equivalent to choosing a recursive system of equations. **BUT**, as you can imagine, the order matters; that is, **identification is not unique**.
+* Using the Cholesky factorization to identify the structural VAR is equivalent to choosing a recursive system of equations, and in fact this, in reality means that you are imposing restrictions to the system. In our case 3 zero restriction in $D_{0}$ 
+
+
+* On top on that, another critique to Sims's proposal is that the order of the variables in the system matters; that is, **identification is not unique**.
 
 
 <br>
 <div class = "blue">
-**TO THINK:** What does mean **identification is not unique**? Could yo explain it with an example using our 3 variables?
+**TO THINK:** What does mean **identification is not unique**? Could yo explain it with an example using our 3 variables? Think what does imply if we put Spain as the first variable in $y_{t}$.
 </div>
 <br>
 
@@ -768,15 +771,15 @@ The first proposal (Sims) to identify the structural form by means of the Choles
 
 
 
-Remember: a structural VAR analysis usually start specifying, validating and finally estimating a VAR in reduced form. For the VAR representation we could obtain a reduced form VMA representation, but this reduced VMA is has little interest because it's not structural, their IRF's have not a clear interpretation because the innovations ($v_{t}$) are not orthogonal, they are correlated. Then, in the structural VAR methodology the reduced VMA representation is rarely show, instead a way to recover, to identify the structural VAR is proposed.
+Remember: a structural VAR analysis usually start specifying, validating and finally estimating a VAR in reduced form. For the VAR representation we could obtain a reduced form VMA representation, but this reduced VMA has little interest because it's not structural, their IRF's have not a clear interpretation because the innovations ($v_{t}$) are not orthogonal, they are correlated. Then, in the structural VAR methodology the reduced VMA representation is rarely show, instead a way to recover, to identify the structural VAR is proposed.
 
 
 Usually this implies the use of some restrictions. The first proposal made by Sims in 1980 implied to impose a recursive system. 
 
-- The  most common restrictions are short-run restriction or long-run restrictions (restriction on $D(1)$). I will explain this at class but you soul try to understand the slides or to read some material. 
+- The  most common restrictions are short-run restriction or long-run restrictions (restriction on $D(1)$). I will explain this at class but you should try to understand the slides or to read some of the references.
 
 
-- In fact in class we will use or three variables to estimate a structural VAR, but we will use for pedagogical reasons two ways to identify the shocks, one only with short run restriction , that is restriction in $D_{0}$, and the other one using only restriction on the long-run, that is in the $D(1)$ matrix.
+- In fact in class we estimate a trivariate structural VAR, but we will use (for pedagogical reasons) two ways, two methods, to identify the structural VAR: the first one will use short run restriction, that is restriction in $D_{0}$, and the second one, will use long-run restrictions, that is, restriction on the $D(1)$ matrix.
 
 - We will see this at class in the Lab section.
 
@@ -792,9 +795,9 @@ Usually this implies the use of some restrictions. The first proposal made by Si
 
 ## 4.3 IRF and FEVD
 
-Once we have identified/obtained our structural VAR you could obtain the IRF and FEDV that are the two principal instruments of the VAR methodology in order to show their results.
+Once we have identified/obtained our structural VAR, we could obtain the IRF's and FEDV's, the two principal instruments of the VAR methodology in order to show the results.
 
-The IRF is nothing more that a graphical representation of the sequence of $D_{i}$ matrices. This matrices contains the information we are interested in, the effect thought time of the structural shocks $\varepsilon_{t}$ into the variables $y_ {t}$
+The IRF's is nothing more that a graphical representation of the sequence of $D_{i}$ matrices. This matrices contains the information we are interested in, the effect thought time of the structural shocks $\varepsilon_{t}$ into the variables $y_ {t}$.
 
 
 As an example to illustrate this, imagine that our system would be:
@@ -845,10 +848,6 @@ $$y_{t}~=\left[
 \end{array}%
 \right] \varepsilon _{t-3} +...$$
 
-<br>
-
-- It would be possible that the element (1,2) of $D_{0}$ were 0.8? The answer it's NO
-
 
 
 <br>
@@ -858,7 +857,7 @@ $$y_{t}~=\left[
 <br>
 
 
-How we can obtain the IRF's of our VAR? We will see at the Lab but, with the `vars::Psi()` function you can obtain the $D_{i}$, the structural matrices (using the Cholesky decomposition)
+How we can obtain the IRF's of our VAR? We will see at the Lab but, with the `vars::Psi()` function you can obtain the $D_{i}$ matrices, the structural matrices (using the Cholesky decomposition)
 
 
 ```{r}
@@ -866,7 +865,7 @@ Psi(our_var, nstep = 2)  #- Returns the estimated orthogonalised(Cholesky) coeff
 ```
 
 
-And with the `vars::irf()` function we obtain the same information but in a more convenient way: we obtain the IRF
+And with the `vars::irf()` function we obtain the same information but in a more convenient way: we obtain the IRF's
 
 
 ```{r}
@@ -874,7 +873,7 @@ irf(our_var, n.ahead = 4, boot = FALSE)
 ```
 
 
-WE can be more specific and only to demand the IRF we are interested in:
+We can be more specific and only to demand the IRF's we are interested in:
 
 ```{r}
 irf(our_var, n.ahead = 5,
@@ -885,7 +884,7 @@ irf(our_var, n.ahead = 5,
 ```
 
 
-But usually you don't show the number but you plot them:
+But usually you don't show the estimation numbers, but you plot them:
 
 ```{r}
 my_irf <- irf(our_var, n.ahead = 25,
@@ -928,7 +927,7 @@ where $d_{nm,j}$ denotes the $(n,m)-th$ element of $D_{j}$.
 * The quantity $(d_{kj,0}^{2}+\cdots +d_{kj,h-1}^{2})/\sigma _{k}^{2}(h)$ represents the contribution of the $j$-th shock to the h-step ahead forecast error variance  of variable $k$.  
 
 
-* Don't worry too much now firstly because we will usually do this with R and secondly because we are going to practise the calculations by hand at the Lab, but ....
+* Don't worry too much now about the last equations, first because we will usually do this with R and secondly because we are going to practise the calculations by hand at the Lab.
 
 
 
@@ -984,7 +983,7 @@ $$...+\left[
 
 <br>
 
-- we will practice and understand them at the Lab, but we can calculate them with the `vars::fevd()` function:
+- we will practice and try to understand them at the Lab, but we can calculate them with the `vars::fevd()` function:
 
 ```{r}
 fevd(our_var, n.ahead = 5) #- with the vars pkg
